@@ -7,6 +7,42 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Name="question1" Content="Frage" Width="200" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Name="Label1" Content="1" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Name="Label2" Content="2" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Name="Label3" Content="3" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Name="Label4" Content="4" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Name="Label5" Content="5" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Name="Label6" Content="6" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5"/>
+        <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="5"/>
+        <CheckBox Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="5"/>
+        <CheckBox Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" Margin="5"/>
+        <CheckBox Grid.Row="2" Grid.Column="5" VerticalAlignment="Center" Margin="5"/>
+        <CheckBox Grid.Row="2" Grid.Column="6" VerticalAlignment="Center" Margin="5"/>
+
 
     </Grid>
 </Window>
