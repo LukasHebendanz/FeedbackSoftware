@@ -23,6 +23,7 @@ namespace FeedbackSoftware
         public MainWindow()
         {
             InitializeComponent();
+            string weber;
         }
     }
 }
