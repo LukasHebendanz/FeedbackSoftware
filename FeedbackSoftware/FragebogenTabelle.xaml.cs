@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace FeedbackSoftware
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for FragebogenTabelle.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FragebogenTabelle : Window
     {
-        public MainWindow()
+        public FragebogenTabelle()
         {
             InitializeComponent();
         }
