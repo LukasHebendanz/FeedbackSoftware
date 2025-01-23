@@ -23,7 +23,6 @@ namespace FeedbackSoftware
         public MainWindow()
         {
             InitializeComponent();
-            TeacherWindow tw = new TeacherWindow();
         }
     }
 }

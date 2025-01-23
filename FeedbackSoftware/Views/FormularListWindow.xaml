@@ -1,26 +1,26 @@
-﻿<Window x:Class="FeedbackSoftware.FormularListWindow"
+﻿<Window x:Class="FeedbackSoftware.Views.FormularListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FeedbackSoftware"
+        xmlns:local="clr-namespace:FeedbackSoftware.Views"
         mc:Ignorable="d"
         Title="FormularListWindow" Height="450" Width="800">
     <Grid Margin="30">
         <!-- Überschrift -->
         <TextBlock Text="Formularliste des ausgewählten Schlüssels:"
-                   FontSize="16"
-                   FontWeight="Bold" Grid.RowSpan="2"/>
+                FontSize="16"
+                FontWeight="Bold" Grid.RowSpan="2"/>
         <!-- Formular Tabelle -->
         <DataGrid x:Name="formularDataGrid"
-                  ItemsSource="{Binding Formularliste}"
-                  AutoGenerateColumns="False"
-                  HeadersVisibility="Column"
-                  IsReadOnly="True"
-                  CanUserResizeRows="False"
-                  CanUserSortColumns="False"
-                  Margin="0,30,0,0"
-                  Grid.ColumnSpan="2">
+               ItemsSource="{Binding Formularliste}"
+               AutoGenerateColumns="False"
+               HeadersVisibility="Column"
+               IsReadOnly="True"
+               CanUserResizeRows="False"
+               CanUserSortColumns="False"
+               Margin="0,30,0,0"
+               Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <!-- Spalte für Formular-Schlüssel -->
                 <DataGridTextColumn Header="Formular-Name" Binding="{Binding FormularName}" Width="*" />
