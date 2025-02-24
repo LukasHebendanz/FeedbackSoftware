@@ -23,7 +23,6 @@ namespace FeedbackSoftware.Views
         public RegisterAccountPage()
         {
             InitializeComponent();
-            string weber;
         }
     }
 }

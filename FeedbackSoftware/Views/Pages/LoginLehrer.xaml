@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:FeedbackSoftware.Views.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page1">
+      Title="LoginLehrer">
 
     <Grid>
 		<TextBox x:Name="tbxUsername" VerticalAlignment="Top" HorizontalAlignment="Center" 

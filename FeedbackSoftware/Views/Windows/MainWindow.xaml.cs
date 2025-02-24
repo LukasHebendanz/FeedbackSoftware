@@ -1,4 +1,5 @@
 ﻿using FeedbackSoftware.Views;
+using FeedbackSoftware.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,16 @@ namespace FeedbackSoftware
         private void NavigateToRegisterAccountPage_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.NavigationService.Navigate(new RegisterAccountPage());
+        }
+
+        private void NavigateToLoginLehrer_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.NavigationService.Navigate(new Page1());
+        }
+
+        private void NavigateToLoginSchuelerPage_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.NavigationService.Navigate(new LoginSchueler());
         }
     }
 }

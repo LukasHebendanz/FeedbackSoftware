@@ -9,37 +9,37 @@
       Title="LoginSchueler">
 
     <Grid>
-		<TextBox x:Name="tbxKey" VerticalAlignment="Top" HorizontalAlignment="Center" 
- Margin="220" Width="200" Height="30">
-			<TextBox.Style>
-				<Style TargetType="TextBox">
-					<Setter Property="Template">
-						<Setter.Value>
-							<ControlTemplate TargetType="TextBox">
-								<Border CornerRadius="5" BorderBrush="Orange" BorderThickness="2" Background="LightGray">
-								</Border>
-							</ControlTemplate>
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</TextBox.Style>
-		</TextBox>
+        <TextBox x:Name="tbxKey" VerticalAlignment="Top" HorizontalAlignment="Center" 
+ Margin="0,171,0,0" Width="200" Height="30" RenderTransformOrigin="0.5,0.942">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border CornerRadius="5" BorderBrush="Orange" BorderThickness="2" Background="LightGray">
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
 
-		<Button x:Name="btnLogin" VerticalAlignment="Top" HorizontalAlignment="Center" 
-Margin="0, 260, 0, 0" Width="100" Height="30" Content="Login">
-			<Button.Style>
-				<Style TargetType="Button">
-					<Setter Property="Template">
-						<Setter.Value>
-							<ControlTemplate TargetType="Button">
-								<Border CornerRadius="5" BorderBrush="Orange" BorderThickness="2" Background="LightGray">
-									<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-								</Border>
-							</ControlTemplate>
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</Button.Style>
-		</Button>
-	</Grid>
+        <Button x:Name="btnLogin" VerticalAlignment="Top" HorizontalAlignment="Center" 
+Margin="0,225,0,0" Width="100" Height="30" Content="Login">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" BorderBrush="Orange" BorderThickness="2" Background="LightGray">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+    </Grid>
 </Page>
