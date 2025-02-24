@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FeedbackSoftware
+namespace FeedbackSoftware.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RegisterAccountPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RegisterAccountPage : Page
     {
-        public MainWindow()
+        public RegisterAccountPage()
         {
             InitializeComponent();
         }
