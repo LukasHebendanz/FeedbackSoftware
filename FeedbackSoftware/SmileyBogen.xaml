@@ -1,0 +1,51 @@
+﻿<Window x:Class="FeedbackSoftware.SmileyBogen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FeedbackSoftware"
+        mc:Ignorable="d"
+        Title="SmileyBogen" Height="450" Width="800">
+
+    <Grid Background="White" Width="400" Height="250">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="㋡" FontSize="30"/>
+        </Border>
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="☹" FontSize="30"/>
+        </Border>
+        
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="😐" FontSize="30"/>
+        </Border>
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0">
+            <TextBox Name="GoodTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
+        </Border>
+        
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1">
+            <TextBox Name="midTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
+        </Border>
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2">
+            <TextBox Name="SadTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
+        </Border>
+
+        <Button Content="Submit" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="5" Click="SubmitButton_Click"/>
+    </Grid>
+
+
+</Window>
