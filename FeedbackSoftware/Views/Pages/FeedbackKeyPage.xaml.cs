@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace FeedbackSoftware.Views.Pages
 {
-    /// <summary>
-    /// Interaction logic for FeedbackKeyWindow.xaml
-    /// </summary>
     public partial class FeedbackKeyWindow : Page
     {
         public FeedbackKeyWindow()

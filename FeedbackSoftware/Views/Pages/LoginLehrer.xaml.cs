@@ -24,14 +24,6 @@ namespace FeedbackSoftware.Views.Pages
 			InitializeComponent();
         }
 
-        private void ValuesTbx()
-        {
-            string username = tbxUsername.Text;
-            string password = tbxPassword.Value;
-        }
-	}
-}
-
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             if (IsLoginValid())

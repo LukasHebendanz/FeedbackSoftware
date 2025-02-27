@@ -8,7 +8,7 @@ namespace FeedbackSoftware.Classes.Dtos
 {
 	public class UserDto
 	{
-		public string UserID { get; set; }
+		public int UserID { get; set; }
 		public string Name { get; set; }
 		public string Passwort { get; set; }
 		public string Rolle { get; set; }

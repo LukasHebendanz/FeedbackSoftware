@@ -15,7 +15,7 @@ namespace FeedbackSoftware.Views
         {
             InitializeComponent();
 
-            //Test zum Befüllen der Liste
+            //Test zum Befüllen der Liste, später werden hier aus der Datenbank alle Formularnamen des ausgewählten Schlüssels geladen
             Formularliste = new List<Formular>()
             {
                 new Formular { FormularName = "Formular1_Schlüssel" },
