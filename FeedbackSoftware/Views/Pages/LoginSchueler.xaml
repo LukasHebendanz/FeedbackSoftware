@@ -16,7 +16,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="TextBox">
-                                <Border CornerRadius="5" BorderBrush="Orange" BorderThickness="2" Background="LightGray">
+                                <Border  BorderThickness="2" Background="LightGray">
                                 </Border>
                             </ControlTemplate>
                         </Setter.Value>

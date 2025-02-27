@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeedbackSoftware.Views.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,18 @@ namespace FeedbackSoftware.Views
         public TeacherWindow()
         {
             InitializeComponent();
+
+            // Startseite festlegen
+            MainFrame.NavigationService.Navigate( new FeedbackKeyWindow());
+        }
+
+        private void NavigateToFeedbackPage_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.NavigationService.Navigate( new FeedbackKeyWindow());
+        }
+        private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.NavigationService.Navigate(new SchoolClassPage());
         }
     }
 }

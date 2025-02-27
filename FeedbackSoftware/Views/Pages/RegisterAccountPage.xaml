@@ -8,39 +8,61 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RegisterAccountPage">
 
-    <Grid VerticalAlignment="Center">
+    <Grid VerticalAlignment="Center" Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Überschrift -->
+            <RowDefinition Height="Auto"/>
+            <!-- Benutzername -->
+            <RowDefinition Height="Auto"/>
+            <!-- Passwort -->
+            <RowDefinition Height="Auto"/>
+            <!-- Passwort bestätigen -->
+            <RowDefinition Height="Auto"/>
+            <!-- Intialpasswort eingeben -->
+            <RowDefinition Height="Auto"/>
+            <!-- Registrieren Button -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+
         <!-- Überschrift -->
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Account erstellen"
-        FontSize="16"
-        FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-        
-        <!-- Benutzername -->
-        <TextBlock Text="Benutzername" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,40,0,0" Foreground="Gray" IsHitTestVisible="False"
-           Visibility="{Binding Text, ElementName=usernameTextBox}" />
-        <TextBox Name="usernameTextBox" Grid.Row="1" Grid.Column="0" Margin="0,5,0,0" Padding="5" Height="30" Width="250" />
-        
+                   FontSize="16" FontWeight="Bold"
+                   HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+        <!-- Benutzername: StackPanel ordnet Label und TextBox vertikal -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Benutzername" Foreground="Gray" />
+            <TextBox Name="usernameTextBox" Margin="0,5,0,0" Padding="5" Height="30" Width="250" />
+        </StackPanel>
 
         <!-- Passwort -->
-        <PasswordBox Grid.Row="2" Grid.Column="0" Margin="0,5" Padding="5" Height="30" Width="250"
-                     ToolTip="Passwort eingeben"/>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Passwort" Foreground="Gray" />
+            <PasswordBox Margin="0,5,0,0" Padding="5" Height="30" Width="250"
+                         ToolTip="Passwort eingeben"/>
+        </StackPanel>
 
         <!-- Passwort bestätigen -->
-        <PasswordBox Grid.Row="3" Grid.Column="0" Margin="0,5" Padding="5" Height="30" Width="250"
-                     ToolTip="Passwort erneut eingeben"/>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Passwort bestätigen" Foreground="Gray" />
+            <PasswordBox Margin="0,5,0,0" Padding="5" Height="30" Width="250"
+                         ToolTip="Passwort erneut eingeben"/>
+        </StackPanel>
+
+        <!-- Initialpasswort bestätigen -->
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Initialpasswort eingeben" Foreground="Gray" />
+            <PasswordBox Margin="0,5,0,0" Padding="5" Height="30" Width="250"
+                  ToolTip="Initialpasswort vom Support"/>
+        </StackPanel>
 
         <!-- Registrieren Button -->
-        <Button Grid.Row="4" Grid.Column="0" Margin="0,10" Height="35" Content="Registrieren"
-                HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" />
+        <StackPanel Grid.Row="5" HorizontalAlignment="Center" Margin="0,20,0,40">
+            <Button Height="35" Content="Registrieren" Width="120"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </StackPanel>
     </Grid>
 </Page>
