@@ -10,20 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FeedbackSoftware.Views.Pages
+namespace FeedbackSoftware
 {
     /// <summary>
-    /// Interaction logic for LoginSchueler.xaml
+    /// Interaktionslogik für Formulare.xaml
     /// </summary>
-    public partial class LoginSchueler : Page
+    public partial class Formulare : Window
     {
-        public LoginSchueler()
+        public Formulare()
         {
             InitializeComponent();
         }
-
     }
 }
