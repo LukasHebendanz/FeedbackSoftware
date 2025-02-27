@@ -47,7 +47,7 @@ namespace FeedbackSoftware
                 {
                     if (child is CheckBox checkBox && checkBox != currentCheckBox)
                     {
-                        // alle checkboxen in ind der gleichen Grid.Row ausschalten
+                        // alle checkboxen in der gleichen Grid.Row ausschalten
                         if (Grid.GetRow(checkBox) == currentRow)
                         {
                             checkBox.IsChecked = false;
@@ -66,7 +66,6 @@ namespace FeedbackSoftware
 
                     string checkBoxName = checkBox.Name;
                     bool? isChecked = checkBox.IsChecked;
-
                     //Hier werden die Daten zum Test in der Konsole ausgegeben
                     Console.WriteLine($"CheckBox: {checkBoxName}, IsChecked: {isChecked}");
                 }
