@@ -15,13 +15,19 @@ using System.Windows.Shapes;
 namespace FeedbackSoftware.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for LoginLehrer.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class LoginLehrer : Page
     {
-        public Page1()
+        public LoginLehrer()
         {
-            InitializeComponent();
+			InitializeComponent();
         }
-    }
+
+        private void ValuesTbx()
+        {
+            string username = tbxUsername.Text;
+            string password = tbxPassword.Value;
+        }
+	}
 }

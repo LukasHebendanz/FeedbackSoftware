@@ -37,7 +37,7 @@ namespace FeedbackSoftware
 
         private void NavigateToLoginLehrer_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new Page1());
+            MainFrame.NavigationService.Navigate(new LoginLehrer());
         }
 
         private void NavigateToLoginSchuelerPage_Click(object sender, RoutedEventArgs e)
