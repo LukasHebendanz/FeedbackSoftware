@@ -42,7 +42,7 @@
 		</PasswordBox>
 
 		<Button x:Name="btnLogin" VerticalAlignment="Top" HorizontalAlignment="Center" 
-		Margin="0, 232, 0, 0" Width="100" Height="30" Content="Login">
+		Margin="0, 232, 0, 0" Width="100" Height="30" Content="Login" Click="Login_Click">
 			<Button.Style>
 				<Style TargetType="Button">
 					<Setter Property="Template">

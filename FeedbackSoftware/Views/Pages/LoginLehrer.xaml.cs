@@ -23,5 +23,19 @@ namespace FeedbackSoftware.Views.Pages
         {
             InitializeComponent();
         }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsLoginValid())
+            {
+                TeacherWindow tw = new TeacherWindow();
+            }
+        }
+
+        private bool IsLoginValid()
+        {
+            return true;
+            //Hier auf Datenbank prüfen, ob User existiert und Passwort richtig ist.
+        }
     }
 }
