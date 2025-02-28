@@ -13,47 +13,27 @@ namespace FeedbackSoftware.Classes
 {
 	public class DatabaseManager
 	{
-		private static MySqlConnection _connection;
 		private static readonly string connectionstring = "Server=10.0.126.31;Port=3306;Database=Feedback;User ID=ExtUser;Password=!DevUser.69;Pooling=true;";
 
         #region User
-		private const string SQL_INSERT_USER = "INSERT INTO User Values (@Passwort, @Benutzername, @Rolle)";
+		private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
 		private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
-		private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM USER";
+		private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
 
 		public DatabaseManager() { }
 
-        #region ConnectionMethods
         public static MySqlConnection GetConnection()
         {
-            if (_connection == null)
-            {
-                _connection = new MySqlConnection(connectionstring);
-            }
-
-            if (_connection.State != ConnectionState.Open)
-            {
-                _connection.Open();
-            }
-
-            return _connection;
+            return new MySqlConnection(connectionstring);
         }
-
-		public static void CloseConnection()
-		{
-			if (_connection != null && _connection.State == ConnectionState.Open)
-			{
-				_connection.Close();
-			}
-		}
-        #endregion
 
         #region InsertUser
         public void InsertUser(UserDto userdto)
 		{
-
 			using (MySqlConnection con = GetConnection())
 			{
+				con.Open();
+
 				using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_USER, con))
 				{
                     MySqlParameter[] parameters = GetUserParameter(userdto);
@@ -67,9 +47,9 @@ namespace FeedbackSoftware.Classes
 		{
 			MySqlParameter[] param = new MySqlParameter[]
 			{
-				new MySqlParameter(userdto.Name, SqlDbType.VarChar) { Value = userdto.Name },
-				new MySqlParameter(userdto.Passwort, SqlDbType.VarChar) { Value = userdto.Passwort },
-				new MySqlParameter(userdto.Rolle, SqlDbType.VarChar) { Value = userdto.Rolle },
+                new MySqlParameter("@Passwort", SqlDbType.VarChar) { Value = userdto.Passwort },
+                new MySqlParameter("@Benutzername", SqlDbType.VarChar) { Value = userdto.Name },
+				new MySqlParameter("@Rolle", SqlDbType.VarChar) { Value = userdto.Rolle }
 			};
 
 			return param;
@@ -90,6 +70,8 @@ namespace FeedbackSoftware.Classes
 
             using (MySqlConnection con = GetConnection())
 			{
+				con.Open();
+
 				using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_USER_BY_USERNAME, con))
 				{
 					MySqlParameter param = GetBenutzernameParameter(username);
@@ -128,6 +110,8 @@ namespace FeedbackSoftware.Classes
 
             using (MySqlConnection con = GetConnection())
             {
+				con.Open();
+
                 using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_ALL_USERS, con))
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
