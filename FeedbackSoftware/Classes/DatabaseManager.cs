@@ -47,9 +47,9 @@ namespace FeedbackSoftware.Classes
 		{
 			MySqlParameter[] param = new MySqlParameter[]
 			{
-                new MySqlParameter("@Passwort", SqlDbType.VarChar) { Value = userdto.Passwort },
-                new MySqlParameter("@Benutzername", SqlDbType.VarChar) { Value = userdto.Name },
-				new MySqlParameter("@Rolle", SqlDbType.VarChar) { Value = userdto.Rolle }
+                new MySqlParameter("@Passwort", MySqlDbType.VarChar) { Value = userdto.Passwort },
+                new MySqlParameter("@Benutzername", MySqlDbType.VarChar) { Value = userdto.Name },
+				new MySqlParameter("@Rolle", MySqlDbType.VarChar) { Value = userdto.Rolle }
 			};
 
 			return param;
@@ -94,7 +94,7 @@ namespace FeedbackSoftware.Classes
 
 		private MySqlParameter GetBenutzernameParameter(string username)
 		{
-			return new MySqlParameter("@Benutzername", SqlDbType.VarChar) { Value = username };
+			return new MySqlParameter("@Benutzername", MySqlDbType.VarChar) { Value = username };
 		}
 
 		private void SetBenutzernameParameter(MySqlParameter param, MySqlCommand cmd)
