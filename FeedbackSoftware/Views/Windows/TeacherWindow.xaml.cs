@@ -28,7 +28,6 @@ namespace FeedbackSoftware.Views
         public TeacherWindow()
         {
             InitializeComponent();
-
             // Startseite festlegen
             MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
         }
