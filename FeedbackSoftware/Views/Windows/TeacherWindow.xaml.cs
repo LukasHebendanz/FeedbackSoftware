@@ -23,18 +23,9 @@ namespace FeedbackSoftware.Views
         public TeacherWindow()
         {
             InitializeComponent();
-
             // Startseite festlegen
-            MainFrame.NavigationService.Navigate( new FeedbackKeyWindow());
         }
 
-        private void NavigateToFeedbackPage_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.NavigationService.Navigate( new FeedbackKeyWindow());
-        }
-        private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.NavigationService.Navigate(new SchoolClassPage());
-        }
+        
     }
 }
