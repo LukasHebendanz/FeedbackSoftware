@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FeedbackSoftware.Classes;
+using FeedbackSoftware.Classes.Dtos;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace FeedbackSoftware.Views.Pages
 {
@@ -18,7 +9,9 @@ namespace FeedbackSoftware.Views.Pages
     /// Interaction logic for LoginLehrer.xaml
     /// </summary>
     public partial class LoginLehrer : Page
-    {
+	{
+		DatabaseManager dbm = new DatabaseManager();
+		UserDto userDto = new UserDto();
         public LoginLehrer()
         {
 			InitializeComponent();
@@ -28,14 +21,22 @@ namespace FeedbackSoftware.Views.Pages
         {
             if (IsLoginValid())
             {
-                TeacherWindow tw = new TeacherWindow();
+                TeacherWindow tw = new TeacherWindow(userDto.Rolle);
+                tw.ShowDialog();
             }
         }
 
         private bool IsLoginValid()
-        {
-            return true;
-            //Hier auf Datenbank prüfen, ob User existiert und Passwort richtig ist.
+		{
+            if (dbm != null)
+            {
+				userDto = dbm.SelectUserByPasswortAndUsername(tbxPassword.Password, tbxUsername.Text);
+				return true;
+			}
+            else
+            {
+                return false;
+            }
         }
     }
 }

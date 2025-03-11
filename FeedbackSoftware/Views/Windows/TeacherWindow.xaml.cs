@@ -25,11 +25,27 @@ namespace FeedbackSoftware.Views
     /// </summary>
     public partial class TeacherWindow : Window
     {
-        public TeacherWindow()
+        public TeacherWindow(string rolle)
         {
+            this.Rolle = rolle;
             InitializeComponent();
+            OnStart();
             // Startseite festlegen
             //MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
+        }
+        public string Rolle { get; set; }
+
+        public void OnStart()
+        {
+            UserDto udto = new UserDto();
+            if (Rolle == "Admin")
+            {
+                btnAdminWindow.Visibility = Visibility.Visible;
+			}
+            else
+            {
+				btnAdminWindow.Visibility = Visibility.Hidden;
+			}
         }
 
         //private void NavigateToFeedbackPage_Click(object sender, RoutedEventArgs e)

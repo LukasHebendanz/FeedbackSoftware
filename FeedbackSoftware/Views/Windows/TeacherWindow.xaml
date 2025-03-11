@@ -33,7 +33,7 @@
                 FontSize="16" FontWeight="Bold"
                 HorizontalAlignment="Left"
                 Margin="0,0,0,10"/>
-        <Button Content="AdminFenster" Grid.Row="0" Grid.Column="2"
+        <Button Content="AdminFenster" Grid.Row="0" Grid.Column="2" Name="btnAdminWindow"
              Width="150" Height="25" HorizontalAlignment="Left" Margin="74,3,0,3"/>
 
         <!-- Formularart auswählen -->
