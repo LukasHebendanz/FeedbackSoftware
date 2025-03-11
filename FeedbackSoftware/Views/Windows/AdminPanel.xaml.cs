@@ -20,15 +20,17 @@ namespace FeedbackSoftware.Views.Windows
     /// </summary>
     public partial class AdminPanel : Window
     {
+
+        public List<string> TeacherList { get; set; }
         public AdminPanel()
         {
             InitializeComponent();
-            MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
+            TeacherList = new List<string> { "Item 1", "Item 2", "Item 3" };
         }
 
-        private void NavigateToFeedbackPage_Click(object sender, RoutedEventArgs e)
+        private void NavigateToCreateTeacherPage_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
+            //MainFrame.NavigationService.Navigate(new CreateTeacherWindow());
         }
         private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
         {
