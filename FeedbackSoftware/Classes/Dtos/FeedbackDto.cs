@@ -8,7 +8,7 @@ namespace FeedbackSoftware.Classes.Dtos
 {
     public class FeedbackDto
     {
-        public string Key { get; set; }
+        public int Schluessel { get; set; }
         public int KlasseId { get; set; }
         public string Name { get; set; }
         public string FormularArt { get; set; }

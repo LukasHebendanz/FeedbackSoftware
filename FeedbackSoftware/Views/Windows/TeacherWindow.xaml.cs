@@ -29,17 +29,17 @@ namespace FeedbackSoftware.Views
         {
             InitializeComponent();
             // Startseite festlegen
-            MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
+            //MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
         }
 
-        private void NavigateToFeedbackPage_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
-        }
-        private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.NavigationService.Navigate(new SchoolClassPage());
-        }
+        //private void NavigateToFeedbackPage_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
+        //}
+        //private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MainFrame.NavigationService.Navigate(new SchoolClassPage());
+        //}
 
 
         //private static readonly Random random = new Random();
@@ -52,6 +52,40 @@ namespace FeedbackSoftware.Views
         //}
 
         // Code-Behind für den Speicherbutton-Click-Event
+
+        public FeedbackDto GetFeedbackByKey(string schluessel)
+        {
+            FeedbackDto feedback = new FeedbackDto();
+
+            using (MySqlConnection con = DatabaseManager.GetConnection())
+            {
+                con.Open();
+
+                string sql = "SELECT Schluessel, KlasseId, Name, FormularArt FROM FeedbackTabelle WHERE Schluessel = @Schluessel";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@Schluessel", schluessel);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            feedback = new FeedbackDto
+                            {
+                                Schluessel = (int)reader["Schluessel"],
+                                KlasseId = (int)reader["KlasseId"],
+                                Name = reader["Name"].ToString(),
+                                FormularArt = reader["FormularArt"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+
+            return feedback;
+        }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             DatabaseManager dbManager = new DatabaseManager();
@@ -59,17 +93,18 @@ namespace FeedbackSoftware.Views
             // 1. Schlüssel generieren
 
             // 2. FormularDto erstellen und Daten zuweisen
-            FeedbackDto feedback = new FeedbackDto
-            {
-                Key = "sf",
-                KlasseId = 1,
-                Name = TitelTextBox.Text,
-                FormularArt = BeschreibungTextBox.Text
-                // Weitere Felder hier
-            };
+
+            //FeedbackDto feedback = new FeedbackDto
+            //{
+            //    Schluessel =,
+            //    KlasseId =,
+            //    Name =,
+            //    FormularArt =
+            //    // Weitere Felder hier
+            //};
 
             // 3. In die Datenbank einfügen
-            dbManager.InsertFormular(feedback);
+            dbManager.InsertFeedback(GetFeedbackByKey("sdfzugr"));
 
             // 4. Bestätigung anzeigen
             // MessageBox.Show($"Formular mit Schlüssel {key} gespeichert!");

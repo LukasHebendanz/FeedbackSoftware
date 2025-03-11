@@ -22,9 +22,9 @@ namespace FeedbackSoftware.Classes
         #endregion
 
         #region SaveFeedback
-        private const string SQL_INSERT_FEEDBACK = "INSERT INTO `Formular` (Key, KlasseId, Name, FormularArt) VALUES (@Key,@KlasseId ,@Name, @FormularArt)";
+        private const string SQL_INSERT_FEEDBACK = "INSERT INTO `FeedbackVorgang` (KlasseId, Name, FormularArt) VALUES (@KlasseId ,@Name, @FormularArt)";
 
-        public void InsertFormular(FeedbackDto feedbackDto)
+        public void InsertFeedback(FeedbackDto feedbackDto)
         {
             using (MySqlConnection con = GetConnection())
             {
@@ -43,7 +43,7 @@ namespace FeedbackSoftware.Classes
         {
             MySqlParameter[] param = new MySqlParameter[]
             {
-                new MySqlParameter("@Key", MySqlDbType.VarChar) { Value = feedbackDto.Key },
+                new MySqlParameter("@Schluessel", MySqlDbType.VarChar) { Value = feedbackDto.Schluessel },
                 new MySqlParameter("@KlasseId", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
                 new MySqlParameter("@Titel", MySqlDbType.VarChar) { Value = feedbackDto.Name },
                 new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FormularArt }
