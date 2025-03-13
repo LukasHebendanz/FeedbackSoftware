@@ -19,16 +19,7 @@ namespace FeedbackSoftware.Classes
         private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
         private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
         private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
-        #endregion
-
-        #region SaveFeedback
-        private const string SQL_INSERT_FEEDBACK = "INSERT INTO `FeedbackVorgang` (KlasseId, Name, FormularArt) VALUES (@KlasseId ,@Name, @FormularArt)";
-
-        public void InsertFeedback(FeedbackDto feedbackDto)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
+		private const string SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME = "SELECT Passwort, Benutzername, Rolle FROM User WHERE Passwort = @Passwort AND Benutzername = @Benutzername";
 
                 using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FEEDBACK, con))
                 {
@@ -82,50 +73,50 @@ namespace FeedbackSoftware.Classes
             return new MySqlConnection(connectionstring);
         }
 
-        #region InsertUser
-        public void InsertUser(UserDto userdto)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
+		#region InsertUser
+		public void InsertUser(UserDto userdto)
+		{
+			using (MySqlConnection con = GetConnection())
+			{
+				con.Open();
 
-                using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_USER, con))
-                {
-                    MySqlParameter[] parameters = GetUserParameter(userdto);
-                    SetUserParameter(parameters, cmd);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+				using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_USER, con))
+				{
+					MySqlParameter[] parameters = GetUserParameter(userdto);
+					SetUserParameter(parameters, cmd);
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
 
-        private MySqlParameter[] GetUserParameter(UserDto userdto)
-        {
-            MySqlParameter[] param = new MySqlParameter[]
-            {
-                new MySqlParameter("@Passwort", MySqlDbType.VarChar) { Value = userdto.Passwort },
-                new MySqlParameter("@Benutzername", MySqlDbType.VarChar) { Value = userdto.Name },
-                new MySqlParameter("@Rolle", MySqlDbType.VarChar) { Value = userdto.Rolle }
-            };
+		private MySqlParameter[] GetUserParameter(UserDto userdto)
+		{
+			MySqlParameter[] param = new MySqlParameter[]
+			{
+				new MySqlParameter("@Passwort", MySqlDbType.VarChar) { Value = userdto.Passwort },
+				new MySqlParameter("@Benutzername", MySqlDbType.VarChar) { Value = userdto.Name },
+				new MySqlParameter("@Rolle", MySqlDbType.VarChar) { Value = userdto.Rolle }
+			};
 
-            return param;
-        }
+			return param;
+		}
 
-        public void SetUserParameter(MySqlParameter[] parameter, MySqlCommand cmd)
-        {
-            cmd.Parameters.Add(parameter[0]);
-            cmd.Parameters.Add(parameter[1]);
-            cmd.Parameters.Add(parameter[2]);
-        }
-        #endregion
+		public void SetUserParameter(MySqlParameter[] parameter, MySqlCommand cmd)
+		{
+			cmd.Parameters.Add(parameter[0]);
+			cmd.Parameters.Add(parameter[1]);
+			cmd.Parameters.Add(parameter[2]);
+		}
+		#endregion
 
-        #region SelectUserInfoByUsername
-        public UserDto SelectUserInfoByUsername(string username)
-        {
-            UserDto user = new UserDto();
+		#region SelectUserInfoByUsername
+		public UserDto SelectUserInfoByUsername(string username)
+		{
+			UserDto user = new UserDto();
 
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
+			using (MySqlConnection con = GetConnection())
+			{
+				con.Open();
 
                 using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_USER_BY_USERNAME, con))
                 {
