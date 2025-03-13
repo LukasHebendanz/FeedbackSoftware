@@ -241,7 +241,6 @@ namespace FeedbackSoftware.Classes
 			cmd.Parameters.Add(param[1]);
 		}
 		#endregion
-
 		#endregion
 
 		#region FeedbackVorgang
@@ -287,7 +286,6 @@ namespace FeedbackSoftware.Classes
 		#endregion        
 
         #region ReadFeedback
-
         public List<string> GetVorgangName()
         {
             List<string> vorgangName = new List<string>();
