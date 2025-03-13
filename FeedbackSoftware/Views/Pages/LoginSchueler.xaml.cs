@@ -29,7 +29,7 @@ namespace FeedbackSoftware.Views.Pages
 		{
 			if (IsKeyValid())
 			{
-				if (fbDto.FeedbackArt == "")
+				if (fbDto.FeedbackArt == "Smiley")
 				{
 					//dann zu Formular weiterleiten
 				}

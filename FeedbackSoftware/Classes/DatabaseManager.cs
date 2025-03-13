@@ -366,7 +366,7 @@ namespace FeedbackSoftware.Classes
 		#region SelectKey
 		public FeedbackDto SelectKey(string schluessel)
 		{
-			FeedbackDto user = new FeedbackDto();
+			FeedbackDto fbDto = new FeedbackDto();
 
 			using (MySqlConnection con = GetConnection())
 			{
@@ -376,11 +376,18 @@ namespace FeedbackSoftware.Classes
 				{
 					MySqlParameter[] param = GetKeyParameter(schluessel);
 					SetKeyParameter(param, cmd);
-					cmd.ExecuteNonQuery();
+
+					using (MySqlDataReader reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							fbDto.Schluessel = reader.GetInt32(0);
+						}
+					}
 				}
 			}
 
-			return user;
+			return fbDto;
 		}
 		private MySqlParameter[] GetKeyParameter(string schluessel)
 		{
