@@ -490,10 +490,105 @@ namespace FeedbackSoftware.Classes
 		{
 			cmd.Parameters.Add(param[0]);
 		}
-		#endregion
-		#endregion
+        #endregion
+        #endregion
 
-		#endregion
-	}
+        #region Klasse
+
+        public void CreateKlasse(KlasseDto newClass)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                // SQL-Anweisung zum Einfügen eines neuen Nutzers
+                string sql = "INSERT INTO Klasse (Name, Jahrgangsstufe, Schuljahr, Abteilung, Fach) VALUES (@Name, @Jahrgangsstufe, @Schuljahr, @Abteilung, @Fach)";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@Name", newClass.Name);
+                    cmd.Parameters.AddWithValue("@Jahrgangsstufe", newClass.Jahrgangsstufe);
+                    cmd.Parameters.AddWithValue("@Schuljahr", newClass.Schuljahr);
+                    cmd.Parameters.AddWithValue("@Abteilung", newClass.Abteilung);
+                    cmd.Parameters.AddWithValue("@Fach", newClass.Fach);
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateKlasse(KlasseDto klasse)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                // SQL-Anweisung zum Aktualisieren eines Nutzers
+                string sql = "UPDATE Klasse SET Name = @Name, Jahrgangsstufe = @Jahrgangsstufe, Schuljahr = @Schuljahr, Abteilung = @Abteilung, Fach = @Fach WHERE ID = @ID";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@Name", klasse.Name);
+                    cmd.Parameters.AddWithValue("@Jahrgangsstufe", klasse.Jahrgangsstufe);
+                    cmd.Parameters.AddWithValue("@Schuljahr", klasse.Schuljahr);
+                    cmd.Parameters.AddWithValue("@Abteilung", klasse.Abteilung);
+                    cmd.Parameters.AddWithValue("@Fach", klasse.Fach);
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteKlasse(int klasseId)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                // SQL-Anweisung zum Löschen eines Nutzers
+                string sql = "DELETE FROM Klasse WHERE ID = @ID";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@ID", klasseId);
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<string> GetKlassenNames()
+        {
+            List<string> klassenNames = new List<string>();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                string sql = "SELECT DISTINCT Name FROM Klasse"; // Anpassen an deine Datenbankstruktur
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            klassenNames.Add(reader["Name"].ToString());
+                        }
+                    }
+                }
+            }
+
+            return klassenNames;
+        }
+
+        #endregion
+    }
 }
 #endregion

@@ -30,7 +30,7 @@ namespace FeedbackSoftware
 
         private void InitializeCheckBoxGroups()
         {
-            var canvas = this.FindName("nuckelan") as Canvas; // Canvas Name
+            var canvas = nuckelan; // Canvas Name
             if (canvas == null)
             {
                 Debug.WriteLine("Canvas nicht gefunden!");

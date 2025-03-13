@@ -78,8 +78,8 @@ namespace FeedbackSoftware.Views
             //formularComboBox.ItemsSource = vorgangNamen;
 
             // KlassenIds laden
-            List<string> klassenIds = dbManager.GetKlassenIds();
-            classComboBox.ItemsSource = klassenIds;
+            List<string> klassenNames = dbManager.GetKlassenNames();
+            classComboBox.ItemsSource = klassenNames;
 
             // Feedbackarten laden
             List<string> feedbackArten = dbManager.GetFeedbackArt();
@@ -158,7 +158,7 @@ namespace FeedbackSoftware.Views
             // Ausgewähltes Formular abrufen
             string selectedFormular = ((ComboBoxItem)formularComboBox.SelectedItem).Content.ToString();
 
-            Window formWindow = null;
+            Window formWindow = new Window();
 
             // Fenster basierend auf der Auswahl öffnen
             switch (selectedFormular)
@@ -182,6 +182,11 @@ namespace FeedbackSoftware.Views
             {
                 formWindow.ShowDialog(); // Zeigt das Fenster modal an
             }
+        }
+
+        private void SaveFeedbackVorgang_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }   
 }
