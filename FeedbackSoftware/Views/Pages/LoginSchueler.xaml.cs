@@ -1,5 +1,7 @@
 ﻿using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,26 +14,42 @@ namespace FeedbackSoftware.Views.Pages
     public partial class LoginSchueler : Page
     {
 		DatabaseManager dbm = new DatabaseManager();
+		FeedbackDto fbDto = new FeedbackDto();
+
+		public SnackbarMessageQueue MessageQueue { get; }
+
 		public LoginSchueler()
         {
             InitializeComponent();
-        }
+			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
+			Error.MessageQueue = MessageQueue;
+		}
 
 		private void LoginS_Click(object sender, RoutedEventArgs e)
 		{
 			if (IsKeyValid())
 			{
-				//dann zu Formular weiterleiten
+				if (fbDto.FeedbackArt == "")
+				{
+					//dann zu Formular weiterleiten
+				}
 			}
 		}
 
 		private bool IsKeyValid()
 		{
-			UserDto userinfo = new UserDto();
 			if (dbm != null)
 			{
-				//userinfo = dbm.SelectKey();
-				return true;
+				fbDto = dbm.SelectKey(tbxSchlüssel.Password);
+				if (fbDto.Schluessel.ToString() == tbxSchlüssel.Password)
+				{
+					return true;
+				}
+				else
+				{
+					Error.MessageQueue.Enqueue("Bitte Eingaben überprüfen!");
+					return false;
+				}
 			}
 			else
 			{

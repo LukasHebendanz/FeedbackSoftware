@@ -25,16 +25,7 @@ namespace FeedbackSoftware.Classes
         private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
         private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
         private const string SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME = "SELECT Passwort, Benutzername, Rolle FROM User WHERE Passwort = @Passwort AND Benutzername = @Benutzername";
-
-
         
-
-
-        
-
-        
-
-
 		#region InsertUser
 		public void InsertUser(UserDto userdto)
 		{
@@ -203,17 +194,66 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
-        #endregion
-        #endregion
+		#endregion
 
-        #region SaveFeedback
-        private const string SQL_INSERT_FEEDBACK = "INSERT INTO `FeedbackVorgang` (KlasseId, Name, FormularArt) VALUES (@KlasseId ,@Name, @FormularArt)";
+		#region SelectUserByPasswortAndUsername
+		public UserDto SelectUserByPasswortAndUsername(string passwort, string username)
+		{
+			UserDto user = new UserDto();
 
-        public void InsertFeedback(FeedbackDto feedbackDto)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
+			using (MySqlConnection con = GetConnection())
+			{
+				con.Open();
+
+				using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME, con))
+				{
+					MySqlParameter[] param = GetPasswortAndBenutzernameParameter(passwort, username);
+					SetLoginParameter(param, cmd);
+
+					using (MySqlDataReader reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							user.Passwort = reader.GetString(0);
+							user.Name = reader.GetString(1);
+							user.Rolle = reader.GetString(2);
+						}
+					}
+				}
+			}
+
+			return user;
+		}
+
+		private MySqlParameter[] GetPasswortAndBenutzernameParameter(string passwort, string username)
+		{
+			MySqlParameter[] param = new MySqlParameter[]
+			{
+				new MySqlParameter("@Passwort", MySqlDbType.VarChar) {Value = passwort },
+				new MySqlParameter("@Benutzername", MySqlDbType.VarChar) {Value = username},
+			};
+			return param;
+		}
+
+		private void SetLoginParameter(MySqlParameter[] param, MySqlCommand cmd)
+		{
+			cmd.Parameters.Add(param[0]);
+			cmd.Parameters.Add(param[1]);
+		}
+		#endregion
+
+		#endregion
+
+		#region FeedbackVorgang
+		private const string SQL_INSERT_FEEDBACK = "INSERT INTO `FeedbackVorgang` (KlasseId, Name, FormularArt) VALUES (@KlasseId ,@Name, @FormularArt)";
+		private const string SQL_SELECT_KEY = "SELECT Schluessel FROM FeedbackVorgang WHERE Schluessel = @Schluessel";
+
+		#region InsertFeedback
+		public void InsertFeedback(FeedbackDto feedbackDto)
+		{
+			using (MySqlConnection con = GetConnection())
+			{
+				con.Open();
 
                 using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FEEDBACK, con))
                 {
@@ -237,16 +277,14 @@ namespace FeedbackSoftware.Classes
             return param;
         }
 
-        public void SetFeedbackParameter(MySqlParameter[] parameter, MySqlCommand cmd)
-        {
-            cmd.Parameters.Add(parameter[0]);
-            cmd.Parameters.Add(parameter[1]);
-            cmd.Parameters.Add(parameter[2]);
-            cmd.Parameters.Add(parameter[3]);
-        }
-
-        
-        #endregion
+		public void SetFeedbackParameter(MySqlParameter[] parameter, MySqlCommand cmd)
+		{
+			cmd.Parameters.Add(parameter[0]);
+			cmd.Parameters.Add(parameter[1]);
+			cmd.Parameters.Add(parameter[2]);
+			cmd.Parameters.Add(parameter[3]);
+		}
+		#endregion        
 
         #region ReadFeedback
 
@@ -321,10 +359,43 @@ namespace FeedbackSoftware.Classes
                     }
                 }
             }
-
             return feedbackArt;
         }
+		#endregion
 
-        #endregion
-    }
+		#region SelectKey
+		public FeedbackDto SelectKey(string schluessel)
+		{
+			FeedbackDto user = new FeedbackDto();
+
+			using (MySqlConnection con = GetConnection())
+			{
+				con.Open();
+
+				using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_KEY, con))
+				{
+					MySqlParameter[] param = GetKeyParameter(schluessel);
+					SetKeyParameter(param, cmd);
+					cmd.ExecuteNonQuery();
+				}
+			}
+
+			return user;
+		}
+		private MySqlParameter[] GetKeyParameter(string schluessel)
+		{
+			MySqlParameter[] param = new MySqlParameter[]
+			{
+				new MySqlParameter("@Schluessel", MySqlDbType.VarChar) { Value = schluessel},
+			};
+			return param;
+		}
+
+		private void SetKeyParameter(MySqlParameter[] param, MySqlCommand cmd)
+		{
+			cmd.Parameters.Add(param[0]);
+		}
+		#endregion
+		#endregion
+	}
 }
