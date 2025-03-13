@@ -13,14 +13,14 @@ namespace FeedbackSoftware.Classes
 {
 	public class DatabaseManager
 	{
-		private static readonly string connectionstring = "Server=10.0.126.31;Port=3306;Database=Feedback;User ID=ExtUser;Password=!DevUser.69;Pooling=true;";
+        public DatabaseManager() { }
+
+        private static readonly string connectionstring = "Server=10.0.126.31;Port=3306;Database=Feedback;User ID=ExtUser;Password=!DevUser.69;Pooling=true;";
 
         #region User
 		private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
 		private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
 		private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
-
-		public DatabaseManager() { }
 
         public static MySqlConnection GetConnection()
         {
@@ -131,6 +131,47 @@ namespace FeedbackSoftware.Classes
 
 			return users;
         }
+		#endregion
+
+		#endregion
+
+		#region Formular
+		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data) VALUES (@Schluessel, @Data)";
+
+		#region InsertFormular
+		public void InsertFormular(FormularDto formularDto)
+		{
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FORMULAR, con))
+                {
+                    MySqlParameter[] parameters = GetFormularParameter(formularDto);
+                    SetFormularParameter(parameters, cmd);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+		private MySqlParameter[] GetFormularParameter(FormularDto formularDto)
+		{
+			MySqlParameter[] param = new MySqlParameter[]
+			{
+                new MySqlParameter("@Schluessel", MySqlDbType.VarChar) { Value = formularDto.Schluessel },
+				new MySqlParameter("@Data", MySqlDbType.VarChar) { Value = formularDto.Data }
+            };
+
+			return param;
+        }
+
+		private void SetFormularParameter(MySqlParameter[] parameter, MySqlCommand cmd)
+		{
+            cmd.Parameters.Add(parameter[0]);
+            cmd.Parameters.Add(parameter[1]);
+        }
+
+
 		#endregion
 
 		#endregion
