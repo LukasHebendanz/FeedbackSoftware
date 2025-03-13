@@ -10,8 +10,8 @@ namespace FeedbackSoftware.Classes.Dtos
     {
         public int KlasseId { get; set; }
         public string Name { get; set; }
-        public int Jahrgangsstufe { get; set; }
-        public int Schuljahr { get; set; }
+        public string Jahrgangsstufe { get; set; }
+        public string Schuljahr { get; set; }
         public string Abteilung { get; set; }
         public string Fach { get; set; }
     }
