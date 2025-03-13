@@ -7,8 +7,33 @@
         mc:Ignorable="d"
         Title="AdminPanel" Height="450" Width="800">
     <Grid>
-        <ListBox ItemsSource="{Binding TeacherList}"/>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+        <ListView x:Name="TeacherListView" ItemsSource="{Binding TeacherList}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+
+                    <!-- Edit Button -->
+                    <GridViewColumn Header="Edit">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit" Click="EditButton_Click" Tag="{Binding}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <!-- Delete Button -->
+                    <GridViewColumn Header="Delete">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="DeleteButton_Click" Tag="{Binding}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
             <Button Content="Lehrer erstellen"
       HorizontalAlignment="Left" VerticalAlignment="Top" 
