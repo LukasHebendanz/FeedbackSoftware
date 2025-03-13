@@ -13,65 +13,27 @@ namespace FeedbackSoftware.Classes
 {
     public class DatabaseManager
     {
+        public static MySqlConnection GetConnection()
+        {
+            return new MySqlConnection(connectionstring);
+        }
+
         private static readonly string connectionstring = "Server=10.0.126.31;Port=3306;Database=Feedback;User ID=ExtUser;Password=!DevUser.69;Pooling=true;";
 
         #region User
         private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
         private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
         private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
-		private const string SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME = "SELECT Passwort, Benutzername, Rolle FROM User WHERE Passwort = @Passwort AND Benutzername = @Benutzername";
+        private const string SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME = "SELECT Passwort, Benutzername, Rolle FROM User WHERE Passwort = @Passwort AND Benutzername = @Benutzername";
 
-                using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FEEDBACK, con))
-                {
-                    MySqlParameter[] parameters = GetFeedbackParameter(feedbackDto);
-                    SetFeedbackParameter(parameters, cmd);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
 
-        private MySqlParameter[] GetFeedbackParameter(FeedbackDto feedbackDto)
-        {
-            MySqlParameter[] param = new MySqlParameter[]
-            {
-                new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = feedbackDto.Schluessel },
-                new MySqlParameter("@KlasseId", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
-                new MySqlParameter("@Titel", MySqlDbType.VarChar) { Value = feedbackDto.Name },
-                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FeedbackArt }
-            };
+        
 
-            return param;
-        }
 
-        public void SetFeedbackParameter(MySqlParameter[] parameter, MySqlCommand cmd)
-        {
-            cmd.Parameters.Add(parameter[0]);
-            cmd.Parameters.Add(parameter[1]);
-            cmd.Parameters.Add(parameter[2]);
-            cmd.Parameters.Add(parameter[3]);
-        }
+        
 
-        public bool DoesKeyExist(string key)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
+        
 
-                using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FEEDBACK, con))
-                {
-                    cmd.Parameters.AddWithValue("@Key", key);
-
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0; // Gibt true zurück, wenn der Schlüssel existiert
-                }
-            }
-        }
-        #endregion
-
-        public static MySqlConnection GetConnection()
-        {
-            return new MySqlConnection(connectionstring);
-        }
 
 		#region InsertUser
 		public void InsertUser(UserDto userdto)
@@ -241,6 +203,49 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
+        #endregion
+        #endregion
+
+        #region SaveFeedback
+        private const string SQL_INSERT_FEEDBACK = "INSERT INTO `FeedbackVorgang` (KlasseId, Name, FormularArt) VALUES (@KlasseId ,@Name, @FormularArt)";
+
+        public void InsertFeedback(FeedbackDto feedbackDto)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FEEDBACK, con))
+                {
+                    MySqlParameter[] parameters = GetFeedbackParameter(feedbackDto);
+                    SetFeedbackParameter(parameters, cmd);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private MySqlParameter[] GetFeedbackParameter(FeedbackDto feedbackDto)
+        {
+            MySqlParameter[] param = new MySqlParameter[]
+            {
+                new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = feedbackDto.Schluessel },
+                new MySqlParameter("@KlasseId", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
+                new MySqlParameter("@Titel", MySqlDbType.VarChar) { Value = feedbackDto.Name },
+                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FeedbackArt }
+            };
+
+            return param;
+        }
+
+        public void SetFeedbackParameter(MySqlParameter[] parameter, MySqlCommand cmd)
+        {
+            cmd.Parameters.Add(parameter[0]);
+            cmd.Parameters.Add(parameter[1]);
+            cmd.Parameters.Add(parameter[2]);
+            cmd.Parameters.Add(parameter[3]);
+        }
+
+        
         #endregion
 
         #region ReadFeedback
