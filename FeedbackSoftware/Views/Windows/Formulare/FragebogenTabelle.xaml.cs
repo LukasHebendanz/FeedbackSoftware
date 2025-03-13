@@ -32,8 +32,12 @@ namespace FeedbackSoftware
 
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
             Error.MessageQueue = MessageQueue;
+
+            //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
+            this.Schluessel = 72;
+            this.FeedbackVorgangName = "Salamig";
         }
-        public FragebogenTabelle(int schluessel)
+        public FragebogenTabelle(int schluessel, string feedbackName)
         {
             InitializeComponent();
 
@@ -41,9 +45,11 @@ namespace FeedbackSoftware
             Error.MessageQueue = MessageQueue;
 
             this.Schluessel = schluessel;
+            this.FeedbackVorgangName = feedbackName;
         }
 
         private int Schluessel { get; set; }
+        private string FeedbackVorgangName { get; set; }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -153,7 +159,8 @@ namespace FeedbackSoftware
                 FormularDto formularDto = new FormularDto()
                 {
                     Schluessel = this.Schluessel,
-                    Data = GetData()
+                    Data = GetData(),
+                    Name = GetFormularName()
                 };
 
                 DatabaseManager dbm = new DatabaseManager();
@@ -163,6 +170,15 @@ namespace FeedbackSoftware
             {
                 Error.MessageQueue.Enqueue("Bitte jede Aussage bewerten!");
             }
+        }
+
+        private string GetFormularName()
+        {
+            DatabaseManager dbm = new DatabaseManager();
+            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
+            string formularNumber = Convert.ToString(formularCount + 1);
+
+            return $"{this.FeedbackVorgangName}_{formularNumber}";
         }
     }
 }

@@ -13,6 +13,6 @@ namespace FeedbackSoftware.Classes.Dtos
         public int FormularId { get; set; }
         public int Schluessel {  get; set; }
         public string Data { get; set; }
-
+        public string Name { get; set; }
     }
 }

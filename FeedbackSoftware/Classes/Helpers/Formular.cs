@@ -15,6 +15,9 @@ namespace FeedbackSoftware.Classes
         #region Properties
         private string formularName;
         public string FormularName { get => formularName; set { formularName = value; OnPropertyChanged(); } }
+        public int FormularId { get; set; }
+        public int Schluessel { get; set; }
+        public string Data { get; set; }
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -136,7 +136,8 @@ namespace FeedbackSoftware.Classes
 		#endregion
 
 		#region Formular
-		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data) VALUES (@Schluessel, @Data)";
+		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
+		private const string SQL_SELECT_ALL_FORMULARS_BY_KEY = "SELECT FormularID, Schluessel, Data, Name FROM Formular WHERE Schluessel = @Schluessel";
 
 		#region InsertFormular
 		public void InsertFormular(FormularDto formularDto)
@@ -158,8 +159,9 @@ namespace FeedbackSoftware.Classes
 		{
 			MySqlParameter[] param = new MySqlParameter[]
 			{
-                new MySqlParameter("@Schluessel", MySqlDbType.VarChar) { Value = formularDto.Schluessel },
-				new MySqlParameter("@Data", MySqlDbType.VarChar) { Value = formularDto.Data }
+                new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = formularDto.Schluessel },
+				new MySqlParameter("@Data", MySqlDbType.VarChar) { Value = formularDto.Data },
+				new MySqlParameter("@Name", MySqlDbType.VarChar) { Value = formularDto.Name }
             };
 
 			return param;
@@ -169,8 +171,55 @@ namespace FeedbackSoftware.Classes
 		{
             cmd.Parameters.Add(parameter[0]);
             cmd.Parameters.Add(parameter[1]);
+            cmd.Parameters.Add(parameter[2]);
         }
 
+		#region SelectAllByKey
+
+		public List<FormularDto> SelectAllFormularsByKey(int key)
+		{
+			List<FormularDto> formulars = new List<FormularDto>();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_ALL_FORMULARS_BY_KEY, con))
+                {
+                    MySqlParameter parameter = GetSchluesselParameter(key);
+                    SetSchluesselParameter(parameter, cmd);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            FormularDto formulardto = new FormularDto()
+                            {
+                                FormularId = reader.GetInt32(0),
+                                Schluessel = reader.GetInt32(1),
+                                Data = reader.GetString(2),
+								Name = reader.GetString(3)
+                            };
+
+							formulars.Add(formulardto);
+                        }
+                    }
+                }
+            }
+
+			return formulars;
+        }
+
+		private MySqlParameter GetSchluesselParameter(int key)
+		{
+			return new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = key };
+		}
+
+		private void SetSchluesselParameter(MySqlParameter parameter, MySqlCommand cmd)
+		{
+			cmd.Parameters.Add(parameter);
+		}
+		#endregion
 
 		#endregion
 
