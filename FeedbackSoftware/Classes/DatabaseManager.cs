@@ -160,7 +160,7 @@ namespace FeedbackSoftware.Classes
                 con.Open();
 
                 // SQL-Anweisung zum Aktualisieren eines Nutzers
-                string sql = "UPDATE User SET Passwort = @Passwort, Benutzername = @Benutzername, Rolle = @Rolle WHERE ID = @ID";
+                string sql = "UPDATE User SET Passwort = @Passwort, Benutzername = @Benutzername, Rolle = @Rolle WHERE Id = @Id";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con))
                 {
@@ -168,6 +168,7 @@ namespace FeedbackSoftware.Classes
                     cmd.Parameters.AddWithValue("@Passwort", user.Passwort);
                     cmd.Parameters.AddWithValue("@Benutzername", user.Name);
                     cmd.Parameters.AddWithValue("@Rolle", user.Rolle);
+                    cmd.Parameters.AddWithValue("@Id", user.UserID);
 
                     // Ausführen der SQL-Anweisung
                     cmd.ExecuteNonQuery();

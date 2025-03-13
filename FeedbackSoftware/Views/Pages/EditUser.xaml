@@ -19,8 +19,6 @@
             <RowDefinition Height="Auto"/>
             <!-- Passwort bestätigen -->
             <RowDefinition Height="Auto"/>
-            <!-- Intialpasswort eingeben -->
-            <RowDefinition Height="Auto"/>
             <!-- Error Message -->
             <RowDefinition Height="Auto"/>
             <!-- Registrieren Button -->
@@ -52,13 +50,6 @@
             <TextBlock Text="Passwort bestätigen" Foreground="Gray" />
             <PasswordBox x:Name="confirmPasswordbox" Margin="0,5,0,0" Padding="5" Height="30" Width="250"
                      ToolTip="Passwort erneut eingeben"/>
-        </StackPanel>
-
-        <!-- Initialpasswort -->
-        <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <TextBlock Text="Initialpasswort eingeben" Foreground="Gray" />
-            <PasswordBox x:Name="initialPasswordbox" Margin="0,5,0,0" Padding="5" Height="30" Width="250"
-              ToolTip="Initialpasswort vom Support"/>
         </StackPanel>
 
         <!-- Error Message -->
