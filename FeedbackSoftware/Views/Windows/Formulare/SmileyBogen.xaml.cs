@@ -67,7 +67,7 @@ namespace FeedbackSoftware
 
             XDocument xDoc = XDocument.Load(filePath);
 
-            if (goodInput != String.Empty || midInput != String.Empty || sadInput != String.Empty)
+            if (goodInput != String.Empty && midInput != String.Empty && sadInput != String.Empty)
             {
                 XElement xPositiv = xDoc.XPathSelectElement(pfadPositiv);
                 xPositiv.Value = goodInput;
