@@ -32,18 +32,18 @@ namespace FeedbackSoftware.Classes
 
                 using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FEEDBACK, con))
                 {
-                    MySqlParameter[] parameters = GetFormularParameter(feedbackDto);
+                    MySqlParameter[] parameters = GetFeedbackParameter(feedbackDto);
                     SetFeedbackParameter(parameters, cmd);
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        private MySqlParameter[] GetFormularParameter(FeedbackDto feedbackDto)
+        private MySqlParameter[] GetFeedbackParameter(FeedbackDto feedbackDto)
         {
             MySqlParameter[] param = new MySqlParameter[]
             {
-                new MySqlParameter("@Schluessel", MySqlDbType.VarChar) { Value = feedbackDto.Schluessel },
+                new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = feedbackDto.Schluessel },
                 new MySqlParameter("@KlasseId", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
                 new MySqlParameter("@Titel", MySqlDbType.VarChar) { Value = feedbackDto.Name },
                 new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FeedbackArt }
@@ -185,6 +185,70 @@ namespace FeedbackSoftware.Classes
             }
 
             return users;
+        }
+
+        public void CreateUser(UserDto newUser)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                // SQL-Anweisung zum Einfügen eines neuen Nutzers
+                string sql = "INSERT INTO User (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@Passwort", newUser.Passwort);
+                    cmd.Parameters.AddWithValue("@Benutzername", newUser.Name);
+                    cmd.Parameters.AddWithValue("@Rolle", newUser.Rolle);
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateUser(UserDto user)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                // SQL-Anweisung zum Aktualisieren eines Nutzers
+                string sql = "UPDATE User SET Passwort = @Passwort, Benutzername = @Benutzername, Rolle = @Rolle WHERE ID = @ID";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@Passwort", user.Passwort);
+                    cmd.Parameters.AddWithValue("@Benutzername", user.Name);
+                    cmd.Parameters.AddWithValue("@Rolle", user.Rolle);
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteUser(int userId)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                // SQL-Anweisung zum Löschen eines Nutzers
+                string sql = "DELETE FROM User WHERE ID = @ID";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@ID", userId);
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
         #endregion
 
