@@ -2,7 +2,6 @@
 using FeedbackSoftware.Classes.Dtos;
 using MaterialDesignThemes.Wpf;
 using System;
-using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -29,9 +28,20 @@ namespace FeedbackSoftware.Views.Pages
 		{
 			if (IsKeyValid())
 			{
-				if (fbDto.FeedbackArt == "")
+				if (fbDto.FeedbackArt == "Smiley")
 				{
-					//dann zu Formular weiterleiten
+					SmileyBogen sb = new SmileyBogen();
+					sb.ShowDialog();
+				}
+				if (fbDto.FeedbackArt == "Zielscheibe")
+				{
+					ZielscheibenFormular zf = new ZielscheibenFormular();
+					zf.ShowDialog();
+				}
+				if (fbDto.FeedbackArt == "Fragebogen")
+				{
+					FragebogenTabelle ft = new FragebogenTabelle();
+					ft.ShowDialog();
 				}
 			}
 		}
