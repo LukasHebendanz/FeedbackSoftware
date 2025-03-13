@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FeedbackSoftware"
+        xmlns:local="clr-namespace:FeedbackSoftware" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="SmileyBogen" Height="450" Width="800">
 
@@ -43,6 +43,9 @@
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2">
             <TextBox Name="SadTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
         </Border>
+
+        <!-- Error Message -->
+        <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="2" Grid.Column="2" Foreground="Red"/>
 
         <Button Content="Submit" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="5" Click="SubmitButton_Click"/>
     </Grid>

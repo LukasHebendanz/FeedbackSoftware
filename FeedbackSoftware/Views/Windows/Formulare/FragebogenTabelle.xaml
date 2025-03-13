@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FeedbackSoftware"
+        xmlns:local="clr-namespace:FeedbackSoftware" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="800">
     <Grid Name="questionGrid">
@@ -88,54 +88,54 @@
         <Label Name="Label5" Content="5" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
         <Label Name="Label6" Content="6" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <CheckBox Name="Note1Row2" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note2Row2" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note3Row2" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note4Row2" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note5Row2" Grid.Row="2" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note6Row2" Grid.Row="2" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note1Row02" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note2Row02" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note3Row02" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note4Row02" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note5Row02" Grid.Row="2" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note6Row02" Grid.Row="2" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
 
-        <CheckBox Name="Note1Row3" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note2Row3" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note3Row3" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note4Row3" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note5Row3" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note6Row3" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note1Row03" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note2Row03" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note3Row03" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note4Row03" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note5Row03" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note6Row03" Grid.Row="3" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
 
-        <CheckBox Name="Note1Row4" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note2Row4" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note3Row4" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note4Row4" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note5Row4" Grid.Row="4" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note6Row4" Grid.Row="4" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note1Row04" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note2Row04" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note3Row04" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note4Row04" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note5Row04" Grid.Row="4" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note6Row04" Grid.Row="4" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
 
-        <CheckBox Name="Note1Row5" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note2Row5" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note3Row5" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note4Row5" Grid.Row="5" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note5Row5" Grid.Row="5" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note6Row5" Grid.Row="5" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note1Row05" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note2Row05" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note3Row05" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note4Row05" Grid.Row="5" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note5Row05" Grid.Row="5" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note6Row05" Grid.Row="5" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
 
-        <CheckBox Name="Note1Row6" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note2Row6" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note3Row6" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note4Row6" Grid.Row="6" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note5Row6" Grid.Row="6" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note6Row6" Grid.Row="6" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note1Row06" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note2Row06" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note3Row06" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note4Row06" Grid.Row="6" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note5Row06" Grid.Row="6" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note6Row06" Grid.Row="6" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
 
-        <CheckBox Name="Note1Row7" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note2Row7" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note3Row7" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note4Row7" Grid.Row="7" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note5Row7" Grid.Row="7" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note6Row7" Grid.Row="7" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note1Row07" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note2Row07" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note3Row07" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note4Row07" Grid.Row="7" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note5Row07" Grid.Row="7" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note6Row07" Grid.Row="7" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
 
-        <CheckBox Name="Note1Row9" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note2Row9" Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note3Row9" Grid.Row="9" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note4Row9" Grid.Row="9" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note5Row9" Grid.Row="9" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
-        <CheckBox Name="Note6Row9" Grid.Row="9" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note1Row09" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note2Row09" Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note3Row09" Grid.Row="9" Grid.Column="3" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note4Row09" Grid.Row="9" Grid.Column="4" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note5Row09" Grid.Row="9" Grid.Column="5" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
+        <CheckBox Name="Note6Row09" Grid.Row="9" Grid.Column="6" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
 
         <CheckBox Name="Note1Row10" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
         <CheckBox Name="Note2Row10" Grid.Row="10" Grid.Column="2" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked"/>
@@ -263,8 +263,7 @@
             </Button.Template>
         </Button>
 
-
-
-
+        <!-- Error Message -->
+        <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="26" Grid.Column="7" Foreground="Red" />
     </Grid>
 </Window>

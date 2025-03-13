@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FeedbackSoftware.Classes;
+using FeedbackSoftware.Classes.Dtos;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace FeedbackSoftware
 {
@@ -19,10 +24,32 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class FragebogenTabelle : Window
     {
+        public SnackbarMessageQueue MessageQueue { get; }
+
         public FragebogenTabelle()
         {
             InitializeComponent();
+
+            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
+            Error.MessageQueue = MessageQueue;
+
+            //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
+            this.Schluessel = 72;
+            this.FeedbackVorgangName = "Salamig";
         }
+        public FragebogenTabelle(int schluessel, string feedbackName)
+        {
+            InitializeComponent();
+
+            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
+            Error.MessageQueue = MessageQueue;
+
+            this.Schluessel = schluessel;
+            this.FeedbackVorgangName = feedbackName;
+        }
+
+        private int Schluessel { get; set; }
+        private string FeedbackVorgangName { get; set; }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -56,26 +83,102 @@ namespace FeedbackSoftware
                 }
             }
         }
-        private void GetAllCheckBoxValues()
+        private string GetData()
         {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = System.IO.Path.Combine(basePath, "Data", "FragebogenFormular.xml");
+
+            XDocument xdoc = XDocument.Load(filePath);
+            XElement currentElement = xdoc.Root?.Elements().FirstOrDefault();
+
 
             foreach (UIElement child in questionGrid.Children)
             {
                 if (child is CheckBox checkBox)
                 {
-
                     string checkBoxName = checkBox.Name;
                     bool? isChecked = checkBox.IsChecked;
+                    
+                    if (isChecked == true)
+                    {
+                        string note = checkBoxName.Substring(4, 1);
 
-                    //Hier werden die Daten zum Test in der Konsole ausgegeben
-                    Console.WriteLine($"CheckBox: {checkBoxName}, IsChecked: {isChecked}");
+                        currentElement.Value = note;
+
+                        if (currentElement.ElementsAfterSelf().FirstOrDefault() != null)
+                        {
+                            currentElement = currentElement.ElementsAfterSelf().FirstOrDefault();
+                        }
+                    }
                 }
             }
+
+            return GetDataAsBase64(xdoc);
+        }
+
+        private string GetDataAsBase64(XDocument xdoc)
+        {
+            string xmlString = xdoc.ToString();
+            byte[] xmlBytes = Encoding.UTF8.GetBytes(xmlString);
+            string xmlBase64 = Convert.ToBase64String(xmlBytes);
+
+            return xmlBase64;
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            GetAllCheckBoxValues();
+            bool allRowsValid = true;
+
+            foreach (UIElement child in questionGrid.Children)
+            {
+                if (child is CheckBox checkBox)
+                {
+                    int currentRow = Grid.GetRow(checkBox);
+                    int checkedCount = 0;
+
+                    foreach (UIElement innerChild in questionGrid.Children)
+                    {
+                        if (innerChild is CheckBox innerCheckBox && Grid.GetRow(innerCheckBox) == currentRow)
+                        {
+                            if (innerCheckBox.IsChecked == true)
+                            {
+                                checkedCount++;
+                            }
+                        }
+                    }
+
+                    if (checkedCount != 1)
+                    {
+                        allRowsValid = false;
+                        break;
+                    }
+                }
+            }
+
+            if (allRowsValid)
+            {
+                FormularDto formularDto = new FormularDto()
+                {
+                    Schluessel = this.Schluessel,
+                    Data = GetData(),
+                    Name = GetFormularName()
+                };
+
+                DatabaseManager dbm = new DatabaseManager();
+                dbm.InsertFormular(formularDto);
+            }
+            else
+            {
+                Error.MessageQueue.Enqueue("Bitte jede Aussage bewerten!");
+            }
         }
 
+        private string GetFormularName()
+        {
+            DatabaseManager dbm = new DatabaseManager();
+            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
+            string formularNumber = Convert.ToString(formularCount + 1);
+
+            return $"{this.FeedbackVorgangName}_{formularNumber}";
+        }
     }
 }

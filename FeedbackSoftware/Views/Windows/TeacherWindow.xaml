@@ -37,10 +37,12 @@
              Width="150" Height="25" HorizontalAlignment="Left" Margin="74,3,0,3"/>
 
         <ComboBox x:Name="formularComboBox"
+                  SelectedIndex="0"
           Grid.Row="1" Grid.Column="0"
           Width="150" Height="25"
           HorizontalAlignment="Right"
           Margin="0,0,10,20">
+            <ComboBoxItem Content="Bitte auswählen" IsEnabled="false" Visibility="Collapsed"/>
             <ComboBoxItem Content="Smiley"/>
             <ComboBoxItem Content="Zielscheibe"/>
             <ComboBoxItem Content="Fragebogen"/>
@@ -98,9 +100,11 @@
               Margin="0,0,10,0"/>
         <!-- Button Formulare einsehen -->
         <Button Content="Formulare einsehen"
-            Grid.Row="5" Grid.Column="1"
+            Grid.Row="4" Grid.Column="1"
             Width="150" Height="25"
             HorizontalAlignment="Left"
-            Margin="10,0,0,0"/>
+            Margin="20,16,0,5" Grid.RowSpan="2" 
+            Click="SaveFeedbackVorgang_Click"/>
+
     </Grid>
 </Window>
