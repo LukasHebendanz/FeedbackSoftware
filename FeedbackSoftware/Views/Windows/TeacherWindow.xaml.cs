@@ -28,6 +28,7 @@ namespace FeedbackSoftware.Views
         public TeacherWindow()
         {
             InitializeComponent();
+            LoadFormData();
             // Startseite festlegen
             //MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
         }
@@ -53,6 +54,25 @@ namespace FeedbackSoftware.Views
 
         // Code-Behind für den Speicherbutton-Click-Event
 
+        private void LoadFormData()
+        {
+            DatabaseManager dbManager = new DatabaseManager();
+
+            // Vorgangsnamen laden
+            List<string> vorgangNamen = dbManager.GetVorgangName();
+            formularComboBox.ItemsSource = vorgangNamen;
+
+            // KlassenIds laden
+            List<string> klassenIds = dbManager.GetKlassenIds();
+            classComboBox.ItemsSource = klassenIds;
+
+            // Feedbackarten laden
+            List<string> feedbackArten = dbManager.GetFeedbackArt();
+            einsehenComboBox.ItemsSource = feedbackArten;
+        }
+
+
+
         public FeedbackDto GetFeedbackByKey(string schluessel)
         {
             FeedbackDto feedback = new FeedbackDto();
@@ -76,7 +96,7 @@ namespace FeedbackSoftware.Views
                                 Schluessel = (int)reader["Schluessel"],
                                 KlasseId = (int)reader["KlasseId"],
                                 Name = reader["Name"].ToString(),
-                                FormularArt = reader["FormularArt"].ToString()
+                                FeedbackArt = reader["FormularArt"].ToString()
                             };
                         }
                     }
@@ -104,7 +124,7 @@ namespace FeedbackSoftware.Views
             //};
 
             // 3. In die Datenbank einfügen
-            dbManager.InsertFeedback(GetFeedbackByKey("sdfzugr"));
+            //dbManager.InsertFeedback(GetFeedbackByKey("sdfzugr"));
 
             // 4. Bestätigung anzeigen
             // MessageBox.Show($"Formular mit Schlüssel {key} gespeichert!");

@@ -46,7 +46,7 @@ namespace FeedbackSoftware.Classes
                 new MySqlParameter("@Schluessel", MySqlDbType.VarChar) { Value = feedbackDto.Schluessel },
                 new MySqlParameter("@KlasseId", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
                 new MySqlParameter("@Titel", MySqlDbType.VarChar) { Value = feedbackDto.Name },
-                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FormularArt }
+                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FeedbackArt }
             };
 
             return param;
@@ -186,6 +186,85 @@ namespace FeedbackSoftware.Classes
 
             return users;
         }
+        #endregion
+
+        #region ReadFeedback
+
+        public List<string> GetVorgangName()
+        {
+            List<string> vorgangName = new List<string>();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                string sql = "SELECT DISTINCT VorgangName FROM FeedbackVorgang"; // Anpassen an deine Datenbankstruktur
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            vorgangName.Add(reader["VorgangName"].ToString());
+                        }
+                    }
+                }
+            }
+
+            return vorgangName;
+        }
+
+        public List<string> GetKlassenIds()
+        {
+            List<string> klassenIds = new List<string>();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                string sql = "SELECT DISTINCT KlasseId FROM FeedbackVorgang"; // Anpassen an deine Datenbankstruktur
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            klassenIds.Add(reader["KlasseId"].ToString());
+                        }
+                    }
+                }
+            }
+
+            return klassenIds;
+        }
+
+        public List<string> GetFeedbackArt()
+        {
+            List<string> feedbackArt = new List<string>();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                string sql = "SELECT DISTINCT FeedbackArt FROM FeedbackVorgang"; // Anpassen an deine Datenbankstruktur
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            feedbackArt.Add(reader["FeedbackArt"].ToString());
+                        }
+                    }
+                }
+            }
+
+            return feedbackArt;
+        }
+
         #endregion
     }
 }

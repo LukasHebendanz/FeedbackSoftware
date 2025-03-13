@@ -29,84 +29,74 @@
 
         <!-- Überschrift -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="Auswahl der Formularart:" 
-                FontSize="16" FontWeight="Bold"
-                HorizontalAlignment="Left"
-                Margin="0,0,0,10"/>
+               Text="Auswahl der Formularart:"
+               FontSize="16" FontWeight="Bold"
+               HorizontalAlignment="Left"
+               Margin="0,0,0,10"/>
         <Button Content="AdminFenster" Grid.Row="0" Grid.Column="2"
-             Width="150" Height="25" HorizontalAlignment="Left" Margin="74,3,0,3"/>
+            Width="150" Height="25" HorizontalAlignment="Left" Margin="74,3,0,3"/>
 
         <!-- Formularart auswählen -->
-        <ComboBox x:Name="formularComboBox" 
-               Grid.Row="1" Grid.Column="0"
-               Width="150" Height="25"
-               HorizontalAlignment="Right"
-               Margin="0,0,10,20">
-            <ComboBoxItem>Formular 1</ComboBoxItem>
-            <ComboBoxItem>Formular 2</ComboBoxItem>
-            <ComboBoxItem>Formular 3</ComboBoxItem>
-        </ComboBox>
+        <ComboBox x:Name="formularComboBox" DisplayMemberPath="."
+              Grid.Row="1" Grid.Column="0"
+              Width="150" Height="25"
+              HorizontalAlignment="Right"
+              Margin="0,0,10,20"/>
         <!-- Button Template anzeigen -->
-        <Button Content="Template anzeigen" 
-             Grid.Row="1" Grid.Column="1"
-             Width="150" Height="25"
-             HorizontalAlignment="Left"
-             Margin="20,0,0,20"/>
+        <Button Content="Template anzeigen"
+            Grid.Row="1" Grid.Column="1"
+            Width="150" Height="25"
+            HorizontalAlignment="Left"
+            Margin="20,0,0,20"/>
 
         <!-- Formular erstellen -->
         <!-- Klasse auswählen -->
-        <ComboBox x:Name="classComboBox" 
-               Grid.Row="2" Grid.Column="0"
-               Width="150" Height="25"
-               HorizontalAlignment="Right"
-               Margin="0,0,10,0">
-            <ComboBoxItem>12A</ComboBoxItem>
-            <ComboBoxItem>12B</ComboBoxItem>
-            <ComboBoxItem>12C</ComboBoxItem>
-        </ComboBox>
-        <!-- Name auswählen -->
-        <TextBox x:Name="nameTextBox" 
-              Grid.Row="1" Grid.Column="1"
+        <ComboBox x:Name="classComboBox" DisplayMemberPath="."
+              Grid.Row="2" Grid.Column="0"
               Width="150" Height="25"
-              HorizontalAlignment="Left"
-              Margin="20,45,0,0"
-              Text="Name" Grid.RowSpan="2"/>
-        <!-- Button Formular erstellen und Schlüssel für Vorgang generieren -->
-        <Button Content="Formular erstellen" 
+              HorizontalAlignment="Right"
+              Margin="0,0,10,0"/>
+        <!-- Name auswählen -->
+        <TextBox x:Name="nameTextBox"
              Grid.Row="1" Grid.Column="1"
              Width="150" Height="25"
              HorizontalAlignment="Left"
-             Margin="200,44,0,1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+             Margin="20,45,0,0"
+             Text="Name" Grid.RowSpan="2"/>
+        <!-- Button Formular erstellen und Schlüssel für Vorgang generieren -->
+        <Button Content="Formular erstellen"
+            Grid.Row="1" Grid.Column="1"
+            Width="150" Height="25"
+            HorizontalAlignment="Left"
+            Margin="200,44,0,1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0"
-                Text="Automatisch Erstellter Schlüssel:" 
-                HorizontalAlignment="Right"
-                Margin="0,20,10,0"/>
+               Text="Automatisch Erstellter Schlüssel:"
+               HorizontalAlignment="Right"
+               Margin="0,20,10,0"/>
         <!-- Schlüsselwert -->
         <TextBlock Grid.Row="3" Grid.Column="1"
-                Text="1234"
-                FontWeight="Bold"
-                HorizontalAlignment="Left"
-                Margin="10,20,0,0"/>
+               Text="1234"
+               FontWeight="Bold"
+               HorizontalAlignment="Left"
+               Margin="10,20,0,0"/>
 
         <!-- Separator -->
         <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
-                Margin="0,10" Height="1" Background="Black"/>
+               Margin="0,10" Height="1" Background="Black"/>
 
 
         <!-- Formularliste -->
-        <ComboBox x:Name="einsehenComboBox" 
-               Grid.Row="5" Grid.Column="0"
-               Width="150" Height="25"
-               HorizontalAlignment="Right"
-               Margin="0,0,10,0">
-            <ComboBoxItem>SchlüsselName</ComboBoxItem>
-        </ComboBox>
+        <ComboBox x:Name="einsehenComboBox" DisplayMemberPath="."
+              Grid.Row="5" Grid.Column="0"
+              Width="150" Height="25"
+              HorizontalAlignment="Right"
+              Margin="0,0,10,0"/>
         <!-- Button Formulare einsehen -->
-        <Button Content="Formulare einsehen" 
-             Grid.Row="5" Grid.Column="1"
-             Width="150" Height="25"
-             HorizontalAlignment="Left"
-             Margin="10,0,0,0"/>
+        <Button Content="Formulare einsehen"
+            Grid.Row="5" Grid.Column="1"
+            Width="150" Height="25"
+            HorizontalAlignment="Left"
+            Margin="10,0,0,0"/>
     </Grid>
 </Window>
