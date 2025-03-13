@@ -30,7 +30,7 @@ namespace FeedbackSoftware.Views.Pages
 			UserDto userinfo = new UserDto();
 			if (dbm != null)
 			{
-				userinfo = dbm.SelectKey();
+				//userinfo = dbm.SelectKey();
 				return true;
 			}
 			else

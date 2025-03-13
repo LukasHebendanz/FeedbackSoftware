@@ -17,9 +17,9 @@ namespace FeedbackSoftware
     /// <summary>
     /// Interaktionslogik für Formulare.xaml
     /// </summary>
-    public partial class Formulare : Window
+    public partial class ZielscheibenFormular : Window
     {
-        public Formulare()
+        public ZielscheibenFormular()
         {
             InitializeComponent();
         }

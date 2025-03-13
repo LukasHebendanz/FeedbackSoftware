@@ -36,18 +36,22 @@
         <Button Content="AdminFenster" Grid.Row="0" Grid.Column="2" Name="btnAdminWindow"
              Width="150" Height="25" HorizontalAlignment="Left" Margin="74,3,0,3"/>
 
-        <!-- Formularart auswählen -->
-        <ComboBox x:Name="formularComboBox" DisplayMemberPath="."
-              Grid.Row="1" Grid.Column="0"
-              Width="150" Height="25"
-              HorizontalAlignment="Right"
-              Margin="0,0,10,20"/>
+        <ComboBox x:Name="formularComboBox"
+          Grid.Row="1" Grid.Column="0"
+          Width="150" Height="25"
+          HorizontalAlignment="Right"
+          Margin="0,0,10,20">
+            <ComboBoxItem Content="Smiley"/>
+            <ComboBoxItem Content="Zielscheibe"/>
+            <ComboBoxItem Content="Fragebogen"/>
+        </ComboBox>
         <!-- Button Template anzeigen -->
         <Button Content="Template anzeigen"
             Grid.Row="1" Grid.Column="1"
             Width="150" Height="25"
             HorizontalAlignment="Left"
-            Margin="20,0,0,20"/>
+            Margin="20,0,0,20"
+            Click="TemplateButton_Click"/>
 
         <!-- Formular erstellen -->
         <!-- Klasse auswählen -->

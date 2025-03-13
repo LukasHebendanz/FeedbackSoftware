@@ -21,7 +21,7 @@ namespace FeedbackSoftware.Views.Pages
         {
             if (IsLoginValid())
             {
-                TeacherWindow tw = new TeacherWindow(userDto.Rolle);
+                TeacherWindow tw = new TeacherWindow();
                 tw.ShowDialog();
             }
         }
@@ -30,7 +30,7 @@ namespace FeedbackSoftware.Views.Pages
 		{
             if (dbm != null)
             {
-				userDto = dbm.SelectUserByPasswortAndUsername(tbxPassword.Password, tbxUsername.Text);
+				// userDto = dbm.SelectUserByPasswortAndUsername(tbxPassword.Password, tbxUsername.Text);
 				return true;
 			}
             else

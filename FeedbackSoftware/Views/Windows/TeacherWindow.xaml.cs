@@ -25,28 +25,28 @@ namespace FeedbackSoftware.Views
     /// </summary>
     public partial class TeacherWindow : Window
     {
-        public TeacherWindow(string rolle)
+        public TeacherWindow()
         {
-            this.Rolle = rolle;
+            //this.Rolle = rolle;
             InitializeComponent();
             LoadFormData();
             // Startseite festlegen
             //MainFrame.NavigationService.Navigate(new FeedbackKeyWindow());
         }
-        public string Rolle { get; set; }
+        //public string Rolle { get; set; }
 
-        public void OnStart()
-        {
-            UserDto udto = new UserDto();
-            if (Rolle == "Admin")
-            {
-                btnAdminWindow.Visibility = Visibility.Visible;
-			}
-            else
-            {
-				btnAdminWindow.Visibility = Visibility.Hidden;
-			}
-        }
+   //     public void OnStart()
+   //     {
+   //         UserDto udto = new UserDto();
+   //         if (Rolle == "Admin")
+   //         {
+   //             btnAdminWindow.Visibility = Visibility.Visible;
+			//}
+   //         else
+   //         {
+			//	btnAdminWindow.Visibility = Visibility.Hidden;
+			//}
+   //     }
 
         //private void NavigateToFeedbackPage_Click(object sender, RoutedEventArgs e)
         //{
@@ -74,8 +74,8 @@ namespace FeedbackSoftware.Views
             DatabaseManager dbManager = new DatabaseManager();
 
             // Vorgangsnamen laden
-            List<string> vorgangNamen = dbManager.GetVorgangName();
-            formularComboBox.ItemsSource = vorgangNamen;
+            //List<string> vorgangNamen = dbManager.GetVorgangName();
+            //formularComboBox.ItemsSource = vorgangNamen;
 
             // KlassenIds laden
             List<string> klassenIds = dbManager.GetKlassenIds();
@@ -143,6 +143,45 @@ namespace FeedbackSoftware.Views
 
             // 4. Bestätigung anzeigen
             // MessageBox.Show($"Formular mit Schlüssel {key} gespeichert!");
+        }
+
+
+        private void TemplateButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Überprüfen, ob eine Auswahl getroffen wurde
+            if (formularComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Bitte wählen Sie eine Formularart aus.");
+                return;
+            }
+
+            // Ausgewähltes Formular abrufen
+            string selectedFormular = ((ComboBoxItem)formularComboBox.SelectedItem).Content.ToString();
+
+            Window formWindow = null;
+
+            // Fenster basierend auf der Auswahl öffnen
+            switch (selectedFormular)
+            {
+                case "Smiley":
+                    formWindow = new SmileyBogen(); // Fenster für Smiley
+                    break;
+                case "Zielscheibe":
+                    formWindow = new ZielscheibenFormular(); // Fenster für Zielscheibe
+                    break;
+                case "Fragebogen":
+                    formWindow = new FragebogenTabelle(); // Fenster für Fragebogen
+                    break;
+                default:
+                    MessageBox.Show("Unbekannte Formularart.");
+                    return;
+            }
+
+            // Fenster im Read-Only-Modus öffnen
+            if (formWindow != null)
+            {
+                formWindow.ShowDialog(); // Zeigt das Fenster modal an
+            }
         }
     }   
 }
