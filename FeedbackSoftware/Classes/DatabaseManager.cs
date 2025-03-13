@@ -21,6 +21,17 @@ namespace FeedbackSoftware.Classes
         private static readonly string connectionstring = "Server=10.0.126.31;Port=3306;Database=Feedback;User ID=ExtUser;Password=!DevUser.69;Pooling=true;";
 
         #region User
+		private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
+		private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
+		private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
+
+        public static MySqlConnection GetConnection()
+        {
+            return new MySqlConnection(connectionstring);
+        }
+
+        #region InsertUser
+        public void InsertUser(UserDto userdto)
         private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
         private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
         private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
@@ -194,6 +205,94 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
+		#endregion
+
+		#endregion
+
+		#region Formular
+		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
+		private const string SQL_SELECT_ALL_FORMULARS_BY_KEY = "SELECT FormularID, Schluessel, Data, Name FROM Formular WHERE Schluessel = @Schluessel";
+
+		#region InsertFormular
+		public void InsertFormular(FormularDto formularDto)
+		{
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_INSERT_FORMULAR, con))
+                {
+                    MySqlParameter[] parameters = GetFormularParameter(formularDto);
+                    SetFormularParameter(parameters, cmd);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+		private MySqlParameter[] GetFormularParameter(FormularDto formularDto)
+		{
+			MySqlParameter[] param = new MySqlParameter[]
+			{
+                new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = formularDto.Schluessel },
+				new MySqlParameter("@Data", MySqlDbType.VarChar) { Value = formularDto.Data },
+				new MySqlParameter("@Name", MySqlDbType.VarChar) { Value = formularDto.Name }
+            };
+
+			return param;
+        }
+
+		private void SetFormularParameter(MySqlParameter[] parameter, MySqlCommand cmd)
+		{
+            cmd.Parameters.Add(parameter[0]);
+            cmd.Parameters.Add(parameter[1]);
+            cmd.Parameters.Add(parameter[2]);
+        }
+
+		#region SelectAllByKey
+
+		public List<FormularDto> SelectAllFormularsByKey(int key)
+		{
+			List<FormularDto> formulars = new List<FormularDto>();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_ALL_FORMULARS_BY_KEY, con))
+                {
+                    MySqlParameter parameter = GetSchluesselParameter(key);
+                    SetSchluesselParameter(parameter, cmd);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            FormularDto formulardto = new FormularDto()
+                            {
+                                FormularId = reader.GetInt32(0),
+                                Schluessel = reader.GetInt32(1),
+                                Data = reader.GetString(2),
+								Name = reader.GetString(3)
+                            };
+
+							formulars.Add(formulardto);
+                        }
+                    }
+                }
+            }
+
+			return formulars;
+        }
+
+		private MySqlParameter GetSchluesselParameter(int key)
+		{
+			return new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = key };
+		}
+
+		private void SetSchluesselParameter(MySqlParameter parameter, MySqlCommand cmd)
+		{
+			cmd.Parameters.Add(parameter);
+		}
 		#endregion
 
 		#region SelectUserByPasswortAndUsername
@@ -396,6 +495,8 @@ namespace FeedbackSoftware.Classes
 			cmd.Parameters.Add(param[0]);
 		}
 		#endregion
+		#endregion
+
 		#endregion
 	}
 }
