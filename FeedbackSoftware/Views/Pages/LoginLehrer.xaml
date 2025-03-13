@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FeedbackSoftware.Views.Pages"
+      xmlns:local="clr-namespace:FeedbackSoftware.Views.Pages" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginLehrer">
@@ -39,6 +39,8 @@
 			<PasswordBox x:Name="tbxPassword" Margin="0,5,0,0" Padding="5" Height="30" Width="250"
                  ToolTip="Passwort eingeben"/>
 		</StackPanel>
+
+		<materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="5" Foreground="Red"/>
 
 		<StackPanel Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,40">
 			<Button x:Name="ButtonRegister" Height="35" Content="Login" Width="120"
