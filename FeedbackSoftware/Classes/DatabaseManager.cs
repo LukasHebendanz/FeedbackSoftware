@@ -331,11 +331,12 @@ namespace FeedbackSoftware.Classes
 			cmd.Parameters.Add(param[0]);
 			cmd.Parameters.Add(param[1]);
 		}
-		#endregion
-		#endregion
+        #endregion
+        #endregion
 
-		#region FeedbackVorgang
-		private const string SQL_INSERT_FEEDBACK = "INSERT INTO `FeedbackVorgang` (KlasseId, Name, FormularArt) VALUES (@KlasseId ,@Name, @FormularArt)";
+
+        #region FeedbackVorgang
+        private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FeedbackArt) VALUES (@KlasseID ,@VorgangName, @FeedbackArt)";
 		private const string SQL_SELECT_KEY = "SELECT Schluessel FROM FeedbackVorgang WHERE Schluessel = @Schluessel";
 
 		#region InsertFeedback
@@ -358,10 +359,9 @@ namespace FeedbackSoftware.Classes
         {
             MySqlParameter[] param = new MySqlParameter[]
             {
-                new MySqlParameter("@Schluessel", MySqlDbType.Int32) { Value = feedbackDto.Schluessel },
-                new MySqlParameter("@KlasseId", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
-                new MySqlParameter("@Titel", MySqlDbType.VarChar) { Value = feedbackDto.Name },
-                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FeedbackArt }
+                new MySqlParameter("@KlasseID", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
+                new MySqlParameter("@VorgangName", MySqlDbType.VarChar) { Value = feedbackDto.Name },
+                new MySqlParameter("@FeedbackArt", MySqlDbType.VarChar) { Value = feedbackDto.FeedbackArt }
             };
 
             return param;
@@ -372,7 +372,6 @@ namespace FeedbackSoftware.Classes
 			cmd.Parameters.Add(parameter[0]);
 			cmd.Parameters.Add(parameter[1]);
 			cmd.Parameters.Add(parameter[2]);
-			cmd.Parameters.Add(parameter[3]);
 		}
 		#endregion        
 
@@ -496,6 +495,7 @@ namespace FeedbackSoftware.Classes
 
         #region Klasse
 
+        private const string SQL_SELECT_KLASSENID_BY_NAME = "SELECT KlasseID FROM Klasse WHERE Name = @Name";
         public void CreateKlasse(KlasseDto newClass)
         {
             using (MySqlConnection con = GetConnection())
@@ -594,6 +594,31 @@ namespace FeedbackSoftware.Classes
             }
 
             return klassenNames;
+        }
+
+        public int GetKlassenIdByName(string name)
+        {
+            int klassenId = 0;
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_KLASSENID_BY_NAME, con))
+                {
+                    cmd.Parameters.AddWithValue("@Name", name);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            klassenId = (int)reader["KlasseID"];
+                        }
+                    }
+                }
+            }
+
+            return klassenId;
         }
 
         #endregion
