@@ -38,7 +38,7 @@ namespace FeedbackSoftware.Views.Windows
 
         private void NavigateToCreateTeacherPage_Click(object sender, RoutedEventArgs e)
         {
-            //MainFrame.NavigationService.Navigate(new RegisterAccountPage());
+            MainFrame.NavigationService.Navigate(new RegisterAccountPage());
             this.Content = new RegisterAccountPage();
         }
         private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
