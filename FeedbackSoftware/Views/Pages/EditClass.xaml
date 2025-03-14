@@ -41,6 +41,7 @@
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20"/>
 
+
         <!-- Name -->
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Text="Name:" 
@@ -50,7 +51,8 @@
                  Width="250"
                  Height="30"
                  Padding="5"
-                 Margin="0,0,0,10"/>
+                 Margin="0,0,0,10"
+				 x:Name="tbxName"/>
 
         <!-- Jahrgangsstufe -->
         <TextBlock Grid.Row="2" Grid.Column="0"
@@ -61,7 +63,8 @@
                  Width="250"
                  Height="30"
                  Padding="5"
-                 Margin="0,0,0,10"/>
+                 Margin="0,0,0,10"             
+				 x:Name="tbxJahrgang"/>
 
         <!-- Schuljahr -->
         <TextBlock Grid.Row="3" Grid.Column="0"
@@ -72,7 +75,8 @@
                  Width="250"
                  Height="30"
                  Padding="5"
-                 Margin="0,0,0,10"/>
+                 Margin="0,0,0,10"              
+				 x:Name="tbxJahr"/>
 
         <!-- Abteilung -->
         <TextBlock Grid.Row="4" Grid.Column="0"
@@ -83,7 +87,8 @@
                  Width="250"
                  Height="30"
                  Padding="5"
-                 Margin="0,0,0,10"/>
+                 Margin="0,0,0,10"
+                 x:Name="tbxAbteilung"/>
 
         <!-- Fach -->
         <TextBlock Grid.Row="5" Grid.Column="0"
@@ -94,7 +99,8 @@
                  Width="250"
                  Height="30"
                  Padding="5"
-                 Margin="0,0,0,10"/>
+                 Margin="0,0,0,10"
+                 x:Name="tbxFach"/>
 
         <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="5" Foreground="Red"/>
 

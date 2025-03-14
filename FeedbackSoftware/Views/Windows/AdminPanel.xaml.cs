@@ -13,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FeedbackSoftware.Views.Windows
@@ -30,18 +31,20 @@ namespace FeedbackSoftware.Views.Windows
         {
             InitializeComponent();
             TeacherList = db.SelectAllUsers();
-            // ClassList und dann die getall aus der Klasse dingens
+            ClassList = db.GetKlassenNames();
             DataContext = this;
             
         }
 
         private void NavigateToCreateTeacherPage_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new RegisterAccountPage());
+            //MainFrame.NavigationService.Navigate(new RegisterAccountPage());
+            this.Content = new RegisterAccountPage();
         }
         private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new SchoolClassPage());
+            //MainFrame.NavigationService.Navigate(new SchoolClassPage());
+            this.Content = new SchoolClassPage();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -49,7 +52,8 @@ namespace FeedbackSoftware.Views.Windows
             if (sender is Button button && button.Tag is UserDto selectedUser)
             {
                 // navigate to edit page and call the edit http request in there
-                MainFrame.NavigationService.Navigate(new EditUser(selectedUser));
+                //MainFrame.NavigationService.Navigate(new EditUser(selectedUser));
+                this.Content = new EditUser(selectedUser);
                 Console.WriteLine($"Editing: {selectedUser.Name}");
             }
         }
@@ -59,7 +63,9 @@ namespace FeedbackSoftware.Views.Windows
             if (sender is Button button && button.Tag is KlasseDto selectedClass)
             {
                 // navigate to edit page and call the edit http request in there
-                MainFrame.NavigationService.Navigate(new EditClass(selectedClass));
+                //MainFrame.NavigationService.Navigate(new EditClass(selectedClass));
+
+                this.Content = new EditClass(selectedClass);
                 Console.WriteLine($"Editing: {selectedClass.Name}");
             }
         }
@@ -82,16 +88,16 @@ namespace FeedbackSoftware.Views.Windows
 
         private void DeleteClassButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is UserDto selectedUser)
+            if (sender is Button button && button.Tag is KlasseDto selectedClass)
             {
-                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {selectedUser.Name}?",
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {selectedClass.Name}?",
                                                           "Confirm Delete",
                                                           MessageBoxButton.YesNo,
                                                           MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    //db.DeleteUser(selectedUser.UserID);
-                    //Hier muss die Delete methode aus dem dbManager rein
+
+                    db.DeleteKlasse(selectedClass.KlasseId);
                     TeacherListView.Items.Refresh();
                 }
             }

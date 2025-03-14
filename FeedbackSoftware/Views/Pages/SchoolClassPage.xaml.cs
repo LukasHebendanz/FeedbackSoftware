@@ -64,12 +64,12 @@ namespace FeedbackSoftware.Views.Pages
 
 		private bool UserExists(string name)
 		{
-			List<string> userInfos = dbm.GetKlassenNames();
+			List<KlasseDto> userInfos = dbm.GetKlassenNames();
 			bool userExists = false;
 
-			foreach (string user in userInfos)
+			foreach (KlasseDto user in userInfos)
 			{
-				if (name == user)
+				if (name == user.Name)
 				{
 					userExists = true;
 				}

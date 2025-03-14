@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="AdminPanel" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
         <ListView x:Name="TeacherListView" ItemsSource="{Binding TeacherList}">
             <ListView.View>
                 <GridView>
@@ -16,7 +21,7 @@
                     <GridViewColumn Header="Edit">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Edit" Click="EditButton_Click" Tag="{Binding}" />
+                                <Button Content="Edit" Click="EditButton_Click" Tag="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -35,7 +40,7 @@
         </ListView>
 
 
-        <ListView x:Name="ClassListView" ItemsSource="{Binding ClassList}">
+        <ListView x:Name="ClassListView" ItemsSource="{Binding ClassList}" Grid.Column="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
@@ -48,7 +53,6 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <!-- Delete Button -->
                     <GridViewColumn Header="Delete">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -61,9 +65,8 @@
             </ListView.View>
         </ListView>
 
-
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Column="1"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" Grid.Column="1">
             <Button Content="Lehrer erstellen"
       HorizontalAlignment="Left" VerticalAlignment="Top" 
       Margin="10" Click="NavigateToCreateTeacherPage_Click"/>

@@ -25,6 +25,7 @@ namespace FeedbackSoftware.Views
     /// </summary>
     public partial class TeacherWindow : Window
     {
+        private List<string> klassenNames = new List<string>();
         public TeacherWindow()
         {
             //this.Rolle = rolle;
@@ -78,7 +79,12 @@ namespace FeedbackSoftware.Views
             //formularComboBox.ItemsSource = vorgangNamen;
 
             // KlassenIds laden
-            List<string> klassenNames = dbManager.GetKlassenNames();
+            List<KlasseDto> klassen = dbManager.GetKlassenNames();
+            //List<string> klassenNames = [];
+            foreach (KlasseDto klasse in klassen)
+            {
+                this.klassenNames.Add(klasse.Name);
+            }
             classComboBox.ItemsSource = klassenNames;
 
             // Feedbackarten laden

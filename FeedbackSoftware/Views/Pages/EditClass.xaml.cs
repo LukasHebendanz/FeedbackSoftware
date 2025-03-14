@@ -46,7 +46,7 @@ namespace FeedbackSoftware.Views.Pages
             this.selectedClass.Fach = tbxFach.Text;
             this.selectedClass.Abteilung = tbxAbteilung.Text;
             //this.selectedUser.Rolle = Benutzer.Rolle;
-            // wiochtigiiogigigi hier noch die UpdateClass rein
+            db.UpdateKlasse(this.selectedClass);
         }
     }
 }
