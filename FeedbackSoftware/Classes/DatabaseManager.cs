@@ -22,7 +22,6 @@ namespace FeedbackSoftware.Classes
 
         #region User
 
-        #region InsertUser
         private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
         private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
         private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
@@ -238,6 +237,7 @@ namespace FeedbackSoftware.Classes
             cmd.Parameters.Add(parameter[1]);
             cmd.Parameters.Add(parameter[2]);
         }
+		#endregion
 
 		#region SelectAllByKey
 

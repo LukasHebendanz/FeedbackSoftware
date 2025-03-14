@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
 using MaterialDesignThemes.Wpf;
@@ -38,11 +28,9 @@ namespace FeedbackSoftware.Views
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
         {
-
             if (usernameTextBox.Text != String.Empty && passwordBox.Password != String.Empty
                 && confirmPasswordbox.Password != String.Empty && initialPasswordbox.Password != String.Empty)
             {
-
                 // Hier muss dann geprüft werden, ob der User schon existiert
                 if (!UserExists(usernameTextBox.Text.Trim()))
                 {
