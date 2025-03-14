@@ -59,9 +59,12 @@
         <!-- Klasse auswählen -->
         <ComboBox x:Name="classComboBox" DisplayMemberPath="."
               Grid.Row="2" Grid.Column="0"
+                  SelectedIndex="0"
               Width="150" Height="25"
               HorizontalAlignment="Right"
-              Margin="0,0,10,0"/>
+              Margin="0,0,10,0" ItemsSource="{Binding KlassenListe, Mode=OneTime}">
+            
+        </ComboBox>
         <!-- Name auswählen -->
         <TextBox x:Name="nameTextBox"
              Grid.Row="1" Grid.Column="1"
@@ -74,7 +77,8 @@
             Grid.Row="1" Grid.Column="1"
             Width="150" Height="25"
             HorizontalAlignment="Left"
-            Margin="200,44,0,1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            Margin="200,44,0,1" Grid.ColumnSpan="2" Grid.RowSpan="2"
+            Click="SaveFeedbackVorgang_Click"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0"
                Text="Automatisch Erstellter Schlüssel:"
@@ -103,8 +107,6 @@
             Grid.Row="4" Grid.Column="1"
             Width="150" Height="25"
             HorizontalAlignment="Left"
-            Margin="20,16,0,5" Grid.RowSpan="2" 
-            Click="SaveFeedbackVorgang_Click"/>
-
+            Margin="20,16,0,5" Grid.RowSpan="2"/>
     </Grid>
 </Window>
