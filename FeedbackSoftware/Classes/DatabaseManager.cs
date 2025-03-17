@@ -518,7 +518,58 @@ namespace FeedbackSoftware.Classes
                     cmd.Parameters.AddWithValue("@Schuljahr", klasse.Schuljahr);
                     cmd.Parameters.AddWithValue("@Abteilung", klasse.Abteilung);
                     cmd.Parameters.AddWithValue("@Fach", klasse.Fach);
-                    
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteKlasse(int klasseId)
+        {
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                // SQL-Anweisung zum Löschen eines Nutzers
+                string sql = "DELETE FROM Klasse WHERE ID = @ID";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@ID", klasseId);
+
+                    // Ausführen der SQL-Anweisung
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<string> GetKlassenNames()
+        {
+            List<string> klassenNames = new List<string>();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                string sql = "SELECT DISTINCT Name FROM Klasse"; // Anpassen an deine Datenbankstruktur
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            klassenNames.Add(reader["Name"].ToString());
+                        }
+                    }
+                }
+            }
+
+            return klassenNames;
+        }
+
         public int GetKlassenIdByName(string name)
         {
             int klassenId = 0;
