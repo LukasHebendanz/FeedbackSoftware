@@ -372,9 +372,34 @@ namespace FeedbackSoftware.Classes
 			cmd.Parameters.Add(parameter[1]);
 			cmd.Parameters.Add(parameter[2]);
 		}
-		#endregion        
+        #endregion
 
         #region ReadFeedback
+            
+        private const string SQL_GET_CURRENT_SCHLUESSEL = "SELECT DISTINCT Schluessel FROM FeedbackVorgang";
+
+        public string GetCurrentSchluessel()
+        {
+            List<int> schluesselList = new();
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_GET_CURRENT_SCHLUESSEL, con))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            schluesselList.Add(reader.GetInt32(0));
+                        }
+                    }
+                }
+            }
+
+            return schluesselList.FirstOrDefault().ToString();
+        }
         public List<string> GetVorgangName()
         {
             List<string> vorgangName = new List<string>();
