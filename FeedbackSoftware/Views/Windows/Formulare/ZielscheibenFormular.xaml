@@ -1,0 +1,80 @@
+﻿<Window x:Class="FeedbackSoftware.ZielscheibenFormular"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FeedbackSoftware"
+        mc:Ignorable="d"
+        Title="ZielscheibenFormular" MinHeight="750" MinWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Zielscheibe -->
+        <Canvas x:Name="nuckelan" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600">
+            <!-- Kreise mit richtigem Ursprungspunkt -->
+            <Ellipse Width="600" Height="600" Stroke="Black" StrokeThickness="3" Canvas.Left="0" Canvas.Top="0" />
+            <Ellipse Width="480" Height="480" Stroke="Black" StrokeThickness="3" Canvas.Left="60" Canvas.Top="60" />
+            <Ellipse Width="360" Height="360" Stroke="Black" StrokeThickness="3" Canvas.Left="120" Canvas.Top="120" />
+            <Ellipse Width="240" Height="240" Stroke="Black" StrokeThickness="3" Canvas.Left="180" Canvas.Top="180" />
+            <Ellipse Width="120" Height="120" Stroke="Black" StrokeThickness="3" Canvas.Left="240" Canvas.Top="240" />
+
+            <!-- Linien (vertikal und horizontal) -->
+            <Line X1="300" Y1="0" X2="300" Y2="600" Stroke="Black" StrokeThickness="3" />
+            <Line X1="0" Y1="300" X2="600" Y2="300" Stroke="Black" StrokeThickness="3" />
+
+            <!-- Diagonale Linien (verlängert) -->
+            <Line X1="90" Y1="90" X2="510" Y2="510" Stroke="Black" StrokeThickness="3" />
+            <Line X1="510" Y1="90" X2="90" Y2="510" Stroke="Black" StrokeThickness="3" />
+
+            <!-- Nummerierung der Ringe (nach rechts und unten verschoben) -->
+            <TextBlock Text="1" Canvas.Left="562" Canvas.Top="280" TextAlignment="Left" FontSize="12"/>
+            <TextBlock Text="2" Canvas.Left="502" Canvas.Top="280" TextAlignment="Left" FontSize="12"/>
+            <TextBlock Text="3" Canvas.Left="442" Canvas.Top="280" TextAlignment="Left" FontSize="12"/>
+            <TextBlock Text="4" Canvas.Left="382" Canvas.Top="280" TextAlignment="Left" FontSize="12"/>
+            <TextBlock Text="5" Canvas.Left="322" Canvas.Top="280" TextAlignment="Left" FontSize="12"/>
+
+            <!-- Checkboxen -->
+            <CheckBox x:Name="ObenLinks1_01" Content="" Canvas.Left="204" Canvas.Top="254" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24" RenderTransformOrigin="0.486,0.502"/>
+            <CheckBox x:Name="ObenLinks2_01" Content="" Canvas.Left="255" Canvas.Top="210" HorizontalAlignment="Left" VerticalAlignment="Center" Width="24"/>
+            <CheckBox x:Name="ObenRechts1_01" Content="" Canvas.Left="322" Canvas.Top="210" HorizontalAlignment="Left" VerticalAlignment="Center" Width="24"/>
+            <CheckBox x:Name="UntenLinks1_01" Content="" Canvas.Left="254" Canvas.Top="368" HorizontalAlignment="Center" VerticalAlignment="Center" Width="24"/>
+            <CheckBox x:Name="ObenRechts1_02" Content="" Canvas.Left="336" Canvas.Top="150" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenLinks2_02" Content="" Canvas.Left="228" Canvas.Top="150" HorizontalAlignment="Left" VerticalAlignment="Center" Width="24"/>
+            <CheckBox x:Name="UntenLinks2_01" Content="" Canvas.Left="204" Canvas.Top="321" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenRechts2_01" Content="" Canvas.Left="368" Canvas.Top="254" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenRechts1_01" Content="" Canvas.Left="363" Canvas.Top="321" HorizontalAlignment="Left" VerticalAlignment="Center" Width="24"/>
+            <CheckBox x:Name="UntenRechts2_01" Content="" Canvas.Left="327" Canvas.Top="368" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenRechts2_02" Content="" Canvas.Left="420" Canvas.Top="232" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenRechts1_02" Content="" Canvas.Left="421" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenRechts2_02" Content="" Canvas.Left="339" Canvas.Top="420" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenLinks1_02" Content="" Canvas.Left="228" Canvas.Top="420" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenLinks2_02" Content="" Canvas.Left="148" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenLinks1_02" Content="" Canvas.Left="148" Canvas.Top="232" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenLinks2_03" Content="" Canvas.Left="204" Canvas.Top="98" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenRechts1_03" Content="" Canvas.Left="357" Canvas.Top="98" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenRechts2_03" Content="" Canvas.Left="480" Canvas.Top="204" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenRechts1_03" Content="" Canvas.Left="480" Canvas.Top="372" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenRechts2_03" Content="" Canvas.Left="363" Canvas.Top="480" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenLinks1_03" Content="" Canvas.Left="204" Canvas.Top="480" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenLinks2_03" Content="" Canvas.Left="96" Canvas.Top="372" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenLinks1_03" Content="" Canvas.Left="96" Canvas.Top="204" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenLinks2_04" Content="" Canvas.Left="180" Canvas.Top="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenRechts1_04" Content="" Canvas.Left="375" Canvas.Top="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenRechts2_04" Content="" Canvas.Left="540" Canvas.Top="180" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenRechts1_04" Content="" Canvas.Left="540" Canvas.Top="398" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenRechts2_04" Content="" Canvas.Left="387" Canvas.Top="540" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenLinks1_04" Content="" Canvas.Left="180" Canvas.Top="528" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="UntenLinks2_04" Content="" Canvas.Left="36" Canvas.Top="402" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenLinks1_04" Content="" Canvas.Left="36" Canvas.Top="180" HorizontalAlignment="Left" VerticalAlignment="Top" Width="24"/>
+            <CheckBox x:Name="ObenLinks1_00" Content="" Canvas.Left="254" Canvas.Top="278" HorizontalAlignment="Left" VerticalAlignment="Center" Width="18"/>
+            <CheckBox x:Name="UntenLinks2_00" Content="" Canvas.Left="254" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Center" Width="16"/>
+            <CheckBox x:Name="ObenLinks2_00" Content="" Canvas.Left="276" Canvas.Top="254" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20"/>
+            <CheckBox x:Name="UntenLinks1_00" Content="" Canvas.Left="276" Canvas.Top="329" HorizontalAlignment="Left" VerticalAlignment="Center" Width="21"/>
+            <CheckBox x:Name="ObenRechts1_00" Content="" Canvas.Left="310" Canvas.Top="254" HorizontalAlignment="Left" VerticalAlignment="Center" Width="18"/>
+            <CheckBox x:Name="ObenRechts2_00" Content="" Canvas.Left="330" Canvas.Top="278" HorizontalAlignment="Left" VerticalAlignment="Top" Width="18"/>
+            <CheckBox x:Name="UntenRechts2_00" Content="" Canvas.Left="310" Canvas.Top="329" HorizontalAlignment="Center" VerticalAlignment="Center" Width="18"/>
+            <CheckBox x:Name="UntenRechts1_00" Content="" Canvas.Left="330" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20"/>
+        </Canvas>
+    </Grid>
+</Window>
