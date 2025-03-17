@@ -26,68 +26,32 @@ namespace FeedbackSoftware.Views.Pages
     {
         DatabaseManager db = new DatabaseManager();
         public SnackbarMessageQueue MessageQueue { get; }
+        UserDto selectedUser = new UserDto();
 
-        public EditUser()
+        public EditUser(UserDto selectedUser)
         {
             InitializeComponent();
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
             Error.MessageQueue = MessageQueue;
+            this.selectedUser = selectedUser;
+            usernameTextBox.Text = selectedUser.Name;
         }
-
-        private const string InitialPasswort = "teacher123";
-        private const string BenutzerRolle = "Lehrer";
 
         private void ButtonConfirm_Click(object sender, RoutedEventArgs e)
         {
-
-            if (usernameTextBox.Text != String.Empty && passwordBox.Password != String.Empty
-                && confirmPasswordbox.Password != String.Empty && initialPasswordbox.Password != String.Empty)
-            {
-
-                // Hier muss dann geprüft werden, ob der User schon existiert
-                if (!UserExists(usernameTextBox.Text.Trim()))
+                if (passwordBox.Password == confirmPasswordbox.Password)
                 {
-                    if (passwordBox.Password == confirmPasswordbox.Password && initialPasswordbox.Password == InitialPasswort)
-                    {
-                        UserDto userDto = new UserDto()
-                        {
-                            Name = usernameTextBox.Text,
-                            Passwort = passwordBox.Password,
-                            Rolle = BenutzerRolle
-                        };
-
-                        db.InsertUser(userDto); 
-                    }
-                    else
-                    {
-                        Error.MessageQueue.Enqueue("Bitte Eingaben überprüfen!");
-                    }
+                    this.selectedUser.Name = usernameTextBox.Text;
+                    this.selectedUser.Passwort = passwordBox.Password;
+                    //this.selectedUser.Rolle = Benutzer.Rolle;
+                    db.UpdateUser(this.selectedUser);
                 }
                 else
                 {
-                    Error.MessageQueue.Enqueue("Dieser Benutzername existiert bereits!");
+                    Error.MessageQueue.Enqueue("Passwörter stimmen nicht überein!");
                 }
-            }
-            else
-            {
-                Error.MessageQueue.Enqueue("Bitte alle Felder ausfüllen!");
-            }
-        }
-
-        private bool UserExists(string username)
-        {
-            List<UserDto> userInfos = db.SelectAllUsers();
-            bool userExists = false;
-
-            foreach (UserDto user in userInfos)
-            {
-                if (username == user.Name)
-                {
-                    userExists = true;
-                }
-            }
-
-            return userExists;
+            
+            
         }
     }
 }
