@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto"/>
             <!-- Error Message -->
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <!-- Registrieren Button -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -68,6 +69,11 @@
         <StackPanel Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,40">
             <Button x:Name="ButtonRegister" Height="35" Content="Registrieren" Width="120"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonRegister_Click" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" HorizontalAlignment="Left" Margin="0,20,0,40">
+            <Button x:Name="BackButton" Height="35" Content="Zurück" Width="60"
+            HorizontalAlignment="Center" VerticalAlignment="Center" Click="BackButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>

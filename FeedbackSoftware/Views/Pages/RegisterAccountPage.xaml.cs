@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Views.Windows;
 using MaterialDesignThemes.Wpf;
 
 namespace FeedbackSoftware.Views
@@ -75,6 +76,17 @@ namespace FeedbackSoftware.Views
             }
             
             return userExists;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            AdminPanel adminPanel = new AdminPanel();
+            adminPanel.Show();
+
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow?.Close();
+
         }
     }
 }
