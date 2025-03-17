@@ -132,28 +132,7 @@ namespace FeedbackSoftware.Classes
             return users;
         }
 
-        public void CreateUser(UserDto newUser)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
-
-                // SQL-Anweisung zum Einfügen eines neuen Nutzers
-                string sql = "INSERT INTO User (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
-
-                using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                {
-                    // Parameter setzen, um SQL-Injection zu vermeiden
-                    cmd.Parameters.AddWithValue("@Passwort", newUser.Passwort);
-                    cmd.Parameters.AddWithValue("@Benutzername", newUser.Name);
-                    cmd.Parameters.AddWithValue("@Rolle", newUser.Rolle);
-
-                    // Ausführen der SQL-Anweisung
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
+        #region UpdateUser
         public void UpdateUser(UserDto user)
         {
             using (MySqlConnection con = GetConnection())
@@ -175,7 +154,9 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
+        #endregion
 
+        #region DeleteUser
         public void DeleteUser(int userId)
         {
             using (MySqlConnection con = GetConnection())
@@ -195,12 +176,14 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
-		#endregion
+        #endregion
 
-		#endregion
+        #endregion
 
-		#region Formular
-		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
+        #endregion
+
+        #region Formular
+        private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
 		private const string SQL_SELECT_ALL_FORMULARS_BY_KEY = "SELECT FormularID, Schluessel, Data, Name FROM Formular WHERE Schluessel = @Schluessel";
 
 		#region InsertFormular
@@ -332,7 +315,6 @@ namespace FeedbackSoftware.Classes
 		}
         #endregion
         #endregion
-
 
         #region FeedbackVorgang
         private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FeedbackArt) VALUES (@KlasseID ,@VorgangName, @FeedbackArt)";
@@ -536,58 +518,7 @@ namespace FeedbackSoftware.Classes
                     cmd.Parameters.AddWithValue("@Schuljahr", klasse.Schuljahr);
                     cmd.Parameters.AddWithValue("@Abteilung", klasse.Abteilung);
                     cmd.Parameters.AddWithValue("@Fach", klasse.Fach);
-
-                    // Ausführen der SQL-Anweisung
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void DeleteKlasse(int klasseId)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
-
-                // SQL-Anweisung zum Löschen eines Nutzers
-                string sql = "DELETE FROM Klasse WHERE ID = @ID";
-
-                using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                {
-                    // Parameter setzen, um SQL-Injection zu vermeiden
-                    cmd.Parameters.AddWithValue("@ID", klasseId);
-
-                    // Ausführen der SQL-Anweisung
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public List<string> GetKlassenNames()
-        {
-            List<string> klassenNames = new List<string>();
-
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
-
-                string sql = "SELECT DISTINCT Name FROM Klasse"; // Anpassen an deine Datenbankstruktur
-
-                using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            klassenNames.Add(reader["Name"].ToString());
-                        }
-                    }
-                }
-            }
-
-            return klassenNames;
-        }
-
+                    
         public int GetKlassenIdByName(string name)
         {
             int klassenId = 0;

@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+    <Page Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     <PackageReference Include="MySql.Data" Version="9.2.0" />
   </ItemGroup>
@@ -18,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>
