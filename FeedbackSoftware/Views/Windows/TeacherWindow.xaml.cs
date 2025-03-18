@@ -53,6 +53,23 @@ namespace FeedbackSoftware.Views
             }
         }
 
+        public IList<ComboBoxItem> SchluesselListe
+        {
+            get
+            {
+                IList<ComboBoxItem> list = new List<ComboBoxItem>();
+                list.Add(new ComboBoxItem() { Content = "Schluessel", Visibility = Visibility.Collapsed });
+                List<string> klassen = new DatabaseManager().GetVorgangName();
+                foreach (string k in klassen)
+                {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.Content = k;
+                    list.Add(item);
+                }
+                return list;
+            }
+        }
+
         private void LoadFormData()
         {
             DatabaseManager dbManager = new DatabaseManager();
@@ -71,8 +88,11 @@ namespace FeedbackSoftware.Views
             classComboBox.ItemsSource = klassenNames;
 
             // Feedbackarten laden
-            List<string> feedbackArten = dbManager.GetFeedbackArt();
-            einsehenComboBox.ItemsSource = feedbackArten;
+            //List<string> schluessel = dbManager.GetSchluessel();
+            //einsehenComboBox.ItemsSource = schluessel;
+
+            string schluessel = dbManager.GetCurrentSchluessel();
+            SchluesselTextBlock.Text = schluessel;
         }
 
         private void TemplateButton_Click(object sender, RoutedEventArgs e)
@@ -106,11 +126,15 @@ namespace FeedbackSoftware.Views
                     return;
             }
 
-            // Fenster im Read-Only-Modus öffnen
-            if (formWindow != null)
-            {
-                formWindow.ShowDialog(); // Zeigt das Fenster modal an
-            }
+            // Fenster im Read-Only - Modus öffnen
+            //if (formWindow != null)
+            //{
+            //    // Read-Only Status setzen
+            //    if (formWindow is ZielscheibenFormular zielscheibenFormular)
+            //    {
+            //        zielscheibenFormular.IsReadOnly = true;
+            //    }
+            //}
         }
 
         private void SaveFeedbackVorgang_Click(object sender, RoutedEventArgs e)

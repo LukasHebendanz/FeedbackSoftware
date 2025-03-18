@@ -76,5 +76,7 @@
             <CheckBox x:Name="UntenRechts2_00" Content="" Canvas.Left="310" Canvas.Top="329" HorizontalAlignment="Center" VerticalAlignment="Center" Width="18"/>
             <CheckBox x:Name="UntenRechts1_00" Content="" Canvas.Left="330" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20"/>
         </Canvas>
+
+        <Button x:Name="halma" Content="Submit" Width="100" Height="30" Margin="600,637,100,67" Click="SubmitButton_Click"/>
     </Grid>
 </Window>
