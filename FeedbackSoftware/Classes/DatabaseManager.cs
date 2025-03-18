@@ -132,28 +132,7 @@ namespace FeedbackSoftware.Classes
             return users;
         }
 
-        public void CreateUser(UserDto newUser)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
-
-                // SQL-Anweisung zum Einfügen eines neuen Nutzers
-                string sql = "INSERT INTO User (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
-
-                using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                {
-                    // Parameter setzen, um SQL-Injection zu vermeiden
-                    cmd.Parameters.AddWithValue("@Passwort", newUser.Passwort);
-                    cmd.Parameters.AddWithValue("@Benutzername", newUser.Name);
-                    cmd.Parameters.AddWithValue("@Rolle", newUser.Rolle);
-
-                    // Ausführen der SQL-Anweisung
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
+        #region UpdateUser
         public void UpdateUser(UserDto user)
         {
             using (MySqlConnection con = GetConnection())
@@ -176,7 +155,9 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
+        #endregion
 
+        #region DeleteUser
         public void DeleteUser(int userId)
         {
             using (MySqlConnection con = GetConnection())
@@ -196,12 +177,14 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
-		#endregion
+        #endregion
 
-		#endregion
+        #endregion
 
-		#region Formular
-		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
+        #endregion
+
+        #region Formular
+        private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
 		private const string SQL_SELECT_ALL_FORMULARS_BY_KEY = "SELECT FormularID, Schluessel, Data, Name FROM Formular WHERE Schluessel = @Schluessel";
 
 		#region InsertFormular
@@ -333,7 +316,6 @@ namespace FeedbackSoftware.Classes
 		}
         #endregion
         #endregion
-
 
         #region FeedbackVorgang
         private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FeedbackArt) VALUES (@KlasseID ,@VorgangName, @FeedbackArt)";
