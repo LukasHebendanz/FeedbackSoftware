@@ -174,9 +174,8 @@ namespace FeedbackSoftware.Views
 
         private void btnAdminWindow_Click(object sender, RoutedEventArgs e)
         {
-            //MainFrame.NavigationService.Navigate(new AdminPanel());
-            //((MainWindow)Application.Current.MainWindow).MainFrame.NavigationService.Navigate(new AdminPanel());
-
+            AdminPanel adminPanel = new AdminPanel();
+            adminPanel.Show();
         }
     }
 }
