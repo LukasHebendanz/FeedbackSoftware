@@ -58,7 +58,7 @@ namespace FeedbackSoftware.Views
             get
             {
                 IList<ComboBoxItem> list = new List<ComboBoxItem>();
-                list.Add(new ComboBoxItem() { Content = "Schluessel", Visibility = Visibility.Collapsed });
+                list.Add(new ComboBoxItem() { Content = "VorgangName", Visibility = Visibility.Collapsed });
                 List<string> klassen = new DatabaseManager().GetVorgangName();
                 foreach (string k in klassen)
                 {
@@ -127,14 +127,10 @@ namespace FeedbackSoftware.Views
             }
 
             // Fenster im Read-Only - Modus öffnen
-            //if (formWindow != null)
-            //{
-            //    // Read-Only Status setzen
-            //    if (formWindow is ZielscheibenFormular zielscheibenFormular)
-            //    {
-            //        zielscheibenFormular.IsReadOnly = true;
-            //    }
-            //}
+            if (formWindow != null)
+            {
+                formWindow.ShowDialog(); // Zeigt das Fenster modal an
+            }
         }
 
         private void SaveFeedbackVorgang_Click(object sender, RoutedEventArgs e)
