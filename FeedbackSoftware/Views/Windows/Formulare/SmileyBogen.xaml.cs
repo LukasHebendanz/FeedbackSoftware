@@ -34,8 +34,8 @@ namespace FeedbackSoftware
             Error.MessageQueue = MessageQueue;
 
             //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 72;
-            this.FeedbackVorgangName = "Salamig";
+            this.Schluessel = 78;
+            this.FeedbackVorgangName = "LukasVernichtung";
         }
 
         public SmileyBogen(int schluessel, string feedbackVorgangName)
@@ -49,8 +49,24 @@ namespace FeedbackSoftware
             this.FeedbackVorgangName = feedbackVorgangName;
         }
 
+        //Konstruktor zum Auslesen der Data
+        public SmileyBogen(string data, string formularName)
+        {
+            InitializeComponent();
+
+            labelFormularName.Content = formularName;
+            btnSubmit.Visibility = Visibility.Collapsed;
+
+            //Entschlüssle die base64 data
+            byte[] decodedBytes = Convert.FromBase64String(data);
+            string decodedString = Encoding.UTF8.GetString(decodedBytes);
+
+            ReadData(decodedString);
+        }
+
         private int Schluessel { get; set; }
         private string FeedbackVorgangName { get; set; }
+        private string Data { get; set; }
 
         private string pfadPositiv = ConfigurationManager.AppSettings["Positiv"];
         private string pfadNeutral = ConfigurationManager.AppSettings["Neutral"];
@@ -111,9 +127,25 @@ namespace FeedbackSoftware
         {
             DatabaseManager dbm = new DatabaseManager();
             int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
-            string formularNumber = Convert.ToString(formularCount+1);
+            string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
+        }
+
+        private void ReadData(string data)
+        {
+            XDocument xDoc = XDocument.Parse(data);
+
+            try
+            {
+                GoodTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Positiv"]).Value;
+                midTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Neutral"]).Value;
+                SadTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Negativ"]).Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

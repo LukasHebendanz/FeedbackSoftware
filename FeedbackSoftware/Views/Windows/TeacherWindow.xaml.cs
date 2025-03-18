@@ -71,7 +71,7 @@ namespace FeedbackSoftware.Views
             classComboBox.ItemsSource = klassenNames;
 
             // Feedbackarten laden
-            List<string> feedbackArten = dbManager.GetFeedbackArt();
+            List<string> feedbackArten = dbManager.GetFormularArt();
             einsehenComboBox.ItemsSource = feedbackArten;
         }
 
@@ -130,7 +130,7 @@ namespace FeedbackSoftware.Views
                 FeedbackDto newFeedback = new FeedbackDto
                 {
                     KlasseId = dbManager.GetKlassenIdByName(selectedClass),
-                    FeedbackArt = selectedFormularArt,
+                    FormularArt = selectedFormularArt,
                     Name = name
                 };
 
@@ -156,7 +156,13 @@ namespace FeedbackSoftware.Views
         {
             //MainFrame.NavigationService.Navigate(new AdminPanel());
             //((MainWindow)Application.Current.MainWindow).MainFrame.NavigationService.Navigate(new AdminPanel());
+        }
 
+        private void btnFormulareEinsehen_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedKey = einsehenComboBox.SelectedValue.ToString();
+            //FormularListWindow flw = new FormularListWindow(selectedKey);
+            //flw.ShowDialog();
         }
     }
 }

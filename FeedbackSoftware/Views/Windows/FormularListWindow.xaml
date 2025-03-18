@@ -29,7 +29,7 @@
                 <DataGridTemplateColumn Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Formular einsehen" Width="120" Height="25" HorizontalAlignment="Center" CommandParameter="{Binding}"/>
+                            <Button x:Name="btnFormularOeffnen" Content="Formular einsehen" Width="120" Height="25" HorizontalAlignment="Center" Click="btnFormularOeffnen_Click" CommandParameter="{Binding}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

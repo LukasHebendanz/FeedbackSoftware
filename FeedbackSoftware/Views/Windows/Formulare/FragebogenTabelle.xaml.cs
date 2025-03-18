@@ -34,9 +34,11 @@ namespace FeedbackSoftware
             Error.MessageQueue = MessageQueue;
 
             //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 72;
-            this.FeedbackVorgangName = "Salamig";
+            this.Schluessel = 87;
+            this.FeedbackVorgangName = "Schnitzel";
         }
+
+        //Konstruktor beim Erstellen eines Formulars
         public FragebogenTabelle(int schluessel, string feedbackName)
         {
             InitializeComponent();
@@ -46,6 +48,21 @@ namespace FeedbackSoftware
 
             this.Schluessel = schluessel;
             this.FeedbackVorgangName = feedbackName;
+        }
+
+        //Konstruktor zum Auslesen der Data
+        public FragebogenTabelle(string data, string formularName)
+        {
+            InitializeComponent();
+
+            labelFormularName.Content = formularName;
+            btnSave.Visibility = Visibility.Collapsed;
+
+            //Entschlüssle die base64 data
+            byte[] decodedBytes = Convert.FromBase64String(data);
+            string decodedString = Encoding.UTF8.GetString(decodedBytes);
+
+            ReadData(decodedString);
         }
 
         private int Schluessel { get; set; }
@@ -179,6 +196,46 @@ namespace FeedbackSoftware
             string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
+        }
+
+        private void ReadData(string data)
+        {
+            XDocument xdoc = XDocument.Parse(data);
+            IEnumerable<XElement> elements = xdoc.Root?.Elements();
+
+            if (elements == null)
+                return;
+
+            int row = 2; // Starte mit der ersten Checkbox Reihe
+
+            foreach (XElement element in elements)
+            {
+                string value = element.Value;
+                if (int.TryParse(value, out int note))
+                {
+                    if (row == 8)
+                    {
+                        row++;
+                    }
+                    // Den Namen der Checkbox für diese Reihe und Note generieren
+                    // D2 stellt sicher dass es ab 02 beginnt
+                    string checkBoxName = $"Note{note}Row{row:D2}";
+
+                    // Die Checkbox mit dem passenden Namen in questionGrid suchen
+                    CheckBox? targetCheckBox = questionGrid.Children
+                        .OfType<CheckBox>()
+                        .FirstOrDefault(cb => cb.Name == checkBoxName);
+
+                    // Falls die Checkbox gefunden wurde, auf angehakt setzen
+                    if (targetCheckBox != null)
+                    {
+                        targetCheckBox.IsChecked = true;
+                    }
+                }
+
+                row++;
+            }
+
         }
     }
 }
