@@ -132,28 +132,7 @@ namespace FeedbackSoftware.Classes
             return users;
         }
 
-        public void CreateUser(UserDto newUser)
-        {
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
-
-                // SQL-Anweisung zum Einfügen eines neuen Nutzers
-                string sql = "INSERT INTO User (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
-
-                using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                {
-                    // Parameter setzen, um SQL-Injection zu vermeiden
-                    cmd.Parameters.AddWithValue("@Passwort", newUser.Passwort);
-                    cmd.Parameters.AddWithValue("@Benutzername", newUser.Name);
-                    cmd.Parameters.AddWithValue("@Rolle", newUser.Rolle);
-
-                    // Ausführen der SQL-Anweisung
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
+        #region UpdateUser
         public void UpdateUser(UserDto user)
         {
             using (MySqlConnection con = GetConnection())
@@ -161,7 +140,7 @@ namespace FeedbackSoftware.Classes
                 con.Open();
 
                 // SQL-Anweisung zum Aktualisieren eines Nutzers
-                string sql = "UPDATE User SET Passwort = @Passwort, Benutzername = @Benutzername, Rolle = @Rolle WHERE ID = @ID";
+                string sql = "UPDATE User SET Passwort = @Passwort, Benutzername = @Benutzername, Rolle = @Rolle WHERE Id = @Id";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con))
                 {
@@ -169,13 +148,16 @@ namespace FeedbackSoftware.Classes
                     cmd.Parameters.AddWithValue("@Passwort", user.Passwort);
                     cmd.Parameters.AddWithValue("@Benutzername", user.Name);
                     cmd.Parameters.AddWithValue("@Rolle", user.Rolle);
+                    cmd.Parameters.AddWithValue("@Id", user.UserID);
 
                     // Ausführen der SQL-Anweisung
                     cmd.ExecuteNonQuery();
                 }
             }
         }
+        #endregion
 
+        #region DeleteUser
         public void DeleteUser(int userId)
         {
             using (MySqlConnection con = GetConnection())
@@ -195,12 +177,14 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
-		#endregion
+        #endregion
 
-		#endregion
+        #endregion
 
-		#region Formular
-		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
+        #endregion
+
+        #region Formular
+        private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
 		private const string SQL_SELECT_ALL_FORMULARS_BY_KEY = "SELECT FormularID, Schluessel, Data, Name FROM Formular WHERE Schluessel = @Schluessel";
 
 		#region InsertFormular
@@ -332,7 +316,6 @@ namespace FeedbackSoftware.Classes
 		}
         #endregion
         #endregion
-
 
         #region FeedbackVorgang
         private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FeedbackArt) VALUES (@KlasseID ,@VorgangName, @FeedbackArt)";
@@ -588,15 +571,15 @@ namespace FeedbackSoftware.Classes
             }
         }
 
-        public List<string> GetKlassenNames()
+        public List<KlasseDto> GetKlassenNames()
         {
-            List<string> klassenNames = new List<string>();
+            List<KlasseDto> klassenNames = new List<KlasseDto>();
 
             using (MySqlConnection con = GetConnection())
             {
                 con.Open();
 
-                string sql = "SELECT DISTINCT Name FROM Klasse"; // Anpassen an deine Datenbankstruktur
+                string sql = "SELECT KlasseID, Name, Jahrgangsstufe, Schuljahr, Abteilung, Fach FROM Klasse"; // Anpassen an deine Datenbankstruktur
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con))
                 {
@@ -604,7 +587,14 @@ namespace FeedbackSoftware.Classes
                     {
                         while (reader.Read())
                         {
-                            klassenNames.Add(reader["Name"].ToString());
+                            KlasseDto dto = new KlasseDto();
+                            dto.KlasseId = (int)reader["KlasseID"]; ;
+                            dto.Name = reader["Name"].ToString();
+                            dto.Abteilung = reader["Abteilung"].ToString();
+                            dto.Schuljahr = reader["Schuljahr"].ToString();
+                            dto.Jahrgangsstufe = reader["Jahrgangsstufe"].ToString();
+                            dto.Fach = reader["Fach"].ToString();
+                            klassenNames.Add(dto);
                         }
                     }
                 }

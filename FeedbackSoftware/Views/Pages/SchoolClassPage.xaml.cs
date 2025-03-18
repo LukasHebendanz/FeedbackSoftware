@@ -1,5 +1,6 @@
 ﻿using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Views.Windows;
 using MaterialDesignThemes.Wpf;
 using Mysqlx;
 using System;
@@ -64,12 +65,12 @@ namespace FeedbackSoftware.Views.Pages
 
 		private bool UserExists(string name)
 		{
-			List<string> userInfos = dbm.GetKlassenNames();
+			List<KlasseDto> userInfos = dbm.GetKlassenNames();
 			bool userExists = false;
 
-			foreach (string user in userInfos)
+			foreach (KlasseDto user in userInfos)
 			{
-				if (name == user)
+				if (name == user.Name)
 				{
 					userExists = true;
 				}
@@ -77,5 +78,16 @@ namespace FeedbackSoftware.Views.Pages
 
 			return userExists;
 		}
-	}
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            AdminPanel adminPanel = new AdminPanel();
+            adminPanel.Show();
+
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow?.Close();
+
+        }
+    }
 }

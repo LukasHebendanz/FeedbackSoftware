@@ -13,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FeedbackSoftware.Views.Windows
@@ -22,28 +23,28 @@ namespace FeedbackSoftware.Views.Windows
     /// </summary>
     public partial class AdminPanel : Window
     {
-
         DatabaseManager db = new DatabaseManager();
         //public List<string> TeacherList { get; set; }
         public List<UserDto> TeacherList { get; set; }
+        public List<KlasseDto> ClassList { get; set; }
         public AdminPanel()
         {
             InitializeComponent();
             TeacherList = db.SelectAllUsers();
+            ClassList = db.GetKlassenNames();
             DataContext = this;
-            //foreach (var element in TeacherList)
-            //{
-            //    UserList.Add(element.Name);
-            //}
+            
         }
 
         private void NavigateToCreateTeacherPage_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.NavigationService.Navigate(new RegisterAccountPage());
+            this.Content = new RegisterAccountPage();
         }
         private void NavigateToKlasse_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new SchoolClassPage());
+            //MainFrame.NavigationService.Navigate(new SchoolClassPage());
+            this.Content = new SchoolClassPage();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -51,7 +52,21 @@ namespace FeedbackSoftware.Views.Windows
             if (sender is Button button && button.Tag is UserDto selectedUser)
             {
                 // navigate to edit page and call the edit http request in there
+                //MainFrame.NavigationService.Navigate(new EditUser(selectedUser));
+                this.Content = new EditUser(selectedUser);
                 Console.WriteLine($"Editing: {selectedUser.Name}");
+            }
+        }
+
+        private void EditClassButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is KlasseDto selectedClass)
+            {
+                // navigate to edit page and call the edit http request in there
+                //MainFrame.NavigationService.Navigate(new EditClass(selectedClass));
+
+                this.Content = new EditClass(selectedClass);
+                Console.WriteLine($"Editing: {selectedClass.Name}");
             }
         }
 
@@ -65,8 +80,24 @@ namespace FeedbackSoftware.Views.Windows
                                                           MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    TeacherList.Remove(selectedUser);
-                    // Put Lukas Method to delete the value in here. INstead of the line above
+                    db.DeleteUser(selectedUser.UserID);
+                    TeacherListView.Items.Refresh();
+                }
+            }
+        }
+
+        private void DeleteClassButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is KlasseDto selectedClass)
+            {
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {selectedClass.Name}?",
+                                                          "Confirm Delete",
+                                                          MessageBoxButton.YesNo,
+                                                          MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+
+                    db.DeleteKlasse(selectedClass.KlasseId);
                     TeacherListView.Items.Refresh();
                 }
             }

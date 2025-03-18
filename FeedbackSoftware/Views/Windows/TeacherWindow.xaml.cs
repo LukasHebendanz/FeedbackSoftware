@@ -17,6 +17,7 @@ using MySql.Data.MySqlClient;
 using FeedbackSoftware.Classes.Dtos;
 using FeedbackSoftware.Classes;
 using static Mysqlx.Expect.Open.Types.Condition.Types;
+using FeedbackSoftware.Views.Windows;
 
 namespace FeedbackSoftware.Views
 {
@@ -25,6 +26,7 @@ namespace FeedbackSoftware.Views
     /// </summary>
     public partial class TeacherWindow : Window
     {
+        private List<string> klassenNames = new List<string>();
         public TeacherWindow()
         {
             //this.Rolle = rolle;
@@ -39,11 +41,12 @@ namespace FeedbackSoftware.Views
             {
                 IList<ComboBoxItem> list = new List<ComboBoxItem>();
                 list.Add(new ComboBoxItem() { Content = "Bitte auswählen!", Visibility = Visibility.Collapsed });
-                List<string> klassen = new DatabaseManager().GetKlassenNames();
-                foreach(string k in klassen)
+                List<KlasseDto> klassen = new DatabaseManager().GetKlassenNames();
+
+                foreach(KlasseDto k in klassen)
                 {
                     ComboBoxItem item = new ComboBoxItem();
-                    item.Content = k;
+                    item.Content = k.Name;
                     list.Add(item);
                 }
                 return list;
@@ -76,9 +79,13 @@ namespace FeedbackSoftware.Views
             //formularComboBox.ItemsSource = vorgangNamen;
 
             // KlassenIds laden
-            //List<string> klassenNames = dbManager.GetKlassenNames();
-            //klassenNames.Insert(0, "Bitte Klasse Wählen");
-            //classComboBox.ItemsSource = klassenNames;
+            List<KlasseDto> klassen = dbManager.GetKlassenNames();
+            //List<string> klassenNames = [];
+            foreach (KlasseDto klasse in klassen)
+            {
+                this.klassenNames.Add(klasse.Name);
+            }
+            classComboBox.ItemsSource = klassenNames;
 
             // Feedbackarten laden
             //List<string> schluessel = dbManager.GetSchluessel();
@@ -167,6 +174,13 @@ namespace FeedbackSoftware.Views
             {
                 MessageBox.Show("Bitte füllen Sie alle erforderlichen Felder aus.");
             }
+        }
+
+        private void btnAdminWindow_Click(object sender, RoutedEventArgs e)
+        {
+            //MainFrame.NavigationService.Navigate(new AdminPanel());
+            //((MainWindow)Application.Current.MainWindow).MainFrame.NavigationService.Navigate(new AdminPanel());
+
         }
     }
 }

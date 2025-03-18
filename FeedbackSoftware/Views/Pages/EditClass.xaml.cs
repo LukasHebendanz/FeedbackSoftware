@@ -1,4 +1,8 @@
-﻿using System;
+﻿using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Classes;
+using MaterialDesignThemes.Wpf;
+using Mysqlx;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,47 +16,38 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using FeedbackSoftware.Classes;
-using FeedbackSoftware.Classes.Dtos;
+using static MaterialDesignThemes.Wpf.Theme;
 using FeedbackSoftware.Views.Windows;
-using MaterialDesignThemes.Wpf;
-using Mysqlx;
 
 namespace FeedbackSoftware.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for EditUser.xaml
+    /// Interaction logic for EditClass.xaml
     /// </summary>
-    public partial class EditUser : Page
+    public partial class EditClass : Page
     {
         DatabaseManager db = new DatabaseManager();
         public SnackbarMessageQueue MessageQueue { get; }
-        UserDto selectedUser = new UserDto();
+        KlasseDto selectedClass = new KlasseDto();
 
-        public EditUser(UserDto selectedUser)
+        public EditClass(KlasseDto selectedClass)
         {
             InitializeComponent();
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
             Error.MessageQueue = MessageQueue;
-            this.selectedUser = selectedUser;
-            usernameTextBox.Text = selectedUser.Name;
+            this.selectedClass = selectedClass;
+            tbxName.Text = selectedClass.Name;
         }
 
         private void ButtonConfirm_Click(object sender, RoutedEventArgs e)
         {
-                if (passwordBox.Password == confirmPasswordbox.Password)
-                {
-                    this.selectedUser.Name = usernameTextBox.Text;
-                    this.selectedUser.Passwort = passwordBox.Password;
-                    //this.selectedUser.Rolle = Benutzer.Rolle;
-                    db.UpdateUser(this.selectedUser);
-                }
-                else
-                {
-                    Error.MessageQueue.Enqueue("Passwörter stimmen nicht überein!");
-                }
-            
-            
+            this.selectedClass.Name = tbxJahr.Text;
+            this.selectedClass.Jahrgangsstufe = tbxJahrgang.Text;
+            this.selectedClass.Name = tbxName.Text;
+            this.selectedClass.Fach = tbxFach.Text;
+            this.selectedClass.Abteilung = tbxAbteilung.Text;
+            //this.selectedUser.Rolle = Benutzer.Rolle;
+            db.UpdateKlasse(this.selectedClass);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -67,4 +62,3 @@ namespace FeedbackSoftware.Views.Pages
         }
     }
 }
-
