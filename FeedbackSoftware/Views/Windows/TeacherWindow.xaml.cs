@@ -119,11 +119,15 @@ namespace FeedbackSoftware.Views
                     return;
             }
 
-            // Fenster im Read-Only-Modus öffnen
-            if (formWindow != null)
-            {
-                formWindow.ShowDialog(); // Zeigt das Fenster modal an
-            }
+            // Fenster im Read-Only - Modus öffnen
+            //if (formWindow != null)
+            //{
+            //    // Read-Only Status setzen
+            //    if (formWindow is ZielscheibenFormular zielscheibenFormular)
+            //    {
+            //        zielscheibenFormular.IsReadOnly = true;
+            //    }
+            //}
         }
 
         private void SaveFeedbackVorgang_Click(object sender, RoutedEventArgs e)

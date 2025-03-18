@@ -20,11 +20,11 @@ namespace FeedbackSoftware.Views.Pages
     {
         private Dictionary<string, List<CheckBox>> checkBoxGroups = new Dictionary<string, List<CheckBox>>();
 
-        public Formulare()
-        {
-            InitializeComponent();
-            InitializeCheckBoxGroups();
-        }
+        //public Formulare()
+        //{
+        //    InitializeComponent();
+        //    InitializeCheckBoxGroups();
+        //}
 
         private void InitializeCheckBoxGroups()
         {
