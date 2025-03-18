@@ -150,7 +150,7 @@ namespace FeedbackSoftware.Views
                 FeedbackDto newFeedback = new FeedbackDto
                 {
                     KlasseId = dbManager.GetKlassenIdByName(selectedClass),
-                    FeedbackArt = selectedFormularArt,
+                    FormularArt = selectedFormularArt,
                     Name = name
                 };
 

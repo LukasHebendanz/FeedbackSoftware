@@ -318,7 +318,7 @@ namespace FeedbackSoftware.Classes
         #endregion
 
         #region FeedbackVorgang
-        private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FeedbackArt) VALUES (@KlasseID ,@VorgangName, @FeedbackArt)";
+        private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FormularArt) VALUES (@KlasseID ,@VorgangName, @FormularArt)";
 		private const string SQL_SELECT_KEY = "SELECT Schluessel FROM FeedbackVorgang WHERE Schluessel = @Schluessel";
 
 		#region InsertFeedback
@@ -343,7 +343,7 @@ namespace FeedbackSoftware.Classes
             {
                 new MySqlParameter("@KlasseID", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
                 new MySqlParameter("@VorgangName", MySqlDbType.VarChar) { Value = feedbackDto.Name },
-                new MySqlParameter("@FeedbackArt", MySqlDbType.VarChar) { Value = feedbackDto.FeedbackArt }
+                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FormularArt }
             };
 
             return param;

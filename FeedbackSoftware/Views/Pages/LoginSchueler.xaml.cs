@@ -28,17 +28,17 @@ namespace FeedbackSoftware.Views.Pages
 		{
 			if (IsKeyValid())
 			{
-				if (fbDto.FeedbackArt == "Smiley")
+				if (fbDto.FormularArt == "Smiley")
 				{
 					SmileyBogen sb = new SmileyBogen();
 					sb.ShowDialog();
 				}
-				if (fbDto.FeedbackArt == "Zielscheibe")
+				if (fbDto.FormularArt == "Zielscheibe")
 				{
 					ZielscheibenFormular zf = new ZielscheibenFormular();
 					zf.ShowDialog();
 				}
-				if (fbDto.FeedbackArt == "Fragebogen")
+				if (fbDto.FormularArt == "Fragebogen")
 				{
 					FragebogenTabelle ft = new FragebogenTabelle();
 					ft.ShowDialog();
