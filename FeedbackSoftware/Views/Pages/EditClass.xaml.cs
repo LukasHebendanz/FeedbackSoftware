@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static MaterialDesignThemes.Wpf.Theme;
+using FeedbackSoftware.Views.Windows;
 
 namespace FeedbackSoftware.Views.Pages
 {
@@ -47,6 +48,17 @@ namespace FeedbackSoftware.Views.Pages
             this.selectedClass.Abteilung = tbxAbteilung.Text;
             //this.selectedUser.Rolle = Benutzer.Rolle;
             db.UpdateKlasse(this.selectedClass);
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            AdminPanel adminPanel = new AdminPanel();
+            adminPanel.Show();
+
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow?.Close();
+
         }
     }
 }

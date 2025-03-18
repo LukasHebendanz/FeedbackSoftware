@@ -1,5 +1,6 @@
 ﻿using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Views.Windows;
 using MaterialDesignThemes.Wpf;
 using Mysqlx;
 using System;
@@ -77,5 +78,16 @@ namespace FeedbackSoftware.Views.Pages
 
 			return userExists;
 		}
-	}
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            AdminPanel adminPanel = new AdminPanel();
+            adminPanel.Show();
+
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow?.Close();
+
+        }
+    }
 }

@@ -86,5 +86,10 @@ namespace FeedbackSoftware
                 }
             }
         }
+
+        public void SubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

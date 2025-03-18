@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto"/>
             <!-- Abteilung -->
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <!-- Fach -->
             <RowDefinition Height="*"/>
             <!-- Button oder weiterer Platz -->
@@ -111,5 +112,13 @@
                 HorizontalAlignment="Center"
                 Margin="0,20,0,0"
 				Click="Button_Click"/>
+
+        <Button Grid.Row="7" Grid.Column="0"
+        Content="Zurück"
+        Width="75"
+        Height="35"
+        HorizontalAlignment="Center"
+        Margin="0,20,0,0"
+		Click="BackButton_Click"/>
     </Grid>
 </Page>
