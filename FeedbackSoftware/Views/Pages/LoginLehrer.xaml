@@ -40,8 +40,6 @@
                  ToolTip="Passwort eingeben"/>
 		</StackPanel>
 
-		<materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="5" Foreground="Red"/>
-
 		<StackPanel Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,40">
 			<Button x:Name="ButtonRegister" Height="35" Content="Login" Width="120"
             HorizontalAlignment="Center" VerticalAlignment="Center" Click="Login_Click" />

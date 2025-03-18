@@ -60,9 +60,6 @@
             <PasswordBox x:Name="initialPasswordbox" Margin="0,5,0,0" Padding="5" Height="30" Width="250"
                   ToolTip="Initialpasswort vom Support"/>
         </StackPanel>
-        
-        <!-- Error Message -->
-        <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="5" Foreground="Red"/>
 
         <!-- Registrieren Button -->
         <StackPanel Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,40">

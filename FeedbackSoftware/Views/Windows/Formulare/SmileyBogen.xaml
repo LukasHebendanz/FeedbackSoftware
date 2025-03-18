@@ -44,9 +44,6 @@
             <TextBox Name="SadTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
         </Border>
 
-        <!-- Error Message -->
-        <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="2" Grid.Column="2" Foreground="Red"/>
-
         <Button Content="Submit" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="5" Click="SubmitButton_Click"/>
     </Grid>
 

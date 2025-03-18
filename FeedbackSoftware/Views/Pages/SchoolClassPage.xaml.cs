@@ -25,12 +25,9 @@ namespace FeedbackSoftware.Views.Pages
     public partial class SchoolClassPage : Page
     {
         DatabaseManager dbm = new DatabaseManager();
-		public SnackbarMessageQueue MessageQueue { get; }
 		public SchoolClassPage()
         {
             InitializeComponent();
-			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-			Error.MessageQueue = MessageQueue;
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
@@ -50,15 +47,16 @@ namespace FeedbackSoftware.Views.Pages
 					};
 
 					dbm.CreateKlasse(kDto);
+					MessageBox.Show("Klasse wurde erfolgreich erstellt");
 				}
 				else
 				{
-					Error.MessageQueue.Enqueue("Dieser Benutzername existiert bereits!");
+					MessageBox.Show("Dieser Benutzername existiert bereits!");
 				}
 			}
 			else
 			{
-				Error.MessageQueue.Enqueue("Bitte alle Felder ausfüllen!");
+				MessageBox.Show("Bitte alle Felder ausfüllen!");
 			}
 		}		
 

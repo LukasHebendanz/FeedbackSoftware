@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Classes.Helpers;
 using MaterialDesignThemes.Wpf;
 
 namespace FeedbackSoftware.Views
@@ -14,13 +19,11 @@ namespace FeedbackSoftware.Views
     public partial class RegisterAccountPage : Page
     {
         DatabaseManager db = new DatabaseManager();
-        public SnackbarMessageQueue MessageQueue { get; }
+        Helper helper = new Helper();
 
         public RegisterAccountPage()
         {
             InitializeComponent();
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
         }
 
         private const string InitialPasswort = "teacher123";
@@ -43,25 +46,27 @@ namespace FeedbackSoftware.Views
                             Rolle = BenutzerRolle
                         };
 
-                        db.InsertUser(userDto);
-                    }
-                    else
+                        userDto.Passwort = helper.Encrypt(userDto.Passwort);
+						db.InsertUser(userDto);
+						MessageBox.Show("Registrierung war erfolgreich");
+					}
+					else
                     {
-                        Error.MessageQueue.Enqueue("Bitte Eingaben überprüfen!");
+                        MessageBox.Show("Bitte Eingaben überprüfen!");
                     }
                 }
                 else
                 {
-                    Error.MessageQueue.Enqueue("Dieser Benutzername existiert bereits!");
+                    MessageBox.Show("Dieser Benutzername existiert bereits!");
                 }
             }
             else
             {
-                Error.MessageQueue.Enqueue("Bitte alle Felder ausfüllen!");
+                MessageBox.Show("Bitte alle Felder ausfüllen!");
             }
         }
 
-        private bool UserExists(string username)
+		private bool UserExists(string username)
         {
             List<UserDto> userInfos = db.SelectAllUsers();
             bool userExists = false;
