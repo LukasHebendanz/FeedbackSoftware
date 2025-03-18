@@ -416,7 +416,7 @@ namespace FeedbackSoftware.Classes
             {
                 con.Open();
 
-                string sql = "SELECT DISTINCT FeedbackArt FROM FeedbackVorgang"; // Anpassen an deine Datenbankstruktur
+                string sql = "SELECT DISTINCT FormularArt FROM FeedbackVorgang"; // Anpassen an deine Datenbankstruktur
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con))
                 {
@@ -424,7 +424,7 @@ namespace FeedbackSoftware.Classes
                     {
                         while (reader.Read())
                         {
-                            feedbackArt.Add(reader["FeedbackArt"].ToString());
+                            feedbackArt.Add(reader["FormularArt"].ToString());
                         }
                     }
                 }
