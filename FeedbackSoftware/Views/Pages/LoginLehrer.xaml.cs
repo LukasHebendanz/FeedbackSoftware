@@ -12,9 +12,6 @@ namespace FeedbackSoftware.Views.Pages
     /// </summary>
     public partial class LoginLehrer : Page
 	{
-		DatabaseManager dbm = new DatabaseManager();
-		UserDto userDto = new UserDto();
-
 		public SnackbarMessageQueue MessageQueue { get; }
 
 		public LoginLehrer()
@@ -24,11 +21,15 @@ namespace FeedbackSoftware.Views.Pages
 			Error.MessageQueue = MessageQueue;
 		}
 
-		private void Login_Click(object sender, RoutedEventArgs e)
+        DatabaseManager dbm = new DatabaseManager();
+        UserDto userDto = new UserDto();
+        private string Rolle { get; set; }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
             if (IsLoginValid())
             {
-                TeacherWindow tw = new TeacherWindow();
+                TeacherWindow tw = new TeacherWindow(this.Rolle);
                 tw.ShowDialog();
             }
         }
@@ -38,6 +39,10 @@ namespace FeedbackSoftware.Views.Pages
             if (dbm != null)
             {
 				userDto = dbm.SelectUserByPasswortAndUsername(tbxPassword.Password, tbxUsername.Text);
+
+                //Speichern der nötigen Information für Konstruktorübergabe
+                this.Rolle = userDto.Rolle;
+
                 if (userDto.Passwort == tbxPassword.Password && userDto.Name == tbxUsername.Text)
                 {
 					return true;

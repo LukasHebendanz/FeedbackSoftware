@@ -32,22 +32,19 @@ namespace FeedbackSoftware
 
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
             Error.MessageQueue = MessageQueue;
-
-            //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 87;
-            this.FeedbackVorgangName = "Schnitzel";
         }
 
         //Konstruktor beim Erstellen eines Formulars
-        public FragebogenTabelle(int schluessel, string feedbackName)
+        public FragebogenTabelle(string vorgangname)
         {
             InitializeComponent();
 
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
             Error.MessageQueue = MessageQueue;
 
-            this.Schluessel = schluessel;
-            this.FeedbackVorgangName = feedbackName;
+            DatabaseManager dbm = new DatabaseManager();
+            this.Schluessel = dbm.GetKeyByName(vorgangname);
+            this.FeedbackVorgangName = vorgangname;
         }
 
         //Konstruktor zum Auslesen der Data
@@ -58,11 +55,7 @@ namespace FeedbackSoftware
             labelFormularName.Content = formularName;
             btnSave.Visibility = Visibility.Collapsed;
 
-            //Entschlüssle die base64 data
-            byte[] decodedBytes = Convert.FromBase64String(data);
-            string decodedString = Encoding.UTF8.GetString(decodedBytes);
-
-            ReadData(decodedString);
+            ReadData(data);
         }
 
         private int Schluessel { get; set; }

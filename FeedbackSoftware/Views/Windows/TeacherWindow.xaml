@@ -110,6 +110,7 @@
             Grid.Row="4" Grid.Column="1"
             Width="150" Height="25"
             HorizontalAlignment="Left"
-            Margin="20,20,0,1" Grid.RowSpan="2"/>
+            Margin="20,20,0,1" Grid.RowSpan="2"
+            Click="btnFormulareEinsehen_Click"/>
     </Grid>
 </Window>

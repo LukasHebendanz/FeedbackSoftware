@@ -50,14 +50,14 @@ namespace FeedbackSoftware.Views.Pages
 		{
 			if (dbm != null)
 			{
-				fbDto = dbm.SelectKey(tbxSchlüssel.Password);
-				if (fbDto.Schluessel.ToString() == tbxSchlüssel.Password)
+				fbDto = dbm.GetAllFromFeedbackVorgang(tbxSchlüssel.Password);
+				if (fbDto.Schluessel != 0)
 				{
 					return true;
 				}
 				else
 				{
-					Error.MessageQueue.Enqueue("Bitte Eingaben überprüfen!");
+					Error.MessageQueue.Enqueue("Dieser Schlüssel existiert nicht!");
 					return false;
 				}
 			}

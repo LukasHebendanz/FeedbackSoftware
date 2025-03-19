@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation;
 
 namespace FeedbackSoftware.Classes
 {
@@ -279,8 +280,10 @@ namespace FeedbackSoftware.Classes
 
         #region FeedbackVorgang
         private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FormularArt) VALUES (@KlasseID ,@VorgangName, @FormularArt)";
-		private const string SQL_SELECT_KEY = "SELECT Schluessel FROM FeedbackVorgang WHERE Schluessel = @Schluessel";
+        private const string SQL_SELECT_ALL_FROM_FEEDBACKVORGANG = "SELECT Schluessel, VorgangName, FormularArt FROM FeedbackVorgang WHERE Schluessel = @Schluessel";                                                     
         private const string SQL_SELECT_FORMULARART_BY_KEY = "SELECT FormularArt FROM FeedbackVorgang WHERE Schluessel=@Schluessel";
+        private const string SQL_SELECT_ALL_FEEDBACKNAMES = "SELECT DISTINCT VorgangName FROM FeedbackVorgang";
+        private const string SQL_SELECT_SCHLUESSEL_BY_NAME = "SELECT Schluessel FROM FeedbackVorgang WHERE Vorgangname=@Vorgangname";
 
         #region InsertFeedback
         public void InsertFeedback(FeedbackDto feedbackDto)
@@ -344,7 +347,7 @@ namespace FeedbackSoftware.Classes
 
             return schluesselList.FirstOrDefault().ToString();
         }
-        public List<string> GetVorgangName()
+        public List<string> GetVorgangNamen()
         {
             List<string> vorgangName = new List<string>();
 
@@ -352,9 +355,7 @@ namespace FeedbackSoftware.Classes
             {
                 con.Open();
 
-                string sql = "SELECT DISTINCT VorgangName FROM FeedbackVorgang"; // Anpassen an deine Datenbankstruktur
-
-                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_ALL_FEEDBACKNAMES, con))
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -419,8 +420,8 @@ namespace FeedbackSoftware.Classes
         }
 		#endregion
 
-		#region SelectKey
-		public FeedbackDto SelectKey(string schluessel)
+
+		public FeedbackDto GetAllFromFeedbackVorgang(string schluessel)
 		{
 			FeedbackDto fbDto = new FeedbackDto();
 
@@ -428,16 +429,17 @@ namespace FeedbackSoftware.Classes
 			{
 				con.Open();
 
-				using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_KEY, con))
+				using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_ALL_FROM_FEEDBACKVORGANG, con))
 				{
-					MySqlParameter[] param = GetKeyParameter(schluessel);
-					SetKeyParameter(param, cmd);
+                    cmd.Parameters.AddWithValue("@Schluessel", schluessel ?? (object)DBNull.Value);
 
-					using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
 					{
 						while (reader.Read())
 						{
 							fbDto.Schluessel = reader.GetInt32(0);
+                            fbDto.Name = reader.GetString(1);
+                            fbDto.FormularArt = reader.GetString(2);
 						}
 					}
 				}
@@ -445,20 +447,31 @@ namespace FeedbackSoftware.Classes
 
 			return fbDto;
 		}
-		private MySqlParameter[] GetKeyParameter(string schluessel)
-		{
-			MySqlParameter[] param = new MySqlParameter[]
-			{
-				new MySqlParameter("@Schluessel", MySqlDbType.VarChar) { Value = schluessel},
-			};
-			return param;
-		}
+	
+        public int GetKeyByName(string name)
+        {
+            int schluessel = 0;
 
-		private void SetKeyParameter(MySqlParameter[] param, MySqlCommand cmd)
-		{
-			cmd.Parameters.Add(param[0]);
-		}
-        #endregion
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_SCHLUESSEL_BY_NAME, con))
+                {
+                    cmd.Parameters.AddWithValue("@Vorgangname", name);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            schluessel = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return schluessel;
+        }
 
         #region SelectFormularArtByKey
         public string GetFormularArtByKey(string key)

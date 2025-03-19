@@ -4,8 +4,10 @@ using Microsoft.Xaml.Behaviors.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace FeedbackSoftware.Views
 {
@@ -16,17 +18,15 @@ namespace FeedbackSoftware.Views
     {
         public List<Formular> Formularliste { get; set; }
 
-        //public FormularListWindow() { InitializeComponent(); }
+        public FormularListWindow() { InitializeComponent(); }
 
         //Konstruktor zum Formular einsehen in FormularListWindow
-        public FormularListWindow(/*string key*/)
+        public FormularListWindow(int schluessel)
         {
             InitializeComponent();
 
-            string schluessel = "87";
-
             DatabaseManager dbm = new DatabaseManager();
-            List<FormularDto> formulardtos = dbm.SelectAllFormularsByKey(Convert.ToInt32(schluessel)).ToList();
+            List<FormularDto> formulardtos = dbm.SelectAllFormularsByKey(schluessel).ToList();
             this.Formularliste = ConvertToFormular(formulardtos);
 
             DataContext = this;
@@ -58,7 +58,10 @@ namespace FeedbackSoftware.Views
 
             if (sender is Button button && button.CommandParameter is Formular rowData)
             {
-                string data = rowData.Data;
+                //Entschlüssle die base64 data
+                byte[] decodedBytes = Convert.FromBase64String(rowData.Data);
+                string decodedString = Encoding.UTF8.GetString(decodedBytes);
+
                 string name = rowData.FormularName;
                 int schluessel = rowData.Schluessel;
                 string formularArt = dbm.GetFormularArtByKey(Convert.ToString(schluessel));
@@ -68,13 +71,13 @@ namespace FeedbackSoftware.Views
                 switch (formularArt)
                 {
                     case "Smiley":
-                        formWindow = new SmileyBogen(data, name); // Fenster für Smiley
+                        formWindow = new SmileyBogen(decodedString, name); // Fenster für Smiley
                         break;
                     case "Zielscheibe":
                         formWindow = new ZielscheibenFormular(); // Fenster für Zielscheibe
                         break;
                     case "Fragebogen":
-                        formWindow = new FragebogenTabelle(data, name); // Fenster für Fragebogen
+                        formWindow = new FragebogenTabelle(decodedString, name); // Fenster für Fragebogen
                         break;
                     default:
                         MessageBox.Show("Unbekannte Formularart.");

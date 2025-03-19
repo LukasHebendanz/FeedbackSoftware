@@ -30,23 +30,19 @@ namespace FeedbackSoftware
         public SmileyBogen()
         {
             InitializeComponent();
+
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
             Error.MessageQueue = MessageQueue;
 
-            //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 78;
-            this.FeedbackVorgangName = "LukasVernichtung";
+            btnSubmit.Visibility = Visibility.Collapsed;
         }
-
-        public SmileyBogen(int schluessel, string feedbackVorgangName)
+        public SmileyBogen(string vorgangname)
         {
             InitializeComponent();
 
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
-
-            this.Schluessel = schluessel;
-            this.FeedbackVorgangName = feedbackVorgangName;
+            DatabaseManager dbm = new DatabaseManager();
+            this.Schluessel = dbm.GetKeyByName(vorgangname);
+            this.FeedbackVorgangName = vorgangname;
         }
 
         //Konstruktor zum Auslesen der Data
@@ -57,16 +53,11 @@ namespace FeedbackSoftware
             labelFormularName.Content = formularName;
             btnSubmit.Visibility = Visibility.Collapsed;
 
-            //Entschlüssle die base64 data
-            byte[] decodedBytes = Convert.FromBase64String(data);
-            string decodedString = Encoding.UTF8.GetString(decodedBytes);
-
-            ReadData(decodedString);
+            ReadData(data);
         }
 
         private int Schluessel { get; set; }
         private string FeedbackVorgangName { get; set; }
-        private string Data { get; set; }
 
         private string pfadPositiv = ConfigurationManager.AppSettings["Positiv"];
         private string pfadNeutral = ConfigurationManager.AppSettings["Neutral"];
