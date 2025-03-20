@@ -171,10 +171,11 @@ namespace FeedbackSoftware
 
                 DatabaseManager dbm = new DatabaseManager();
                 dbm.InsertFormular(formularDto);
-            }
+				MessageBox.Show("Formular erfolgreich eingereicht");
+			}
             else
             {
-                Error.MessageQueue.Enqueue("Bitte jede Aussage bewerten!");
+                MessageBox.Show("Bitte jede Aussage bewerten!");
             }
         }
 

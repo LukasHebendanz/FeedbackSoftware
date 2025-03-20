@@ -28,8 +28,17 @@ namespace FeedbackSoftware.Views
     public partial class TeacherWindow : Window
     {
         private List<string> klassenNames = new List<string>();
-        public TeacherWindow(string rolle)
+
+		public TeacherWindow()
+		{
+			InitializeComponent();
+			LoadFormData();
+			DataContext = this;
+		}
+
+		public TeacherWindow(string rolle)
         {
+            this.Rolle = rolle;
             InitializeComponent();
 
             if (rolle == "Lehrer")
@@ -40,6 +49,7 @@ namespace FeedbackSoftware.Views
             LoadFormData();
             DataContext = this;
         }
+        public string Rolle { get; set; }
 
         #region Properties
         public IList<ComboBoxItem> KlassenListe
@@ -82,25 +92,16 @@ namespace FeedbackSoftware.Views
         {
             DatabaseManager dbManager = new DatabaseManager();
 
-            // Vorgangsnamen laden
-            //List<string> vorgangNamen = dbManager.GetVorgangName();
-            //formularComboBox.ItemsSource = vorgangNamen;
-
-            // KlassenIds laden
             List<KlasseDto> klassen = dbManager.GetKlassenNames();
-            //List<string> klassenNames = [];
-            //foreach (KlasseDto klasse in klassen)
-            //{
-            //    this.klassenNames.Add(klasse.Name);
-            //}
-            //classComboBox.ItemsSource = klassenNames;
 
-            // Feedbackarten laden
-            //List<string> schluessel = dbManager.GetSchluessel();
-            //einsehenComboBox.ItemsSource = schluessel;
+            foreach (KlasseDto klasse in klassen)
+            {
+                this.klassenNames.Add(klasse.Name);
+            }
+            classComboBox.ItemsSource = klassenNames;
 
             string schluessel = dbManager.GetCurrentSchluessel();
-            SchluesselTextBlock.Text = schluessel;
+			SchluesselTextBox.Text = schluessel;
         }
 
         private void TemplateButton_Click(object sender, RoutedEventArgs e)
@@ -196,5 +197,11 @@ namespace FeedbackSoftware.Views
                 flw.ShowDialog();
             }
         }
-    }
+
+		private void einsehenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DatabaseManager dbm = new DatabaseManager();
+			SchluesselTextBox.Text = dbm.GetKeyByName(einsehenComboBox.Text).ToString();
+		}
+	}
 }

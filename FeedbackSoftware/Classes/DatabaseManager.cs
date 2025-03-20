@@ -1,4 +1,5 @@
 ﻿using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Classes.Helpers;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace FeedbackSoftware.Classes
 {
     public class DatabaseManager
     {
+        Helper helper = new Helper();
+
         public static MySqlConnection GetConnection()
         {
             return new MySqlConnection(connectionstring);
@@ -25,8 +28,9 @@ namespace FeedbackSoftware.Classes
 
         private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
         private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
-        private const string SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME = "SELECT Passwort, Benutzername, Rolle FROM User WHERE Passwort = @Passwort AND Benutzername = @Benutzername";
-        
+		private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Passwort, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
+		private const string SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME = "SELECT Passwort, Benutzername, Rolle FROM User WHERE Passwort = @Passwort AND Benutzername = @Benutzername";
+
 		#region InsertUser
 		public void InsertUser(UserDto userdto)
 		{
@@ -137,60 +141,100 @@ namespace FeedbackSoftware.Classes
                 }
             }
         }
-        #endregion
+		#endregion
 
-        #endregion
+		#endregion
 
-        #region SelectUserByPasswortAndUsername
-        public UserDto SelectUserByPasswortAndUsername(string passwort, string username)
-        {
-            UserDto user = new UserDto();
+		#region SelectUserInfoByUsername
+		public UserDto SelectUserInfoByUsername(string username)
+		{
+			UserDto user = new UserDto();
 
-            using (MySqlConnection con = GetConnection())
-            {
-                con.Open();
+			using (MySqlConnection con = GetConnection())
+			{
+				con.Open();
 
-                using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME, con))
-                {
-                    MySqlParameter[] param = GetPasswortAndBenutzernameParameter(passwort, username);
-                    SetLoginParameter(param, cmd);
+				using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_USER_BY_USERNAME, con))
+				{
+					MySqlParameter param = GetBenutzernameParameter(username);
+					SetBenutzernameParameter(param, cmd);
 
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            user.Passwort = reader.GetString(0);
-                            user.Name = reader.GetString(1);
-                            user.Rolle = reader.GetString(2);
-                        }
-                    }
-                }
-            }
+					using (MySqlDataReader reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							user.UserID = reader.GetInt32(0);
+							user.Passwort = reader.GetString(1);
+							user.Name = reader.GetString(2);
+							user.Rolle = reader.GetString(3);
+						}
+					}
+				}
+			}
 
-            return user;
-        }
+			return user;
+		}
 
-        private MySqlParameter[] GetPasswortAndBenutzernameParameter(string passwort, string username)
-        {
-            MySqlParameter[] param = new MySqlParameter[]
-            {
-                new MySqlParameter("@Passwort", MySqlDbType.VarChar) {Value = passwort },
-                new MySqlParameter("@Benutzername", MySqlDbType.VarChar) {Value = username},
-            };
-            return param;
-        }
+		private MySqlParameter GetBenutzernameParameter(string username)
+		{
+			return new MySqlParameter("@Benutzername", MySqlDbType.VarChar) { Value = username };
+		}
 
-        private void SetLoginParameter(MySqlParameter[] param, MySqlCommand cmd)
-        {
-            cmd.Parameters.Add(param[0]);
-            cmd.Parameters.Add(param[1]);
-        }
-        #endregion
+		private void SetBenutzernameParameter(MySqlParameter param, MySqlCommand cmd)
+		{
+			cmd.Parameters.Add(param);
+		}
+		#endregion
 
-        #endregion
+		#region SelectUserByPasswortAndUsername
+		//public UserDto SelectUserByPasswortAndUsername(string passwort, string username)
+		//{
+		//    UserDto user = new UserDto();
 
-        #region Formular
-        private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
+		//    using (MySqlConnection con = GetConnection())
+		//    {
+		//        con.Open();
+
+		//        using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME, con))
+		//        {
+		//            MySqlParameter[] param = GetPasswortAndBenutzernameParameter(passwort, username);
+		//            SetLoginParameter(param, cmd);
+
+		//            using (MySqlDataReader reader = cmd.ExecuteReader())
+		//            {
+		//                while (reader.Read())
+		//                {
+		//                    user.Passwort = reader.GetString(0);
+		//                    user.Name = reader.GetString(1);
+		//                    user.Rolle = reader.GetString(2);
+		//                }
+		//            }
+		//        }
+		//    }
+
+		//    return user;
+		//}
+
+		//private MySqlParameter[] GetPasswortAndBenutzernameParameter(string passwort, string username)
+		//{
+		//    MySqlParameter[] param = new MySqlParameter[]
+		//    {
+		//        new MySqlParameter("@Passwort", MySqlDbType.VarChar) {Value = passwort },
+		//        new MySqlParameter("@Benutzername", MySqlDbType.VarChar) {Value = username},
+		//    };
+		//    return param;
+		//}
+
+		//private void SetLoginParameter(MySqlParameter[] param, MySqlCommand cmd)
+		//{
+		//    cmd.Parameters.Add(param[0]);
+		//    cmd.Parameters.Add(param[1]);
+		//}
+		#endregion
+		#endregion
+
+		#region Formular
+		private const string SQL_INSERT_FORMULAR = "INSERT INTO Formular (Schluessel, Data, Name) VALUES (@Schluessel, @Data, @Name)";
 		private const string SQL_SELECT_ALL_FORMULARS_BY_KEY = "SELECT FormularID, Schluessel, Data, Name FROM Formular WHERE Schluessel = @Schluessel";
 
 		#region InsertFormular
@@ -276,7 +320,53 @@ namespace FeedbackSoftware.Classes
 		}
         #endregion
 
-        #endregion
+		#region SelectUserByPasswortAndUsername
+		//public UserDto SelectUserByPasswortAndUsername(string passwort, string username)
+		//{
+  //          //passwort = helper.Encrypt(passwort);
+		//	UserDto user = new UserDto();
+
+		//	using (MySqlConnection con = GetConnection())
+		//	{
+		//		con.Open();
+
+		//		using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME, con))
+		//		{
+		//			MySqlParameter[] param = GetPasswortAndBenutzernameParameter(passwort, username);
+		//			SetLoginParameter(param, cmd);
+
+		//			using (MySqlDataReader reader = cmd.ExecuteReader())
+		//			{
+  //                      while (reader.Read())
+  //                      {
+  //                          user.Passwort = reader.GetString(0);
+		//					user.Name = reader.GetString(1);
+		//					user.Rolle = reader.GetString(2);
+		//				}
+		//			}
+		//		}
+		//	}
+
+		//	return user;
+		//}
+
+		//private MySqlParameter[] GetPasswortAndBenutzernameParameter(string passwort, string username)
+		//{
+		//	MySqlParameter[] param = new MySqlParameter[]
+		//	{
+		//		new MySqlParameter("@Passwort", MySqlDbType.VarChar) {Value = passwort },
+		//		new MySqlParameter("@Benutzername", MySqlDbType.VarChar) {Value = username},
+		//	};
+		//	return param;
+		//}
+
+		//private void SetLoginParameter(MySqlParameter[] param, MySqlCommand cmd)
+		//{
+		//	cmd.Parameters.Add(param[0]);
+		//	cmd.Parameters.Add(param[1]);
+		//}
+		#endregion
+		#endregion
 
         #region FeedbackVorgang
         private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FormularArt) VALUES (@KlasseID ,@VorgangName, @FormularArt)";

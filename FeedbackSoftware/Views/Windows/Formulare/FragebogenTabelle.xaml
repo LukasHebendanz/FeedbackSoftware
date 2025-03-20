@@ -263,8 +263,6 @@
             </Button.Template>
         </Button>
 
-        <!-- Error Message -->
-        <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="26" Grid.Column="7" Foreground="Red" />
         <Label x:Name="labelFormularName" Content="" HorizontalAlignment="Left" VerticalAlignment="Center" Width="119"/>
     </Grid>
 </Window>

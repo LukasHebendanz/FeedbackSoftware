@@ -15,13 +15,9 @@ namespace FeedbackSoftware.Views.Pages
 		DatabaseManager dbm = new DatabaseManager();
 		FeedbackDto fbDto = new FeedbackDto();
 
-		public SnackbarMessageQueue MessageQueue { get; }
-
 		public LoginSchueler()
         {
             InitializeComponent();
-			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-			Error.MessageQueue = MessageQueue;
 		}
 
 		private void LoginS_Click(object sender, RoutedEventArgs e)
@@ -57,7 +53,7 @@ namespace FeedbackSoftware.Views.Pages
 				}
 				else
 				{
-					Error.MessageQueue.Enqueue("Dieser Schlüssel existiert nicht!");
+					MessageBox.Show("Bitte Eingaben überprüfen!");
 					return false;
 				}
 			}

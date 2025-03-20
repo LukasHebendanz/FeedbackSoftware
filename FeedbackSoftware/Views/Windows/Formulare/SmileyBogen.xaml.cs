@@ -98,12 +98,12 @@ namespace FeedbackSoftware
             try
             {
                 dbm.InsertFormular(formularDto);
-                Error.MessageQueue.Enqueue("Formular erfolgreich eingereicht");
-            }
+				MessageBox.Show("Formular erfolgreich eingereicht");
+			}
             catch (Exception)
             {
-                Error.MessageQueue.Enqueue("Dieser Schlüssel existiert nicht!");
-            }
+				MessageBox.Show("Dieser Schlüssel existiert nicht!");
+			}
         }
 
         private string GetDataAsBase64(XDocument xdoc)
