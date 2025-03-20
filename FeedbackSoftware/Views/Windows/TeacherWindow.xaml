@@ -81,12 +81,12 @@
             Click="SaveFeedbackVorgang_Click"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0"
-               Text="Automatisch Erstellter Schlüssel:"
+               Text="Ausgewählter Schlüssel:"
                HorizontalAlignment="Right"
                Margin="0,20,10,0"/>
         <!-- Schlüsselwert -->
-        <TextBlock Grid.Row="3" Grid.Column="1"
-           x:Name="SchluesselTextBlock"
+        <TextBox Grid.Row="3" Grid.Column="1"
+           x:Name="SchluesselTextBox"
            FontWeight="Bold"
            HorizontalAlignment="Left"
            Margin="10,20,0,0"/>
@@ -102,6 +102,7 @@
               Width="150" Height="25"
               HorizontalAlignment="Right"
               Margin="0,0,10,0"
+		      SelectionChanged="einsehenComboBox_SelectionChanged"
               ItemsSource="{Binding SchluesselListe, Mode=OneTime}"/>
         <!-- Button Formulare einsehen -->
         <Button
