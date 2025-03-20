@@ -201,7 +201,7 @@ namespace FeedbackSoftware.Views
 		private void einsehenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			DatabaseManager dbm = new DatabaseManager();
-			SchluesselTextBox.Text = dbm.GetKeyByName(einsehenComboBox.Text).ToString();
+			SchluesselTextBox.Text = dbm.GetSchluesselByName(einsehenComboBox.Text).ToString();
 		}
 	}
 }
