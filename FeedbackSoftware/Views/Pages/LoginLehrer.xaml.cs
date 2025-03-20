@@ -25,16 +25,14 @@ namespace FeedbackSoftware.Views.Pages
 			InitializeComponent();
 		}
 
-        DatabaseManager dbm = new DatabaseManager();
-        UserDto userDto = new UserDto();
-        private string Rolle { get; set; }
-
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            encryptedpassword = helper.Encrypt(tbxPassword.Password);
+			var userInfo = dbm.SelectUserInfoByUsername(tbxUsername.Text);
+			userDto.Rolle = userInfo.Rolle;
+			encryptedpassword = helper.Encrypt(tbxPassword.Password);
             if (IsLoginValid())
             {
-                TeacherWindow tw = new TeacherWindow(this.Rolle);
+                TeacherWindow tw = new TeacherWindow(userInfo.Rolle);
                 tw.ShowDialog();
             }
         }
@@ -44,8 +42,8 @@ namespace FeedbackSoftware.Views.Pages
             if (dbm != null)
             {
                 bool passwordokay = true;
-				
                 var userInfo = dbm.SelectUserInfoByUsername(tbxUsername.Text);
+				
                 string savedPasswordHash = userInfo.Passwort;
 				byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
 				byte[] salt = new byte[16];

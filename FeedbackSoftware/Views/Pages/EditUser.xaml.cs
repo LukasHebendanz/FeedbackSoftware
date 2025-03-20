@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Classes.Helpers;
 using FeedbackSoftware.Views.Windows;
 using MaterialDesignThemes.Wpf;
 using Mysqlx;
@@ -27,6 +28,7 @@ namespace FeedbackSoftware.Views.Pages
     {
         DatabaseManager db = new DatabaseManager();
         UserDto selectedUser = new UserDto();
+        Helper helper = new Helper();
 
         public EditUser(UserDto selectedUser)
         {
@@ -40,8 +42,9 @@ namespace FeedbackSoftware.Views.Pages
                 if (passwordBox.Password == confirmPasswordbox.Password)
                 {
                     this.selectedUser.Name = usernameTextBox.Text;
-                    this.selectedUser.Passwort = passwordBox.Password;
                     //this.selectedUser.Rolle = Benutzer.Rolle;
+                    var encPW = helper.Encrypt(passwordBox.Password);
+                    this.selectedUser.Passwort = encPW;
                     db.UpdateUser(this.selectedUser);
                     MessageBox.Show("User erfolgreich bearbeitet");
 				}
