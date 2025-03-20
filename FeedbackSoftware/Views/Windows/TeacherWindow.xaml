@@ -81,7 +81,7 @@
             Click="SaveFeedbackVorgang_Click"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0"
-               Text="Automatisch Erstellter Schlüssel:"
+               Text="Ausgewählter Schlüssel:"
                HorizontalAlignment="Right"
                Margin="0,20,10,0"/>
         <!-- Schlüsselwert -->
