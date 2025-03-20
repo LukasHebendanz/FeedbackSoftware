@@ -110,7 +110,7 @@ namespace FeedbackSoftware.Views
             //einsehenComboBox.ItemsSource = schluessel;
 
             string schluessel = dbManager.GetCurrentSchluessel();
-            SchluesselTextBlock.Text = schluessel;
+			SchluesselTextBox.Text = schluessel;
         }
 
         private void TemplateButton_Click(object sender, RoutedEventArgs e)
@@ -206,5 +206,11 @@ namespace FeedbackSoftware.Views
                 flw.ShowDialog();
             }
         }
-    }
+
+		private void einsehenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DatabaseManager dbm = new DatabaseManager();
+			SchluesselTextBox.Text = dbm.GetKeyByName(einsehenComboBox.Text).ToString();
+		}
+	}
 }
