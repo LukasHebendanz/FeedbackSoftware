@@ -74,22 +74,13 @@ namespace FeedbackSoftware.Views
         {
             DatabaseManager dbManager = new DatabaseManager();
 
-            // Vorgangsnamen laden
-            //List<string> vorgangNamen = dbManager.GetVorgangName();
-            //formularComboBox.ItemsSource = vorgangNamen;
-
-            // KlassenIds laden
             List<KlasseDto> klassen = dbManager.GetKlassenNames();
-            //List<string> klassenNames = [];
+
             foreach (KlasseDto klasse in klassen)
             {
                 this.klassenNames.Add(klasse.Name);
             }
             classComboBox.ItemsSource = klassenNames;
-
-            // Feedbackarten laden
-            //List<string> schluessel = dbManager.GetSchluessel();
-            //einsehenComboBox.ItemsSource = schluessel;
 
             string schluessel = dbManager.GetCurrentSchluessel();
             SchluesselTextBlock.Text = schluessel;

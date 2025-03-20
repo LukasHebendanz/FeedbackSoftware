@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeedbackSoftware"
         mc:Ignorable="d"
-        Title="ZielscheibenFormular" MinHeight="750" MinWidth="800">
+        Title="ZielscheibenFormular" MinHeight="850" MinWidth="1200">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -77,6 +78,15 @@
             <CheckBox x:Name="UntenRechts1_00" Content="" Canvas.Left="330" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20"/>
         </Canvas>
 
-        <Button x:Name="halma" Content="Submit" Width="100" Height="30" Margin="600,637,100,67" Click="SubmitButton_Click"/>
+        <Button x:Name="halma" Content="Submit" Width="100" Height="30" Margin="952,712,193,192" Click="SubmitButton_Click"/>
+        <TextBlock TextWrapping="Wrap" Width="130" Text="Ich lerne im Unterricht viel." FontSize="24" Margin="470,99,715,739"/>
+        <TextBlock TextWrapping="Wrap" Width="205" Text="Die Lehrkraft hat ein großes Hintergrundwissen." FontSize="24" Margin="727,77,383,739"/>
+        <TextBlock TextWrapping="Wrap" Width="200" Text="Die Lehrkraft ist immer gut vorbereitet." FontSize="24" Margin="957,279,158,539"/>
+        <TextBlock TextWrapping="Wrap" Width="200" Text="Die Lehrkraft zeigt Interesse an ihren Schülern." FontSize="24" Margin="957,544,158,269"/>
+        <TextBlock TextWrapping="Wrap" Width="250" Text="Die Lehrkraft sorgt für ein gutes Lernklima in der Klasse." FontSize="24" Margin="757,746,358,54"/>
+        <TextBlock TextWrapping="Wrap" Width="200" Text="Die Notengebung ist fair und nachvollziehbar." FontSize="24" Margin="383,746,732,54"/>
+        <TextBlock TextWrapping="Wrap" Width="200" Text="Ich konnte dem Unterricht immer gut folgen." FontSize="24" Margin="177,544,938,269"/>
+        <TextBlock TextWrapping="Wrap" Width="200" Text="Der Unterricht wird vielfältig gestaltet." FontSize="24" Margin="197,279,918,539"/>
     </Grid>
+    </ScrollViewer>
 </Window>
