@@ -32,13 +32,13 @@ namespace FeedbackSoftware
         }
 
         // Konstruktor beim Ausfüllen eines Formulars
-        public FragebogenTabelle(string vorgangname)
+        public FragebogenTabelle(string schluessel)
         {
             InitializeComponent();
 
             DatabaseManager dbm = new DatabaseManager();
-            this.Schluessel = dbm.GetSchluesselByName(vorgangname);
-            this.FeedbackVorgangName = vorgangname;
+            this.FeedbackVorgangName = dbm.GetNameBySchluessel(schluessel);
+            this.Schluessel = Convert.ToInt32(schluessel);
         }
 
         //Konstruktor zum Auslesen der Data
