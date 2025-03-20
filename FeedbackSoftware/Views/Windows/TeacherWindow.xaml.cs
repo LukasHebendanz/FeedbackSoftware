@@ -121,13 +121,13 @@ namespace FeedbackSoftware.Views
             switch (selectedFormular)
             {
                 case "Smiley":
-                    formWindow = new SmileyBogen(einsehenComboBox.Text); // Fenster für Smiley
+                    formWindow = new SmileyBogen(); // Fenster für Smiley
                     break;
                 case "Zielscheibe":
                     formWindow = new ZielscheibenFormular(); // Fenster für Zielscheibe
                     break;
                 case "Fragebogen":
-                    formWindow = new FragebogenTabelle(einsehenComboBox.Text); // Fenster für Fragebogen
+                    formWindow = new FragebogenTabelle(); // Fenster für Fragebogen
                     break;
                 default:
                     MessageBox.Show("Unbekannte Formularart.");
@@ -192,7 +192,7 @@ namespace FeedbackSoftware.Views
 
             if (einsehenComboBox.SelectedIndex > 0)
             {
-                FormularListWindow flw = new FormularListWindow(dbm.GetKeyByName(einsehenComboBox.Text));
+                FormularListWindow flw = new FormularListWindow(dbm.GetSchluesselByName(einsehenComboBox.Text));
                 flw.ShowDialog();
             }
         }

@@ -26,23 +26,22 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class SmileyBogen : Window
     {
-        public SnackbarMessageQueue MessageQueue { get; }
+        // Konstruktor beim Öffnen des Templates
         public SmileyBogen()
         {
             InitializeComponent();
 
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
-
-            btnSubmit.Visibility = Visibility.Collapsed;
+            DisableCheckboxes();
         }
-        public SmileyBogen(string vorgangname)
+
+        //Konstruktor beim Ausfüllen eines Formulars
+        public SmileyBogen(string schluessel)
         {
             InitializeComponent();
 
             DatabaseManager dbm = new DatabaseManager();
-            this.Schluessel = dbm.GetKeyByName(vorgangname);
-            this.FeedbackVorgangName = vorgangname;
+            this.FeedbackVorgangName = dbm.GetNameBySchluessel(schluessel);
+            this.Schluessel = Convert.ToInt32(schluessel);
         }
 
         //Konstruktor zum Auslesen der Data
@@ -54,6 +53,8 @@ namespace FeedbackSoftware
             btnSubmit.Visibility = Visibility.Collapsed;
 
             ReadData(data);
+
+            DisableCheckboxes();
         }
 
         private int Schluessel { get; set; }
@@ -117,7 +118,7 @@ namespace FeedbackSoftware
         private string GetFormularName()
         {
             DatabaseManager dbm = new DatabaseManager();
-            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
+            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count;
             string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
@@ -136,6 +137,19 @@ namespace FeedbackSoftware
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private void DisableCheckboxes()
+        {
+            btnSubmit.Visibility = Visibility.Collapsed;
+
+            foreach (var child in questionGrid.Children)
+            {
+                if (child is TextBox textbox)
+                {
+                    textbox.IsHitTestVisible = false;
+                }
             }
         }
     }

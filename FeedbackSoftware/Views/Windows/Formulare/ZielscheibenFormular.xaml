@@ -8,10 +8,11 @@
         Title="ZielscheibenFormular" MinHeight="750" MinWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="133*"/>
+            <ColumnDefinition Width="667*"/>
         </Grid.ColumnDefinitions>
         <!-- Zielscheibe -->
-        <Canvas x:Name="nuckelan" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600">
+        <Canvas x:Name="circle" HorizontalAlignment="Left" VerticalAlignment="Center" Width="600" Height="600" Grid.ColumnSpan="2" Margin="100,0,0,0">
             <!-- Kreise mit richtigem Ursprungspunkt -->
             <Ellipse Width="600" Height="600" Stroke="Black" StrokeThickness="3" Canvas.Left="0" Canvas.Top="0" />
             <Ellipse Width="480" Height="480" Stroke="Black" StrokeThickness="3" Canvas.Left="60" Canvas.Top="60" />
@@ -77,6 +78,7 @@
             <CheckBox x:Name="UntenRechts1_00" Content="" Canvas.Left="330" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20"/>
         </Canvas>
 
-        <Button x:Name="halma" Content="Submit" Width="100" Height="30" Margin="600,637,100,67" Click="SubmitButton_Click"/>
+        <Button x:Name="btnSave" Content="Speichern" Width="100" Height="30" Margin="467,637,100,67" Click="SaveButton_Click" Grid.Column="1"/>
+        <Label x:Name="labelFormularName" HorizontalAlignment="Left" Margin="58,32,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="129" RenderTransformOrigin="0.439,-0.696" Height="30"/>
     </Grid>
 </Window>

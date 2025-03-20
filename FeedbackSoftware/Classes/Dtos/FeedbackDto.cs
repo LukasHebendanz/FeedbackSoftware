@@ -12,5 +12,6 @@ namespace FeedbackSoftware.Classes.Dtos
         public int KlasseId { get; set; }
         public string Name { get; set; }
         public string FormularArt { get; set; }
+        public int UserID { get; set; }
     }
 }

@@ -284,6 +284,7 @@ namespace FeedbackSoftware.Classes
         private const string SQL_SELECT_FORMULARART_BY_KEY = "SELECT FormularArt FROM FeedbackVorgang WHERE Schluessel=@Schluessel";
         private const string SQL_SELECT_ALL_FEEDBACKNAMES = "SELECT DISTINCT VorgangName FROM FeedbackVorgang";
         private const string SQL_SELECT_SCHLUESSEL_BY_NAME = "SELECT Schluessel FROM FeedbackVorgang WHERE Vorgangname=@Vorgangname";
+        private const string SQL_SELECT_NAME_BY_SCHLUESSEL = "SELECT Vorgangname FROM FeedbackVorgang WHERE Schluessel=@Schluessel";
 
         #region InsertFeedback
         public void InsertFeedback(FeedbackDto feedbackDto)
@@ -448,7 +449,7 @@ namespace FeedbackSoftware.Classes
 			return fbDto;
 		}
 	
-        public int GetKeyByName(string name)
+        public int GetSchluesselByName(string name)
         {
             int schluessel = 0;
 
@@ -472,6 +473,32 @@ namespace FeedbackSoftware.Classes
 
             return schluessel;
         }
+
+        public string GetNameBySchluessel(string schluessel)
+        {
+            string name = String.Empty;
+
+            using (MySqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(SQL_SELECT_NAME_BY_SCHLUESSEL, con))
+                {
+                    cmd.Parameters.AddWithValue("@Schluessel", schluessel);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            name = reader.GetString(0);
+                        }
+                    }
+                }
+            }
+
+            return name;
+        }
+
 
         #region SelectFormularArtByKey
         public string GetFormularArtByKey(string key)

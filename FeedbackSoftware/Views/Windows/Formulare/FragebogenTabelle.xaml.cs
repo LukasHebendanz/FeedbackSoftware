@@ -24,26 +24,20 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class FragebogenTabelle : Window
     {
-        public SnackbarMessageQueue MessageQueue { get; }
-
+        // Konstruktor beim Öffnen des Templates
         public FragebogenTabelle()
         {
             InitializeComponent();
-
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
+            DisableCheckboxes();
         }
 
-        //Konstruktor beim Erstellen eines Formulars
+        // Konstruktor beim Ausfüllen eines Formulars
         public FragebogenTabelle(string vorgangname)
         {
             InitializeComponent();
 
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
-
             DatabaseManager dbm = new DatabaseManager();
-            this.Schluessel = dbm.GetKeyByName(vorgangname);
+            this.Schluessel = dbm.GetSchluesselByName(vorgangname);
             this.FeedbackVorgangName = vorgangname;
         }
 
@@ -56,6 +50,8 @@ namespace FeedbackSoftware
             btnSave.Visibility = Visibility.Collapsed;
 
             ReadData(data);
+
+            DisableCheckboxes();
         }
 
         private int Schluessel { get; set; }
@@ -185,7 +181,7 @@ namespace FeedbackSoftware
         private string GetFormularName()
         {
             DatabaseManager dbm = new DatabaseManager();
-            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
+            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count;
             string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
@@ -228,7 +224,19 @@ namespace FeedbackSoftware
 
                 row++;
             }
+        }
 
+        private void DisableCheckboxes()
+        {
+            btnSave.Visibility = Visibility.Collapsed;
+
+            foreach (var child in questionGrid.Children)
+            {
+                if (child is CheckBox checkbox)
+                {
+                    checkbox.IsHitTestVisible = false;
+                }
+            }
         }
     }
 }
