@@ -45,6 +45,16 @@ namespace FeedbackSoftware.Views.Windows
             //MainFrame.NavigationService.Navigate(new SchoolClassPage());
             this.Content = new SchoolClassPage();
         }
+        private void Backbutton_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+
+            parentWindow?.Hide();
+
+            TeacherWindow tw = new TeacherWindow();
+            tw.ShowDialog();
+            parentWindow?.Close();
+        }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {

@@ -1,5 +1,6 @@
 ﻿using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Views.Pages;
 using Microsoft.Xaml.Behaviors.Media;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,15 @@ namespace FeedbackSoftware.Views
                 }
                 formWindow.ShowDialog();
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow?.Hide();
+            TeacherWindow tw = new TeacherWindow();
+            tw.ShowDialog();
+            parentWindow?.Close();
         }
     }
 }
