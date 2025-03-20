@@ -25,12 +25,16 @@ namespace FeedbackSoftware.Views.Pages
 			InitializeComponent();
 		}
 
-		private void Login_Click(object sender, RoutedEventArgs e)
+        DatabaseManager dbm = new DatabaseManager();
+        UserDto userDto = new UserDto();
+        private string Rolle { get; set; }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
             encryptedpassword = helper.Encrypt(tbxPassword.Password);
             if (IsLoginValid())
             {
-				TeacherWindow tw = new TeacherWindow(userDto.Rolle);
+                TeacherWindow tw = new TeacherWindow(this.Rolle);
                 tw.ShowDialog();
             }
         }

@@ -18,6 +18,7 @@ using FeedbackSoftware.Classes.Dtos;
 using FeedbackSoftware.Classes;
 using static Mysqlx.Expect.Open.Types.Condition.Types;
 using FeedbackSoftware.Views.Windows;
+using System.Printing;
 
 namespace FeedbackSoftware.Views
 {
@@ -39,11 +40,18 @@ namespace FeedbackSoftware.Views
         {
             this.Rolle = rolle;
             InitializeComponent();
+
+            if (rolle == "Lehrer")
+            {
+                btnAdminWindow.Visibility = Visibility.Collapsed;
+            }
+
             LoadFormData();
             DataContext = this;
         }
         public string Rolle { get; set; }
 
+        #region Properties
         public IList<ComboBoxItem> KlassenListe
         {
             get
@@ -67,8 +75,8 @@ namespace FeedbackSoftware.Views
             get
             {
                 IList<ComboBoxItem> list = new List<ComboBoxItem>();
-                list.Add(new ComboBoxItem() { Content = "VorgangName", Visibility = Visibility.Collapsed });
-                List<string> klassen = new DatabaseManager().GetVorgangName();
+                list.Add(new ComboBoxItem() { Content = "Bitte VorgangName auswählen", Visibility = Visibility.Collapsed });
+                List<string> klassen = new DatabaseManager().GetVorgangNamen();
                 foreach (string k in klassen)
                 {
                     ComboBoxItem item = new ComboBoxItem();
@@ -78,6 +86,7 @@ namespace FeedbackSoftware.Views
                 return list;
             }
         }
+        #endregion
 
         private void LoadFormData()
         {
@@ -90,11 +99,11 @@ namespace FeedbackSoftware.Views
             // KlassenIds laden
             List<KlasseDto> klassen = dbManager.GetKlassenNames();
             //List<string> klassenNames = [];
-            foreach (KlasseDto klasse in klassen)
-            {
-                this.klassenNames.Add(klasse.Name);
-            }
-            classComboBox.ItemsSource = klassenNames;
+            //foreach (KlasseDto klasse in klassen)
+            //{
+            //    this.klassenNames.Add(klasse.Name);
+            //}
+            //classComboBox.ItemsSource = klassenNames;
 
             // Feedbackarten laden
             //List<string> schluessel = dbManager.GetSchluessel();
@@ -122,13 +131,13 @@ namespace FeedbackSoftware.Views
             switch (selectedFormular)
             {
                 case "Smiley":
-                    formWindow = new SmileyBogen(); // Fenster für Smiley
+                    formWindow = new SmileyBogen(einsehenComboBox.Text); // Fenster für Smiley
                     break;
                 case "Zielscheibe":
                     formWindow = new ZielscheibenFormular(); // Fenster für Zielscheibe
                     break;
                 case "Fragebogen":
-                    formWindow = new FragebogenTabelle(); // Fenster für Fragebogen
+                    formWindow = new FragebogenTabelle(einsehenComboBox.Text); // Fenster für Fragebogen
                     break;
                 default:
                     MessageBox.Show("Unbekannte Formularart.");
@@ -184,7 +193,18 @@ namespace FeedbackSoftware.Views
         private void btnAdminWindow_Click(object sender, RoutedEventArgs e)
         {
             AdminPanel adminPanel = new AdminPanel();
-            adminPanel.Show();
+            adminPanel.ShowDialog();
+        }
+
+        private void btnFormulareEinsehen_Click(object sender, RoutedEventArgs e)
+        {
+            DatabaseManager dbm = new DatabaseManager();
+
+            if (einsehenComboBox.SelectedIndex > 0)
+            {
+                FormularListWindow flw = new FormularListWindow(dbm.GetKeyByName(einsehenComboBox.Text));
+                flw.ShowDialog();
+            }
         }
     }
 }

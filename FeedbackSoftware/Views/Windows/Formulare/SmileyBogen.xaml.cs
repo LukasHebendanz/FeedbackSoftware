@@ -30,16 +30,26 @@ namespace FeedbackSoftware
         {
             InitializeComponent();
 
-            //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 77;
-            this.FeedbackVorgangName = "babsisTraumwelt";
+            btnSubmit.Visibility = Visibility.Collapsed;
         }
-
-        public SmileyBogen(int schluessel, string feedbackVorgangName)
+        public SmileyBogen(string vorgangname)
         {
             InitializeComponent();
-            this.Schluessel = schluessel;
-            this.FeedbackVorgangName = feedbackVorgangName;
+
+            DatabaseManager dbm = new DatabaseManager();
+            this.Schluessel = dbm.GetKeyByName(vorgangname);
+            this.FeedbackVorgangName = vorgangname;
+        }
+
+        //Konstruktor zum Auslesen der Data
+        public SmileyBogen(string data, string formularName)
+        {
+            InitializeComponent();
+
+            labelFormularName.Content = formularName;
+            btnSubmit.Visibility = Visibility.Collapsed;
+
+            ReadData(data);
         }
 
         private int Schluessel { get; set; }
@@ -104,9 +114,25 @@ namespace FeedbackSoftware
         {
             DatabaseManager dbm = new DatabaseManager();
             int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
-            string formularNumber = Convert.ToString(formularCount+1);
+            string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
+        }
+
+        private void ReadData(string data)
+        {
+            XDocument xDoc = XDocument.Parse(data);
+
+            try
+            {
+                GoodTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Positiv"]).Value;
+                midTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Neutral"]).Value;
+                SadTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Negativ"]).Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

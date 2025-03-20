@@ -27,7 +27,7 @@
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="☹" FontSize="30"/>
         </Border>
-        
+
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="😐" FontSize="30"/>
         </Border>
@@ -35,7 +35,7 @@
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0">
             <TextBox Name="GoodTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
         </Border>
-        
+
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1">
             <TextBox Name="midTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
         </Border>
@@ -44,7 +44,8 @@
             <TextBox Name="SadTextBox" FontSize="16" Padding="5" TextWrapping="Wrap" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
         </Border>
 
-        <Button Content="Submit" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="5" Click="SubmitButton_Click"/>
+        <Button x:Name="btnSubmit" Content="Erstellen" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="5" Click="SubmitButton_Click"/>
+        <Label x:Name="labelFormularName" Content="" HorizontalAlignment="Left" Margin="0,-70,0,0" VerticalAlignment="Top" Width="116"/>
     </Grid>
 
 
