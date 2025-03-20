@@ -1,4 +1,5 @@
 ﻿using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Classes.Helpers;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace FeedbackSoftware.Classes
 {
     public class DatabaseManager
     {
+        Helper helper = new Helper();
+
         public static MySqlConnection GetConnection()
         {
             return new MySqlConnection(connectionstring);
@@ -23,10 +26,10 @@ namespace FeedbackSoftware.Classes
         #region User
 
         private const string SQL_INSERT_USER = "INSERT INTO `User` (Passwort, Benutzername, Rolle) VALUES (@Passwort, @Benutzername, @Rolle)";
-        private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
+        private const string SQL_SELECT_USER_BY_USERNAME = "SELECT ID, Passwort, Benutzername, Rolle FROM User WHERE Benutzername = @Benutzername";
         private const string SQL_SELECT_ALL_USERS = "SELECT ID, Benutzername, Rolle FROM User";
         private const string SQL_SELECT_USER_BY_PASSWORT_AND_USERNAME = "SELECT Passwort, Benutzername, Rolle FROM User WHERE Passwort = @Passwort AND Benutzername = @Benutzername";
-        
+
 		#region InsertUser
 		public void InsertUser(UserDto userdto)
 		{
@@ -81,9 +84,10 @@ namespace FeedbackSoftware.Classes
                     {
                         while (reader.Read())
                         {
-                            user.UserID = reader.GetInt32(0);
-                            user.Name = reader.GetString(1);
-                            user.Rolle = reader.GetString(2);
+                            user.UserID = reader.GetInt32(0);                            
+                            user.Passwort = reader.GetString(1);
+							user.Name = reader.GetString(2);
+							user.Rolle = reader.GetString(3);
                         }
                     }
                 }
@@ -273,6 +277,7 @@ namespace FeedbackSoftware.Classes
 		#region SelectUserByPasswortAndUsername
 		public UserDto SelectUserByPasswortAndUsername(string passwort, string username)
 		{
+            //passwort = helper.Encrypt(passwort);
 			UserDto user = new UserDto();
 
 			using (MySqlConnection con = GetConnection())
@@ -286,9 +291,9 @@ namespace FeedbackSoftware.Classes
 
 					using (MySqlDataReader reader = cmd.ExecuteReader())
 					{
-						while (reader.Read())
-						{
-							user.Passwort = reader.GetString(0);
+                        while (reader.Read())
+                        {
+                            user.Passwort = reader.GetString(0);
 							user.Name = reader.GetString(1);
 							user.Rolle = reader.GetString(2);
 						}
@@ -314,8 +319,8 @@ namespace FeedbackSoftware.Classes
 			cmd.Parameters.Add(param[0]);
 			cmd.Parameters.Add(param[1]);
 		}
-        #endregion
-        #endregion
+		#endregion
+		#endregion
 
         #region FeedbackVorgang
         private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FormularArt) VALUES (@KlasseID ,@VorgangName, @FormularArt)";

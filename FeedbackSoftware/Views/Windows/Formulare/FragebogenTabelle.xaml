@@ -262,8 +262,5 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-
-        <!-- Error Message -->
-        <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="26" Grid.Column="7" Foreground="Red" />
     </Grid>
 </Window>

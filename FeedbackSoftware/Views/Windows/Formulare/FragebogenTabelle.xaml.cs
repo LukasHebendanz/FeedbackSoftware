@@ -24,14 +24,9 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class FragebogenTabelle : Window
     {
-        public SnackbarMessageQueue MessageQueue { get; }
-
         public FragebogenTabelle()
         {
             InitializeComponent();
-
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
 
             //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
             this.Schluessel = 72;
@@ -40,10 +35,6 @@ namespace FeedbackSoftware
         public FragebogenTabelle(int schluessel, string feedbackName)
         {
             InitializeComponent();
-
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
-
             this.Schluessel = schluessel;
             this.FeedbackVorgangName = feedbackName;
         }
@@ -165,10 +156,11 @@ namespace FeedbackSoftware
 
                 DatabaseManager dbm = new DatabaseManager();
                 dbm.InsertFormular(formularDto);
-            }
+				MessageBox.Show("Formular erfolgreich eingereicht");
+			}
             else
             {
-                Error.MessageQueue.Enqueue("Bitte jede Aussage bewerten!");
+                MessageBox.Show("Bitte jede Aussage bewerten!");
             }
         }
 

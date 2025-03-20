@@ -26,14 +26,11 @@ namespace FeedbackSoftware.Views.Pages
     public partial class EditUser : Page
     {
         DatabaseManager db = new DatabaseManager();
-        public SnackbarMessageQueue MessageQueue { get; }
         UserDto selectedUser = new UserDto();
 
         public EditUser(UserDto selectedUser)
         {
             InitializeComponent();
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
             this.selectedUser = selectedUser;
             usernameTextBox.Text = selectedUser.Name;
         }
@@ -46,10 +43,11 @@ namespace FeedbackSoftware.Views.Pages
                     this.selectedUser.Passwort = passwordBox.Password;
                     //this.selectedUser.Rolle = Benutzer.Rolle;
                     db.UpdateUser(this.selectedUser);
-                }
+                    MessageBox.Show("User erfolgreich bearbeitet");
+				}
                 else
                 {
-                    Error.MessageQueue.Enqueue("Passwörter stimmen nicht überein!");
+                    MessageBox.Show("Passwörter stimmen nicht überein!");
                 }
             
             

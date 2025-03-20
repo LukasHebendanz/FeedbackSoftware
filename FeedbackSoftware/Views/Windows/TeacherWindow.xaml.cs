@@ -27,13 +27,22 @@ namespace FeedbackSoftware.Views
     public partial class TeacherWindow : Window
     {
         private List<string> klassenNames = new List<string>();
-        public TeacherWindow()
+
+		public TeacherWindow()
+		{
+			InitializeComponent();
+			LoadFormData();
+			DataContext = this;
+		}
+
+		public TeacherWindow(string rolle)
         {
-            //this.Rolle = rolle;
+            this.Rolle = rolle;
             InitializeComponent();
             LoadFormData();
             DataContext = this;
         }
+        public string Rolle { get; set; }
 
         public IList<ComboBoxItem> KlassenListe
         {

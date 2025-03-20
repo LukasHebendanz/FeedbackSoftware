@@ -26,25 +26,18 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class SmileyBogen : Window
     {
-        public SnackbarMessageQueue MessageQueue { get; }
         public SmileyBogen()
         {
             InitializeComponent();
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
 
             //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 72;
-            this.FeedbackVorgangName = "Salamig";
+            this.Schluessel = 77;
+            this.FeedbackVorgangName = "babsisTraumwelt";
         }
 
         public SmileyBogen(int schluessel, string feedbackVorgangName)
         {
             InitializeComponent();
-
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
-
             this.Schluessel = schluessel;
             this.FeedbackVorgangName = feedbackVorgangName;
         }
@@ -90,12 +83,12 @@ namespace FeedbackSoftware
             try
             {
                 dbm.InsertFormular(formularDto);
-                Error.MessageQueue.Enqueue("Formular erfolgreich eingereicht");
-            }
+				MessageBox.Show("Formular erfolgreich eingereicht");
+			}
             catch (Exception)
             {
-                Error.MessageQueue.Enqueue("Dieser Schlüssel existiert nicht!");
-            }
+				MessageBox.Show("Dieser Schlüssel existiert nicht!");
+			}
         }
 
         private string GetDataAsBase64(XDocument xdoc)
