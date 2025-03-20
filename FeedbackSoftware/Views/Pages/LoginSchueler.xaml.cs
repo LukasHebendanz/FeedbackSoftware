@@ -15,13 +15,9 @@ namespace FeedbackSoftware.Views.Pages
 		DatabaseManager dbm = new DatabaseManager();
 		FeedbackDto fbDto = new FeedbackDto();
 
-		public SnackbarMessageQueue MessageQueue { get; }
-
 		public LoginSchueler()
         {
             InitializeComponent();
-			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-			Error.MessageQueue = MessageQueue;
 		}
 
 		private void LoginS_Click(object sender, RoutedEventArgs e)
@@ -50,14 +46,14 @@ namespace FeedbackSoftware.Views.Pages
 		{
 			if (dbm != null)
 			{
-				fbDto = dbm.SelectKey(tbxSchlüssel.Password);
-				if (fbDto.Schluessel.ToString() == tbxSchlüssel.Password)
+				fbDto = dbm.GetAllFromFeedbackVorgang(tbxSchlüssel.Password);
+				if (fbDto.Schluessel != 0)
 				{
 					return true;
 				}
 				else
 				{
-					Error.MessageQueue.Enqueue("Bitte Eingaben überprüfen!");
+					MessageBox.Show("Bitte Eingaben überprüfen!");
 					return false;
 				}
 			}

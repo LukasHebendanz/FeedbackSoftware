@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Classes.Helpers;
 using FeedbackSoftware.Views.Windows;
 using MaterialDesignThemes.Wpf;
 using Mysqlx;
@@ -26,14 +27,12 @@ namespace FeedbackSoftware.Views.Pages
     public partial class EditUser : Page
     {
         DatabaseManager db = new DatabaseManager();
-        public SnackbarMessageQueue MessageQueue { get; }
         UserDto selectedUser = new UserDto();
+        Helper helper = new Helper();
 
         public EditUser(UserDto selectedUser)
         {
             InitializeComponent();
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
             this.selectedUser = selectedUser;
             usernameTextBox.Text = selectedUser.Name;
         }
@@ -43,13 +42,15 @@ namespace FeedbackSoftware.Views.Pages
                 if (passwordBox.Password == confirmPasswordbox.Password)
                 {
                     this.selectedUser.Name = usernameTextBox.Text;
-                    this.selectedUser.Passwort = passwordBox.Password;
                     //this.selectedUser.Rolle = Benutzer.Rolle;
+                    var encPW = helper.Encrypt(passwordBox.Password);
+                    this.selectedUser.Passwort = encPW;
                     db.UpdateUser(this.selectedUser);
-                }
+                    MessageBox.Show("User erfolgreich bearbeitet");
+				}
                 else
                 {
-                    Error.MessageQueue.Enqueue("Passwörter stimmen nicht überein!");
+                    MessageBox.Show("Passwörter stimmen nicht überein!");
                 }
             
             

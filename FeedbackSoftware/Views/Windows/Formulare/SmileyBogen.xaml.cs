@@ -26,27 +26,30 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class SmileyBogen : Window
     {
-        public SnackbarMessageQueue MessageQueue { get; }
         public SmileyBogen()
         {
             InitializeComponent();
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
 
-            //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 72;
-            this.FeedbackVorgangName = "Salamig";
+            btnSubmit.Visibility = Visibility.Collapsed;
         }
-
-        public SmileyBogen(int schluessel, string feedbackVorgangName)
+        public SmileyBogen(string vorgangname)
         {
             InitializeComponent();
 
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
+            DatabaseManager dbm = new DatabaseManager();
+            this.Schluessel = dbm.GetKeyByName(vorgangname);
+            this.FeedbackVorgangName = vorgangname;
+        }
 
-            this.Schluessel = schluessel;
-            this.FeedbackVorgangName = feedbackVorgangName;
+        //Konstruktor zum Auslesen der Data
+        public SmileyBogen(string data, string formularName)
+        {
+            InitializeComponent();
+
+            labelFormularName.Content = formularName;
+            btnSubmit.Visibility = Visibility.Collapsed;
+
+            ReadData(data);
         }
 
         private int Schluessel { get; set; }
@@ -90,12 +93,12 @@ namespace FeedbackSoftware
             try
             {
                 dbm.InsertFormular(formularDto);
-                Error.MessageQueue.Enqueue("Formular erfolgreich eingereicht");
-            }
+				MessageBox.Show("Formular erfolgreich eingereicht");
+			}
             catch (Exception)
             {
-                Error.MessageQueue.Enqueue("Dieser Schlüssel existiert nicht!");
-            }
+				MessageBox.Show("Dieser Schlüssel existiert nicht!");
+			}
         }
 
         private string GetDataAsBase64(XDocument xdoc)
@@ -111,9 +114,25 @@ namespace FeedbackSoftware
         {
             DatabaseManager dbm = new DatabaseManager();
             int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
-            string formularNumber = Convert.ToString(formularCount+1);
+            string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
+        }
+
+        private void ReadData(string data)
+        {
+            XDocument xDoc = XDocument.Parse(data);
+
+            try
+            {
+                GoodTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Positiv"]).Value;
+                midTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Neutral"]).Value;
+                SadTextBox.Text = xDoc.XPathSelectElement(ConfigurationManager.AppSettings["Negativ"]).Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

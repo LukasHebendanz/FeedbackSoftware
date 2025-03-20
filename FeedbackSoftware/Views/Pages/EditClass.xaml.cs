@@ -27,14 +27,11 @@ namespace FeedbackSoftware.Views.Pages
     public partial class EditClass : Page
     {
         DatabaseManager db = new DatabaseManager();
-        public SnackbarMessageQueue MessageQueue { get; }
         KlasseDto selectedClass = new KlasseDto();
 
         public EditClass(KlasseDto selectedClass)
         {
             InitializeComponent();
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
             this.selectedClass = selectedClass;
             tbxName.Text = selectedClass.Name;
         }
@@ -48,17 +45,16 @@ namespace FeedbackSoftware.Views.Pages
             this.selectedClass.Abteilung = tbxAbteilung.Text;
             //this.selectedUser.Rolle = Benutzer.Rolle;
             db.UpdateKlasse(this.selectedClass);
-        }
+            MessageBox.Show("Klasse erfolgreich bearbeitet");
+		}
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-
             AdminPanel adminPanel = new AdminPanel();
             adminPanel.Show();
 
             Window parentWindow = Window.GetWindow(this);
             parentWindow?.Close();
-
         }
     }
 }

@@ -24,28 +24,31 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class FragebogenTabelle : Window
     {
-        public SnackbarMessageQueue MessageQueue { get; }
-
         public FragebogenTabelle()
         {
             InitializeComponent();
 
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
-
-            //Später im unteren Konstruktor durch Übergabe, vorläufiger Test
-            this.Schluessel = 72;
-            this.FeedbackVorgangName = "Salamig";
         }
-        public FragebogenTabelle(int schluessel, string feedbackName)
+
+        //Konstruktor beim Erstellen eines Formulars
+        public FragebogenTabelle(string vorgangname)
         {
             InitializeComponent();
 
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-            Error.MessageQueue = MessageQueue;
+            DatabaseManager dbm = new DatabaseManager();
+            this.Schluessel = dbm.GetKeyByName(vorgangname);
+            this.FeedbackVorgangName = vorgangname;
+        }
 
-            this.Schluessel = schluessel;
-            this.FeedbackVorgangName = feedbackName;
+        //Konstruktor zum Auslesen der Data
+        public FragebogenTabelle(string data, string formularName)
+        {
+            InitializeComponent();
+
+            labelFormularName.Content = formularName;
+            btnSave.Visibility = Visibility.Collapsed;
+
+            ReadData(data);
         }
 
         private int Schluessel { get; set; }
@@ -165,10 +168,11 @@ namespace FeedbackSoftware
 
                 DatabaseManager dbm = new DatabaseManager();
                 dbm.InsertFormular(formularDto);
-            }
+				MessageBox.Show("Formular erfolgreich eingereicht");
+			}
             else
             {
-                Error.MessageQueue.Enqueue("Bitte jede Aussage bewerten!");
+                MessageBox.Show("Bitte jede Aussage bewerten!");
             }
         }
 
@@ -179,6 +183,46 @@ namespace FeedbackSoftware
             string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
+        }
+
+        private void ReadData(string data)
+        {
+            XDocument xdoc = XDocument.Parse(data);
+            IEnumerable<XElement> elements = xdoc.Root?.Elements();
+
+            if (elements == null)
+                return;
+
+            int row = 2; // Starte mit der ersten Checkbox Reihe
+
+            foreach (XElement element in elements)
+            {
+                string value = element.Value;
+                if (int.TryParse(value, out int note))
+                {
+                    if (row == 8)
+                    {
+                        row++;
+                    }
+                    // Den Namen der Checkbox für diese Reihe und Note generieren
+                    // D2 stellt sicher dass es ab 02 beginnt
+                    string checkBoxName = $"Note{note}Row{row:D2}";
+
+                    // Die Checkbox mit dem passenden Namen in questionGrid suchen
+                    CheckBox? targetCheckBox = questionGrid.Children
+                        .OfType<CheckBox>()
+                        .FirstOrDefault(cb => cb.Name == checkBoxName);
+
+                    // Falls die Checkbox gefunden wurde, auf angehakt setzen
+                    if (targetCheckBox != null)
+                    {
+                        targetCheckBox.IsChecked = true;
+                    }
+                }
+
+                row++;
+            }
+
         }
     }
 }

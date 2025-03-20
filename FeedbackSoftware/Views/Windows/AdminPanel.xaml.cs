@@ -32,8 +32,7 @@ namespace FeedbackSoftware.Views.Windows
             InitializeComponent();
             TeacherList = db.SelectAllUsers();
             ClassList = db.GetKlassenNames();
-            DataContext = this;
-            
+            DataContext = this;            
         }
 
         private void NavigateToCreateTeacherPage_Click(object sender, RoutedEventArgs e)
@@ -81,6 +80,7 @@ namespace FeedbackSoftware.Views.Windows
                 if (result == MessageBoxResult.Yes)
                 {
                     db.DeleteUser(selectedUser.UserID);
+                    MessageBox.Show("User erfolgreich gelöscht");
                     TeacherListView.Items.Refresh();
                 }
             }
@@ -98,7 +98,8 @@ namespace FeedbackSoftware.Views.Windows
                 {
 
                     db.DeleteKlasse(selectedClass.KlasseId);
-                    TeacherListView.Items.Refresh();
+					MessageBox.Show("Klasse erfolgreich gelöscht");
+					TeacherListView.Items.Refresh();
                 }
             }
         }

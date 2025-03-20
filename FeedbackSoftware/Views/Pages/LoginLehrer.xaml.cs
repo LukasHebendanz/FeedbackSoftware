@@ -1,7 +1,10 @@
 ﻿using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
+using FeedbackSoftware.Classes.Helpers;
 using MaterialDesignThemes.Wpf;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,21 +17,22 @@ namespace FeedbackSoftware.Views.Pages
 	{
 		DatabaseManager dbm = new DatabaseManager();
 		UserDto userDto = new UserDto();
-
-		public SnackbarMessageQueue MessageQueue { get; }
+        Helper helper = new Helper();
+        string encryptedpassword = "";
 
 		public LoginLehrer()
         {
 			InitializeComponent();
-			MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
-			Error.MessageQueue = MessageQueue;
 		}
 
-		private void Login_Click(object sender, RoutedEventArgs e)
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
+			var userInfo = dbm.SelectUserInfoByUsername(tbxUsername.Text);
+			userDto.Rolle = userInfo.Rolle;
+			encryptedpassword = helper.Encrypt(tbxPassword.Password);
             if (IsLoginValid())
             {
-                TeacherWindow tw = new TeacherWindow();
+                TeacherWindow tw = new TeacherWindow(userInfo.Rolle);
                 tw.ShowDialog();
             }
         }
@@ -37,14 +41,25 @@ namespace FeedbackSoftware.Views.Pages
 		{
             if (dbm != null)
             {
-				userDto = dbm.SelectUserByPasswortAndUsername(tbxPassword.Password, tbxUsername.Text);
-                if (userDto.Passwort == tbxPassword.Password && userDto.Name == tbxUsername.Text)
+                bool passwordokay = true;
+                var userInfo = dbm.SelectUserInfoByUsername(tbxUsername.Text);
+				
+                string savedPasswordHash = userInfo.Passwort;
+				byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
+				byte[] salt = new byte[16];
+				Array.Copy(hashBytes, 0, salt, 0, 16);
+				var pbkdf2 = new Rfc2898DeriveBytes(tbxPassword.Password, salt, 100000);
+				byte[] hash = pbkdf2.GetBytes(20);
+				for (int i = 0; i < 20; i++)
+					if (hashBytes[i + 16] != hash[i])
+						passwordokay = false;
+				if (passwordokay == true && userInfo.Name == tbxUsername.Text)
                 {
 					return true;
 				}
                 else
                 {
-                    Error.MessageQueue.Enqueue("Bitte Eingaben überprüfen!");
+                    MessageBox.Show("Bitte Eingaben überprüfen!");
                     return false;
                 }
 			}
@@ -53,5 +68,5 @@ namespace FeedbackSoftware.Views.Pages
                 return false;
             }
         }
-    }
+	}
 }

@@ -103,8 +103,6 @@
                  Margin="0,0,0,10"
                  x:Name="tbxFach"/>
 
-        <materialDesign:Snackbar x:Name="Error" MessageQueue="{Binding MessageQueue}" Grid.Row="5" Foreground="Red"/>
-
         <!-- Button zum Erstellen der Klasse -->
         <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                 Content="Bestätigen"
