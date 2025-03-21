@@ -36,7 +36,7 @@
 
         <!-- Überschrift -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                   Text="Klasse erstellen"
+                   Text="Klasse bearbeiten"
                    FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
