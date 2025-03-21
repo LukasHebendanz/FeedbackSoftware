@@ -36,9 +36,10 @@ namespace FeedbackSoftware.Views
 			DataContext = this;
 		}
 
-		public TeacherWindow(string rolle)
+		public TeacherWindow(string rolle, int userId)
         {
-            this.Rolle = rolle;
+            this.UserID = userId;
+
             InitializeComponent();
 
             if (rolle == "Lehrer")
@@ -49,7 +50,6 @@ namespace FeedbackSoftware.Views
             LoadFormData();
             DataContext = this;
         }
-        public string Rolle { get; set; }
 
         #region Properties
         public IList<ComboBoxItem> KlassenListe
@@ -86,6 +86,8 @@ namespace FeedbackSoftware.Views
                 return list;
             }
         }
+
+        private int UserID { get; set; }
         #endregion
 
         private void LoadFormData()
@@ -122,13 +124,13 @@ namespace FeedbackSoftware.Views
             switch (selectedFormular)
             {
                 case "Smiley":
-                    formWindow = new SmileyBogen(einsehenComboBox.Text); // Fenster für Smiley
+                    formWindow = new SmileyBogen(); // Fenster für Smiley
                     break;
                 case "Zielscheibe":
                     formWindow = new ZielscheibenFormular(); // Fenster für Zielscheibe
                     break;
                 case "Fragebogen":
-                    formWindow = new FragebogenTabelle(einsehenComboBox.Text); // Fenster für Fragebogen
+                    formWindow = new FragebogenTabelle(); // Fenster für Fragebogen
                     break;
                 default:
                     MessageBox.Show("Unbekannte Formularart.");
@@ -161,7 +163,7 @@ namespace FeedbackSoftware.Views
                     KlasseId = dbManager.GetKlassenIdByName(selectedClass),
                     FormularArt = selectedFormularArt,
                     Name = name,
-                    UserID = 1
+                    UserID = this.UserID
                 };
 
                 // 3. In die Datenbank speichern
@@ -205,7 +207,7 @@ namespace FeedbackSoftware.Views
                 Window parentWindow = Window.GetWindow(this);
 
                 parentWindow?.Hide();
-                FormularListWindow flw = new FormularListWindow(dbm.GetKeyByName(einsehenComboBox.Text));
+                FormularListWindow flw = new FormularListWindow(dbm.GetSchluesselByName(einsehenComboBox.Text));
                 flw.ShowDialog();
                 parentWindow?.Close();
             }
@@ -221,8 +223,13 @@ namespace FeedbackSoftware.Views
 
         private void einsehenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			DatabaseManager dbm = new DatabaseManager();
-			SchluesselTextBox.Text = dbm.GetKeyByName(einsehenComboBox.Text).ToString();
-		}
+            if (e.AddedItems.Count > 0)
+            {
+                string selectedName = e.AddedItems[0].ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
+
+                DatabaseManager dbm = new DatabaseManager();
+                SchluesselTextBox.Text = dbm.GetSchluesselByName(selectedName).ToString();
+            }
+        }
 	}
 }

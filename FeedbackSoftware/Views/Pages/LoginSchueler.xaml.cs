@@ -26,17 +26,17 @@ namespace FeedbackSoftware.Views.Pages
 			{
 				if (fbDto.FormularArt == "Smiley")
 				{
-					SmileyBogen sb = new SmileyBogen();
+					SmileyBogen sb = new SmileyBogen(tbxSchlüssel.Password);
 					sb.ShowDialog();
 				}
 				if (fbDto.FormularArt == "Zielscheibe")
 				{
-					ZielscheibenFormular zf = new ZielscheibenFormular();
+					ZielscheibenFormular zf = new ZielscheibenFormular(tbxSchlüssel.Password);
 					zf.ShowDialog();
 				}
 				if (fbDto.FormularArt == "Fragebogen")
 				{
-					FragebogenTabelle ft = new FragebogenTabelle();
+					FragebogenTabelle ft = new FragebogenTabelle(tbxSchlüssel.Password);
 					ft.ShowDialog();
 				}
 			}

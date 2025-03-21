@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SmileyBogen" Height="450" Width="800">
 
-    <Grid Background="White" Width="400" Height="250">
+    <Grid x:Name="questionGrid" Background="White" Width="400" Height="250">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>

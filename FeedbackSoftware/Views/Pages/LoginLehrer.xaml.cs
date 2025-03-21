@@ -39,7 +39,7 @@ namespace FeedbackSoftware.Views.Pages
                 parentWindow?.Hide();
 
                 // Open the new window
-                TeacherWindow tw = new TeacherWindow(userInfo.Rolle);
+                TeacherWindow tw = new TeacherWindow(userInfo.Rolle, userInfo.UserID);
                 tw.ShowDialog(); // Show the new window modally
 
                 // Now close the login window after TeacherWindow is closed

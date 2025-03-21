@@ -75,7 +75,7 @@ namespace FeedbackSoftware.Views
                         formWindow = new SmileyBogen(decodedString, name); // Fenster für Smiley
                         break;
                     case "Zielscheibe":
-                        formWindow = new ZielscheibenFormular(); // Fenster für Zielscheibe
+                        formWindow = new ZielscheibenFormular(decodedString, name); // Fenster für Zielscheibe
                         break;
                     case "Fragebogen":
                         formWindow = new FragebogenTabelle(decodedString, name); // Fenster für Fragebogen

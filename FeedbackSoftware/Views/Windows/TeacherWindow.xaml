@@ -86,11 +86,11 @@
                HorizontalAlignment="Right"
                Margin="0,20,10,0"/>
         <!-- Schlüsselwert -->
-        <TextBox Grid.Row="3" Grid.Column="1"
+        <TextBlock Grid.Row="3" Grid.Column="1"
            x:Name="SchluesselTextBox"
            FontWeight="Bold"
            HorizontalAlignment="Left"
-           Margin="10,20,0,0"/>
+           Margin="10,20,0,0" Height="18" VerticalAlignment="Top"/>
 
         <!-- Separator -->
         <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"

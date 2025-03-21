@@ -26,19 +26,22 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class SmileyBogen : Window
     {
+        // Konstruktor beim Öffnen des Templates
         public SmileyBogen()
         {
             InitializeComponent();
 
-            btnSubmit.Visibility = Visibility.Collapsed;
+            DisableTextboxes();
         }
-        public SmileyBogen(string vorgangname)
+
+        //Konstruktor beim Ausfüllen eines Formulars
+        public SmileyBogen(string schluessel)
         {
             InitializeComponent();
 
             DatabaseManager dbm = new DatabaseManager();
-            this.Schluessel = dbm.GetKeyByName(vorgangname);
-            this.FeedbackVorgangName = vorgangname;
+            this.FeedbackVorgangName = dbm.GetNameBySchluessel(schluessel);
+            this.Schluessel = Convert.ToInt32(schluessel);
         }
 
         //Konstruktor zum Auslesen der Data
@@ -50,6 +53,8 @@ namespace FeedbackSoftware
             btnSubmit.Visibility = Visibility.Collapsed;
 
             ReadData(data);
+
+            DisableTextboxes();
         }
 
         private int Schluessel { get; set; }
@@ -113,7 +118,7 @@ namespace FeedbackSoftware
         private string GetFormularName()
         {
             DatabaseManager dbm = new DatabaseManager();
-            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
+            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count;
             string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
@@ -132,6 +137,22 @@ namespace FeedbackSoftware
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private void DisableTextboxes()
+        {
+            btnSubmit.Visibility = Visibility.Collapsed;
+
+            foreach (var child in questionGrid.Children)
+            {
+                if (child is Border border)
+                {
+                    if (border.Child is TextBox textbox)
+                    {
+                        textbox.IsReadOnly = true;
+                    }
+                }
             }
         }
     }

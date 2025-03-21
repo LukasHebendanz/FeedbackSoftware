@@ -24,20 +24,21 @@ namespace FeedbackSoftware
     /// </summary>
     public partial class FragebogenTabelle : Window
     {
+        // Konstruktor beim Öffnen des Templates
         public FragebogenTabelle()
         {
             InitializeComponent();
-
+            DisableCheckboxes();
         }
 
-        //Konstruktor beim Erstellen eines Formulars
-        public FragebogenTabelle(string vorgangname)
+        // Konstruktor beim Ausfüllen eines Formulars
+        public FragebogenTabelle(string schluessel)
         {
             InitializeComponent();
 
             DatabaseManager dbm = new DatabaseManager();
-            this.Schluessel = dbm.GetKeyByName(vorgangname);
-            this.FeedbackVorgangName = vorgangname;
+            this.FeedbackVorgangName = dbm.GetNameBySchluessel(schluessel);
+            this.Schluessel = Convert.ToInt32(schluessel);
         }
 
         //Konstruktor zum Auslesen der Data
@@ -49,6 +50,8 @@ namespace FeedbackSoftware
             btnSave.Visibility = Visibility.Collapsed;
 
             ReadData(data);
+
+            DisableCheckboxes();
         }
 
         private int Schluessel { get; set; }
@@ -179,7 +182,7 @@ namespace FeedbackSoftware
         private string GetFormularName()
         {
             DatabaseManager dbm = new DatabaseManager();
-            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count != null ? dbm.SelectAllFormularsByKey(this.Schluessel).Count : 0;
+            int formularCount = dbm.SelectAllFormularsByKey(this.Schluessel).Count;
             string formularNumber = Convert.ToString(formularCount + 1);
 
             return $"{this.FeedbackVorgangName}_{formularNumber}";
@@ -222,7 +225,19 @@ namespace FeedbackSoftware
 
                 row++;
             }
+        }
 
+        private void DisableCheckboxes()
+        {
+            btnSave.Visibility = Visibility.Collapsed;
+
+            foreach (var child in questionGrid.Children)
+            {
+                if (child is CheckBox checkbox)
+                {
+                    checkbox.IsHitTestVisible = false;
+                }
+            }
         }
     }
 }
