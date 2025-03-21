@@ -36,9 +36,10 @@ namespace FeedbackSoftware.Views
 			DataContext = this;
 		}
 
-		public TeacherWindow(string rolle)
+		public TeacherWindow(string rolle, int userId)
         {
-            this.Rolle = rolle;
+            this.UserID = userId;
+
             InitializeComponent();
 
             if (rolle == "Lehrer")
@@ -49,7 +50,6 @@ namespace FeedbackSoftware.Views
             LoadFormData();
             DataContext = this;
         }
-        public string Rolle { get; set; }
 
         #region Properties
         public IList<ComboBoxItem> KlassenListe
@@ -86,6 +86,8 @@ namespace FeedbackSoftware.Views
                 return list;
             }
         }
+
+        private int UserID { get; set; }
         #endregion
 
         private void LoadFormData()
@@ -161,7 +163,7 @@ namespace FeedbackSoftware.Views
                     KlasseId = dbManager.GetKlassenIdByName(selectedClass),
                     FormularArt = selectedFormularArt,
                     Name = name,
-                    UserID = 1
+                    UserID = this.UserID
                 };
 
                 // 3. In die Datenbank speichern
