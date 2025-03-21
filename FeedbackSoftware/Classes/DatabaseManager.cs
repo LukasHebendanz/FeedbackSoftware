@@ -602,11 +602,30 @@ namespace FeedbackSoftware.Classes
                 con.Open();
 
                 // SQL-Anweisung zum Einfügen eines neuen Nutzers
-                string sql = "INSERT INTO Klasse (Name, Jahrgangsstufe, Schuljahr, Abteilung, Fach) VALUES (@Name, @Jahrgangsstufe, @Schuljahr, @Abteilung, @Fach)";
+                string sql = "INSERT INTO Klasse (KlasseID, Name, Jahrgangsstufe, Schuljahr, Abteilung, Fach) VALUES (@KlasseID, @Name, @Jahrgangsstufe, @Schuljahr, @Abteilung, @Fach)";
+                
+                string getMaxIdQuery = "SELECT COALESCE(MAX(KlasseID), 0) + 1 FROM Klasse";
+
+                int newId;
+                using (MySqlCommand cmd = new MySqlCommand(getMaxIdQuery, con))
+                {
+                    object result = (long)cmd.ExecuteScalar(); 
+                    if (result != null && result != DBNull.Value)
+                    {
+                        newId = Convert.ToInt32((long)result);
+                    }
+                    else
+                    {
+                        newId = 1; // Default value if table is empty
+                    }
+                }
+
+
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con))
                 {
                     // Parameter setzen, um SQL-Injection zu vermeiden
+                    cmd.Parameters.AddWithValue("@KlasseID", newId);
                     cmd.Parameters.AddWithValue("@Name", newClass.Name);
                     cmd.Parameters.AddWithValue("@Jahrgangsstufe", newClass.Jahrgangsstufe);
                     cmd.Parameters.AddWithValue("@Schuljahr", newClass.Schuljahr);
