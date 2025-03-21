@@ -13,6 +13,9 @@
                 FontSize="16"
                 FontWeight="Bold" Grid.RowSpan="2"/>
         <!-- Formular Tabelle -->
+        <Button Content="Back"
+HorizontalAlignment="Right" VerticalAlignment="Top" 
+Margin="10" Click="BackButton_Click"/>
         <DataGrid x:Name="formularDataGrid"
                ItemsSource="{Binding Formularliste}"
                AutoGenerateColumns="False"

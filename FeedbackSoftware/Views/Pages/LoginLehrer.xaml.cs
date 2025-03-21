@@ -1,6 +1,7 @@
 ﻿using FeedbackSoftware.Classes;
 using FeedbackSoftware.Classes.Dtos;
 using FeedbackSoftware.Classes.Helpers;
+using FeedbackSoftware.Views.Windows;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Security.Cryptography;
@@ -32,8 +33,17 @@ namespace FeedbackSoftware.Views.Pages
 			encryptedpassword = helper.Encrypt(tbxPassword.Password);
             if (IsLoginValid())
             {
+                Window parentWindow = Window.GetWindow(this);
+
+                // Hide the login window
+                parentWindow?.Hide();
+
+                // Open the new window
                 TeacherWindow tw = new TeacherWindow(userInfo.Rolle);
-                tw.ShowDialog();
+                tw.ShowDialog(); // Show the new window modally
+
+                // Now close the login window after TeacherWindow is closed
+                parentWindow?.Close();
             }
         }
 

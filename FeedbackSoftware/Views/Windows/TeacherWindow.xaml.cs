@@ -160,7 +160,8 @@ namespace FeedbackSoftware.Views
                 {
                     KlasseId = dbManager.GetKlassenIdByName(selectedClass),
                     FormularArt = selectedFormularArt,
-                    Name = name
+                    Name = name,
+                    UserID = 1
                 };
 
                 // 3. In die Datenbank speichern
@@ -183,8 +184,16 @@ namespace FeedbackSoftware.Views
 
         private void btnAdminWindow_Click(object sender, RoutedEventArgs e)
         {
+            Window parentWindow = Window.GetWindow(this);
+
+            parentWindow?.Hide();
+
+            // Open the new window
             AdminPanel adminPanel = new AdminPanel();
-            adminPanel.ShowDialog();
+            adminPanel.ShowDialog(); // Show the new window modally
+
+            // Now close the login window after TeacherWindow is closed
+            parentWindow?.Close();
         }
 
         private void btnFormulareEinsehen_Click(object sender, RoutedEventArgs e)
@@ -193,8 +202,12 @@ namespace FeedbackSoftware.Views
 
             if (einsehenComboBox.SelectedIndex > 0)
             {
+                Window parentWindow = Window.GetWindow(this);
+
+                parentWindow?.Hide();
                 FormularListWindow flw = new FormularListWindow(dbm.GetSchluesselByName(einsehenComboBox.Text));
                 flw.ShowDialog();
+                parentWindow?.Close();
             }
         }
 

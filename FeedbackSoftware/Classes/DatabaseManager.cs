@@ -369,7 +369,7 @@ namespace FeedbackSoftware.Classes
 		#endregion
 
         #region FeedbackVorgang
-        private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FormularArt) VALUES (@KlasseID ,@VorgangName, @FormularArt)";
+        private const string SQL_INSERT_FEEDBACK = "INSERT INTO FeedbackVorgang (KlasseID, VorgangName, FormularArt, UserID) VALUES (@KlasseID ,@VorgangName, @FormularArt, @UserID)";
         private const string SQL_SELECT_ALL_FROM_FEEDBACKVORGANG = "SELECT Schluessel, VorgangName, FormularArt FROM FeedbackVorgang WHERE Schluessel = @Schluessel";                                                     
         private const string SQL_SELECT_FORMULARART_BY_KEY = "SELECT FormularArt FROM FeedbackVorgang WHERE Schluessel=@Schluessel";
         private const string SQL_SELECT_ALL_FEEDBACKNAMES = "SELECT DISTINCT VorgangName FROM FeedbackVorgang";
@@ -398,7 +398,8 @@ namespace FeedbackSoftware.Classes
             {
                 new MySqlParameter("@KlasseID", MySqlDbType.Int32) { Value = feedbackDto.KlasseId },
                 new MySqlParameter("@VorgangName", MySqlDbType.VarChar) { Value = feedbackDto.Name },
-                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FormularArt }
+                new MySqlParameter("@FormularArt", MySqlDbType.VarChar) { Value = feedbackDto.FormularArt },
+                new MySqlParameter("@UserID", MySqlDbType.Int32) { Value = feedbackDto.UserID }
             };
 
             return param;
@@ -409,7 +410,8 @@ namespace FeedbackSoftware.Classes
 			cmd.Parameters.Add(parameter[0]);
 			cmd.Parameters.Add(parameter[1]);
 			cmd.Parameters.Add(parameter[2]);
-		}
+            cmd.Parameters.Add(parameter[3]);
+        }
         #endregion
 
         #region ReadFeedback
