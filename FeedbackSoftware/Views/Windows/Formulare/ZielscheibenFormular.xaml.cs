@@ -139,6 +139,7 @@ namespace FeedbackSoftware
 
             DatabaseManager dbm = new DatabaseManager();
             dbm.InsertFormular(formularDto);
+            MessageBox.Show("Formular erfolgreich eingereicht");
         }
 
         public string GetData()
