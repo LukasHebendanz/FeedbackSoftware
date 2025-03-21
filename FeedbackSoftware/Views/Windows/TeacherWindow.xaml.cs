@@ -160,7 +160,8 @@ namespace FeedbackSoftware.Views
                 {
                     KlasseId = dbManager.GetKlassenIdByName(selectedClass),
                     FormularArt = selectedFormularArt,
-                    Name = name
+                    Name = name,
+                    UserID = 1
                 };
 
                 // 3. In die Datenbank speichern
