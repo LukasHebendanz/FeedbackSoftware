@@ -31,7 +31,7 @@ namespace FeedbackSoftware
         {
             InitializeComponent();
 
-            DisableCheckboxes();
+            DisableTextboxes();
         }
 
         //Konstruktor beim Ausfüllen eines Formulars
@@ -54,7 +54,7 @@ namespace FeedbackSoftware
 
             ReadData(data);
 
-            DisableCheckboxes();
+            DisableTextboxes();
         }
 
         private int Schluessel { get; set; }
@@ -140,15 +140,18 @@ namespace FeedbackSoftware
             }
         }
 
-        private void DisableCheckboxes()
+        private void DisableTextboxes()
         {
             btnSubmit.Visibility = Visibility.Collapsed;
 
             foreach (var child in questionGrid.Children)
             {
-                if (child is TextBox textbox)
+                if (child is Border border)
                 {
-                    textbox.IsHitTestVisible = false;
+                    if (border.Child is TextBox textbox)
+                    {
+                        textbox.IsReadOnly = true;
+                    }
                 }
             }
         }

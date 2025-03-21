@@ -200,8 +200,13 @@ namespace FeedbackSoftware.Views
 
 		private void einsehenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			DatabaseManager dbm = new DatabaseManager();
-			SchluesselTextBox.Text = dbm.GetSchluesselByName(einsehenComboBox.Text).ToString();
-		}
+            if (e.AddedItems.Count > 0)
+            {
+                string selectedName = e.AddedItems[0].ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
+
+                DatabaseManager dbm = new DatabaseManager();
+                SchluesselTextBox.Text = dbm.GetSchluesselByName(selectedName).ToString();
+            }
+        }
 	}
 }
