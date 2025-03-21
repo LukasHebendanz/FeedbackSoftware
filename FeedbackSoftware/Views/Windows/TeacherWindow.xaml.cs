@@ -210,8 +210,16 @@ namespace FeedbackSoftware.Views
                 parentWindow?.Close();
             }
         }
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow adminPanel = new MainWindow();
+            adminPanel.Show();
 
-		private void einsehenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            Window parentWindow = Window.GetWindow(this);
+            parentWindow?.Close();
+        }
+
+        private void einsehenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			DatabaseManager dbm = new DatabaseManager();
 			SchluesselTextBox.Text = dbm.GetKeyByName(einsehenComboBox.Text).ToString();

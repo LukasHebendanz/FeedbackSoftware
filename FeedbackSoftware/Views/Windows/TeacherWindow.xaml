@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto"/>
             <!-- Separator -->
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <!-- Formulare einsehen -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -113,5 +114,14 @@
             HorizontalAlignment="Left"
             Margin="20,20,0,1" Grid.RowSpan="2"
             Click="btnFormulareEinsehen_Click"/>
+
+        <Button
+    x:Name="btnBack"
+    Content="Back"
+    Grid.Row="6" Grid.Column="0"
+    Width="75" Height="25"
+    HorizontalAlignment="Left"
+    Margin="20,20,0,1"
+    Click="btnBack_Click"/>
     </Grid>
 </Window>
