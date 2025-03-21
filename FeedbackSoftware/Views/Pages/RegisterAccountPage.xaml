@@ -68,9 +68,9 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonRegister_Click" />
         </StackPanel>
 
-        <StackPanel Grid.Row="7" HorizontalAlignment="Left" Margin="0,20,0,40">
+        <!--<StackPanel Grid.Row="7" HorizontalAlignment="Left" Margin="0,20,0,40">
             <Button x:Name="BackButton" Height="35" Content="Zurück" Width="60"
             HorizontalAlignment="Center" VerticalAlignment="Center" Click="BackButton_Click"/>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </Page>
