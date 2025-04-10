@@ -1,0 +1,76 @@
+﻿<Page x:Class="FeedbackSoftware.Views.RegisterAccountPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FeedbackSoftware.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RegisterAccountPage">
+
+    <Grid VerticalAlignment="Center" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Überschrift -->
+            <RowDefinition Height="Auto"/>
+            <!-- Benutzername -->
+            <RowDefinition Height="Auto"/>
+            <!-- Passwort -->
+            <RowDefinition Height="Auto"/>
+            <!-- Passwort bestätigen -->
+            <RowDefinition Height="Auto"/>
+            <!-- Intialpasswort eingeben -->
+            <RowDefinition Height="Auto"/>
+            <!-- Error Message -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Registrieren Button -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Überschrift -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Account erstellen"
+                   FontSize="16" FontWeight="Bold"
+                   HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+        <!-- Benutzername: StackPanel ordnet Label und TextBox vertikal -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Benutzername" Foreground="Gray" />
+            <TextBox x:Name="usernameTextBox" Margin="0,5,0,0" Padding="5" Height="30" Width="250" />
+        </StackPanel>
+
+        <!-- Passwort -->
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Passwort" Foreground="Gray" />
+            <PasswordBox x:Name="passwordBox" Margin="0,5,0,0" Padding="5" Height="30" Width="250"
+                         ToolTip="Passwort eingeben"/>
+        </StackPanel>
+
+        <!-- Passwort bestätigen -->
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Passwort bestätigen" Foreground="Gray" />
+            <PasswordBox x:Name="confirmPasswordbox" Margin="0,5,0,0" Padding="5" Height="30" Width="250"
+                         ToolTip="Passwort erneut eingeben"/>
+        </StackPanel>
+
+        <!-- Initialpasswort -->
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Initialpasswort eingeben" Foreground="Gray" />
+            <PasswordBox x:Name="initialPasswordbox" Margin="0,5,0,0" Padding="5" Height="30" Width="250"
+                  ToolTip="Initialpasswort vom Support"/>
+        </StackPanel>
+
+        <!-- Registrieren Button -->
+        <StackPanel Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,40">
+            <Button x:Name="ButtonRegister" Height="35" Content="Registrieren" Width="120"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonRegister_Click" />
+        </StackPanel>
+
+        <!--<StackPanel Grid.Row="7" HorizontalAlignment="Left" Margin="0,20,0,40">
+            <Button x:Name="BackButton" Height="35" Content="Zurück" Width="60"
+            HorizontalAlignment="Center" VerticalAlignment="Center" Click="BackButton_Click"/>
+        </StackPanel>-->
+    </Grid>
+</Page>
