@@ -43,7 +43,6 @@ namespace FeedbackSoftware.Views.Pages
             this.selectedClass.Name = tbxName.Text;
             this.selectedClass.Fach = tbxFach.Text;
             this.selectedClass.Abteilung = tbxAbteilung.Text;
-            //this.selectedUser.Rolle = Benutzer.Rolle;
             db.UpdateKlasse(this.selectedClass);
             MessageBox.Show("Klasse erfolgreich bearbeitet");
 		}

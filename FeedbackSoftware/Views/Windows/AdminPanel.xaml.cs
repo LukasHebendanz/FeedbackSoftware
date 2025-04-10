@@ -61,7 +61,6 @@ namespace FeedbackSoftware.Views.Windows
             if (sender is Button button && button.Tag is UserDto selectedUser)
             {
                 // navigate to edit page and call the edit http request in there
-                //MainFrame.NavigationService.Navigate(new EditUser(selectedUser));
                 this.Content = new EditUser(selectedUser);
                 Console.WriteLine($"Editing: {selectedUser.Name}");
             }
@@ -72,8 +71,6 @@ namespace FeedbackSoftware.Views.Windows
             if (sender is Button button && button.Tag is KlasseDto selectedClass)
             {
                 // navigate to edit page and call the edit http request in there
-                //MainFrame.NavigationService.Navigate(new EditClass(selectedClass));
-
                 this.Content = new EditClass(selectedClass);
                 Console.WriteLine($"Editing: {selectedClass.Name}");
             }

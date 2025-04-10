@@ -674,7 +674,7 @@ namespace FeedbackSoftware.Classes
                 con.Open();
 
                 // SQL-Anweisung zum Aktualisieren eines Nutzers
-                string sql = "UPDATE Klasse SET Name = @Name, Jahrgangsstufe = @Jahrgangsstufe, Schuljahr = @Schuljahr, Abteilung = @Abteilung, Fach = @Fach WHERE ID = @ID";
+                string sql = "UPDATE Klasse SET Name = @Name, Jahrgangsstufe = @Jahrgangsstufe, Schuljahr = @Schuljahr, Abteilung = @Abteilung, Fach = @Fach WHERE KlasseID = @ID";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, con))
                 {
@@ -684,6 +684,7 @@ namespace FeedbackSoftware.Classes
                     cmd.Parameters.AddWithValue("@Schuljahr", klasse.Schuljahr);
                     cmd.Parameters.AddWithValue("@Abteilung", klasse.Abteilung);
                     cmd.Parameters.AddWithValue("@Fach", klasse.Fach);
+                    cmd.Parameters.AddWithValue("@ID", klasse.KlasseId);
 
                     // Ausführen der SQL-Anweisung
                     cmd.ExecuteNonQuery();
